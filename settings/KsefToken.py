@@ -29,14 +29,14 @@ class KsefToken(BasicBasic):
 
     # Rozszerzony wzorzec, by opcjonalnie zawierał NIP
     my_id: str = Field(
-        default="Settings:KsefToken",
+        default="Settings",
         title="Unikalny ID",
         pattern=r"^[A-Za-z0-9]+(:[A-Z0-9][A-Za-z0-9]*)*$",
         json_schema_extra={"exclude_from_form": True}
     )
 
-    nip: str = Field(..., title="NIP Firmy", pattern=r"^\d{10}$")
-    ksef_token: str = Field(..., title="Token KSeF", description="Token autoryzacyjny wygenerowany w aplikacji KSeF")
+    nip: str = Field(..., title="NIP Firmy*", pattern=r"^\d{10}$")
+    ksef_token: str = Field(..., title="Token KSeF*", description="Token autoryzacyjny wygenerowany w aplikacji KSeF")
     environment: KsefEnvironment = Field(default=KsefEnvironment.TEST, title="Środowisko")
 
     last_sync: Optional[datetime.datetime] = Field(None, title="Data ostatniej synchronizacji")
