@@ -1,15 +1,22 @@
-from typing import Optional
-
+from typing import Optional, List
+from datetime import datetime
 from pydantic import Field, BaseModel, ConfigDict
-
 from models2.abase import BasicBasic
 
+
+# --- PODMODELE (Czysty BaseModel) ---
 
 class IdentifierKsefCost(BaseModel):
     model_config = ConfigDict(extra='ignore')
     type: str  # np. "Nip", "VatUe", "Other"
     value: str
 
+
+class FormCodeKsef(BaseModel):
+    model_config = ConfigDict(extra='ignore')
+    systemCode: str
+    schemaVersion: str
+    value: str
 
 
 class SellerKsefCostDoc(BaseModel):
@@ -24,12 +31,17 @@ class BuyerKsefCostDoc(BaseModel):
     name: Optional[str] = None
 
 
+class ThirdSubjectKsef(BaseModel):
+    model_config = ConfigDict(extra='ignore')
+    identifier: IdentifierKsefCost
+    name: Optional[str] = None
+    role: int  # np. 5 w Twoim przykładzie
+
+
+# --- MODEL GŁÓWNY (Dziedziczy po BasicBasic) ---
+
 class KSeFCostDoc(BasicBasic):
-    model_name: str = Field(
-        "KSeFCostDoc",
-        title="Nazwa Modelu",
-        json_schema_extra={"exclude_from_form": True}
-    )
+    model_config = ConfigDict(extra='ignore')
 
     my_id: str = Field(
         title="Unikalny ID (np. Numer KSeF)",
@@ -37,29 +49,31 @@ class KSeFCostDoc(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    # KLUCZOWE POPRAWKI TYPÓW:
+    # Pola z rekordu KSeF
     ksefNumber: Optional[str] = None
     invoiceNumber: Optional[str] = None
-
-    issueDate: Optional[str] = None  # Format "YYYY-MM-DD"
-    invoicingDate: Optional[str] = None  # Format ISO "YYYY-MM-DDTHH:MM:SSZ"
+    issueDate: Optional[str] = None
+    invoicingDate: Optional[str] = None
     acquisitionDate: Optional[str] = None
-    permanentStorageDate: Optional[str] = None  # To jest data (string), nie bool!
+    permanentStorageDate: Optional[str] = None
 
     seller: SellerKsefCostDoc
     buyer: BuyerKsefCostDoc
 
-    # Kwoty w JSON KSeF to liczby (number/double)
+    # Nowe pola znalezione w rekordzie
+    formCode: Optional[FormCodeKsef] = None
+    thirdSubjects: List[ThirdSubjectKsef] = []
+
+    # Kwoty i waluty
     netAmount: float = 0.0
     grossAmount: float = 0.0
     vatAmount: float = 0.0
-
     currency: Optional[str] = "PLN"
-    invoicingMode: Optional[str] = None  # "Online" / "Offline"
-    invoiceType: Optional[str] = None  # "Vat", "Kor", "Zal"
 
-    isSelfInvoicing: bool = False  # W JSON to boolean
-    hasAttachment: bool = False  # W JSON to boolean
+    invoicingMode: Optional[str] = None
+    invoiceType: Optional[str] = None
+    isSelfInvoicing: bool = False
+    hasAttachment: bool = False
     invoiceHash: Optional[str] = None
 
     class FormConfig:

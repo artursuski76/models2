@@ -7,6 +7,7 @@ from pydantic import Field
 from models2.enums import StatusBaseBase
 
 
+
 class BasicBasic(BaseModel):
     __auto_id__ = True
 
