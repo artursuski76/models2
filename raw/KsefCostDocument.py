@@ -10,6 +10,7 @@ class IdentifierKsefCost(BaseModel):
     value: str
 
 
+
 class SellerKsefCostDoc(BaseModel):
     nip: str
     name: Optional[str] = None
