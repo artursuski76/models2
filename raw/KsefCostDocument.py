@@ -1,21 +1,21 @@
 from typing import Optional
 
-from pydantic import Field
+from pydantic import Field, BaseModel
 
 from models2.abase import BasicBasic
 
 
-class IdentifierKsefCost(BasicBasic):
+class IdentifierKsefCost(BaseModel):
     type: str  # np. "Nip", "VatUe", "Other"
     value: str
 
 
-class SellerKsefCostDoc(BasicBasic):
+class SellerKsefCostDoc(BaseModel):
     nip: str
     name: Optional[str] = None
 
 
-class BuyerKsefCostDoc(BasicBasic):
+class BuyerKsefCostDoc(BaseModel):
     identifier: IdentifierKsefCost
     name: Optional[str] = None
 
