@@ -1,22 +1,25 @@
 from typing import Optional
 
-from pydantic import Field, BaseModel
+from pydantic import Field, BaseModel, ConfigDict
 
 from models2.abase import BasicBasic
 
 
 class IdentifierKsefCost(BaseModel):
+    model_config = ConfigDict(extra='ignore')
     type: str  # np. "Nip", "VatUe", "Other"
     value: str
 
 
 
 class SellerKsefCostDoc(BaseModel):
+    model_config = ConfigDict(extra='ignore')
     nip: str
     name: Optional[str] = None
 
 
 class BuyerKsefCostDoc(BaseModel):
+    model_config = ConfigDict(extra='ignore')
     identifier: IdentifierKsefCost
     name: Optional[str] = None
 
