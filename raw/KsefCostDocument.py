@@ -34,12 +34,12 @@ class KSeFCostDoc(BasicBasic):
     )
 
     # KLUCZOWE POPRAWKI TYPÓW:
-    ksefNumber: str = Field(title="Pełny numer KSeF")  # To jest string, np. "5265877635-20240321-..."
-    invoiceNumber: str = Field(title="Numer faktury sprzedawcy")  # Może zawierać litery i ukośniki
+    ksefNumber: Optional[str] = None
+    invoiceNumber: Optional[str] = None
 
-    issueDate: str  # Format "YYYY-MM-DD"
-    invoicingDate: str  # Format ISO "YYYY-MM-DDTHH:MM:SSZ"
-    acquisitionDate: str
+    issueDate: Optional[str] = None  # Format "YYYY-MM-DD"
+    invoicingDate: Optional[str] = None  # Format ISO "YYYY-MM-DDTHH:MM:SSZ"
+    acquisitionDate: Optional[str] = None
     permanentStorageDate: Optional[str] = None  # To jest data (string), nie bool!
 
     seller: SellerKsefCostDoc
@@ -50,13 +50,13 @@ class KSeFCostDoc(BasicBasic):
     grossAmount: float = 0.0
     vatAmount: float = 0.0
 
-    currency: str = "PLN"
+    currency: Optional[str] = "PLN"
     invoicingMode: Optional[str] = None  # "Online" / "Offline"
     invoiceType: Optional[str] = None  # "Vat", "Kor", "Zal"
 
     isSelfInvoicing: bool = False  # W JSON to boolean
     hasAttachment: bool = False  # W JSON to boolean
-    invoiceHash: str
+    invoiceHash: Optional[str] = None
 
     class FormConfig:
         page_title = "Faktury kosztowe KSeF"
