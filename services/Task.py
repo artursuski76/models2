@@ -67,6 +67,17 @@ class Task(BasicBasic, FlattenMixin):
     )
     updated_at: datetime = Field(default_factory=datetime.now, json_schema_extra={"exclude_from_form": True})
 
+    class FormConfig:
+        page_title = "Faktury kosztowe KSeF"
+        header = "Lista faktur kosztowych KSeF"
+
+        list_view_fields = [
+            "my_id", "task_name", "status", "company_id",
+            "last_sync"
+        ]
+
+        default_sort_field = "issueDate"
+        default_sort_dir = "DESC"
 
     class Couchbase:
         bucket = "Accounting"
