@@ -19,20 +19,19 @@ class Firma(BasicBasic):
         pattern=r"^[A-Za-z0-9]+(:[A-Z0-9][A-Za-z0-9]*)*$",
         json_schema_extra={"exclude_from_form": True}
     )
-    nip: str = Field()
-    nazwa: str = Field()
-    regon: Optional[str] = Field()
-    krs: Optional[str] = Field()
-    adr_ulica_nr_domu: str = Field()
-    adr_kod_i_poczta: str = Field()
-    dek_imie: str = Field()
-    dek_nazwisko: str = Field()
-    dek_tel: str = Field()
-    dek_email: str = Field()
-    dek_kod_us: str = Field()
-    dek_nazwa_us: str = Field()
+    nip: str = Field(title="NIP",)
+    nazwa: str = Field(title="Nazwa firmy",)
+    regon: Optional[str] = Field(title="Regon",)
+    krs: Optional[str] = Field(title="KRS",)
+    adr_ulica_nr_domu: str = Field(title="Ulica i nr",)
+    adr_kod_i_poczta: str = Field(title="Kod i poczta",)
+    dek_imie: str = Field(title="Imię na deklaracji US",)
+    dek_nazwisko: str = Field(title="Nazwisko na deklaracji US",)
+    dek_tel: str = Field(title="Telefon na deklaracji US",)
+    dek_email: str = Field(title="Email na deklaracji US",)
+    dek_kod_us: str = Field(title="Kod US",)
+    dek_nazwa_us: str = Field(title="Nazwa US",)
 
-    ksef_token: Optional[str] = Field(default="")
 
 
     class FormConfig:
