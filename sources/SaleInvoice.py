@@ -27,18 +27,6 @@ class SaleInvoice(SaleInvoiceBasic):
         exclude=True
     )
 
-    # rodzaj_fv: Union[
-    #     Podstawowa,
-    #     Zaliczkowa,
-    #     Rozliczeniowa,
-    #     Korekta
-    # ] = Field(
-    #     default=Podstawowa,
-    #     discriminator='rodzaj_fv',
-    #     alias="TypTransakcji",
-    #     title="Typ transakcji",
-    #     exclude=True
-    # )
 
     @computed_field(alias="rodzaj_fv")
     @property
@@ -56,19 +44,22 @@ class SaleInvoice(SaleInvoiceBasic):
     @model_validator(mode="after")
     def validate_totals_integrity(self) -> "SaleInvoice":
         """
-        Sprawdza czy sumy w nagłówku (z SourceInvoice)
+        Sprawdza czy sumy w nagłówku (z SaleInvoiceBasic)
         zgadzają się z sumą poszczególnych wierszy.
         """
-        # 1. Najpierw wywołujemy walidację z klasy bazowej (Netto + VAT = Brutto)
-        # Pydantic robi to automatycznie, ale tutaj skupiamy się na relacji nagłówek-wiersze.
+        # Dla korekty sprawdzamy sumy z transaction_items_after (to co po korekcie)
+        if hasattr(self.rodzaj_fv, "transaction_items_after") and self.rodzaj_fv.rodzaj_fv == "Korekta":
+            items = self.rodzaj_fv.transaction_items_after
+        else:
+            items = getattr(self.rodzaj_fv, "transaction_items", [])
 
-        if not self.transaction_items:
+        if not items:
             return self
 
         # Obliczamy sumy z wierszy
-        sum_net = sum(row.amount_net for row in self.transaction_items)
-        sum_vat = sum(row.amount_vat for row in self.transaction_items)
-        sum_gross = sum(row.amount_gross for row in self.transaction_items)
+        sum_net = sum(row.amount_net for row in items)
+        sum_vat = sum(row.amount_vat for row in items)
+        sum_gross = sum(row.amount_gross for row in items)
 
         # 2. Porównanie z nagłówkiem (tolerancja 0, bo to liczby całkowite - grosze)
         if sum_net != self.total_net:
