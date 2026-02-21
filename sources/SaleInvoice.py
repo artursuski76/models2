@@ -9,14 +9,14 @@ from models2.helpers.sale_invoice_type import Podstawowa, Zaliczkowa, Rozliczeni
 
 SaleTransactionRows = Annotated[
     Union[
-        EksportTowarow,
+        KrajSTD,
+        Kraj8,
+        Kraj5,
+        KrajZW,
         Kraj0,
         Kraj0Art129,
-        KrajSTD,
-        Kraj5,
-        Kraj8,
         KrajOdwObc,
-        KrajZW,
+        EksportTowarow,
         Marza,
         OSS,
         PozaKrajem,
@@ -34,7 +34,7 @@ class SaleInvoice(SaleInvoiceBasic):
         Rozliczeniowa,
         Korekta
     ] = Field(
-        default_factory=Podstawowa,
+        default=Podstawowa,
         discriminator='rodzaj_fv',
         alias="TypTransakcji",
         title="Typ transakcji",

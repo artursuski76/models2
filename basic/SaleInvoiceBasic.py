@@ -52,11 +52,11 @@ class SaleInvoiceBasic(BasicBasic):
     def date_sale_to(self) -> date | None:
         return getattr(self.date_sale, "date_sale_to", None)
 
-    cash_method: bool = False
-    self_billing: bool = False
-    reverse_charge: bool = False
-    split_payment: bool = False
-    ec_simplified: bool = False
+    cash_method: bool = Field(False, title="Metoda kasowa", alias="MetodaGotowkowa")
+    self_billing: bool = Field(False, title="Samofakturowanie", alias="Samofakturowanie")
+    reverse_charge: bool = Field(False, title="Odrotne obciążenie", alias="OdrotneObciazenie")
+    split_payment: bool = Field(False, title="Split Payment", alias="MPP")
+    ec_simplified: bool = Field(False, title="Faktura uproszczona", alias="FakturaUproszczona")
 
     p_marzy: Union[
         Nie,
@@ -130,7 +130,8 @@ class SaleInvoiceBasic(BasicBasic):
 
     ksef_ref: Optional[str] = Field(
         None,
-        alias="KsefRef"
+        alias="KsefRef",
+        json_schema_extra = {"exclude_from_form": True}
     )
 
     original_payload_ref: str = Field(
