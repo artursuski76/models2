@@ -1,45 +1,44 @@
-from typing import Annotated, Union, List
+from typing import Annotated, Union
 
-from pydantic import Field, AliasChoices, computed_field, model_validator
+from pydantic import Field, computed_field, model_validator
 
 from models2.basic.SaleInvoiceBasic import SaleInvoiceBasic
-from models2.helpers.TransactionRowSale import (EksportTowarow, Kraj0, Kraj0Art129, KrajSTD, Kraj5, Kraj8,
-                                                KrajOdwObc, KrajZW, Marza, OSS, PozaKrajem, WDT, WDU)
 from models2.helpers.sale_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta
 
-SaleTransactionRows = Annotated[
+RodzajFV = Annotated[
     Union[
-        KrajSTD,
-        Kraj8,
-        Kraj5,
-        KrajZW,
-        Kraj0,
-        Kraj0Art129,
-        KrajOdwObc,
-        EksportTowarow,
-        Marza,
-        OSS,
-        PozaKrajem,
-        WDT,
-        WDU
-    ],
-    Field(discriminator="vat_category"),
-]
-
-class SaleInvoice(SaleInvoiceBasic):
-
-    rodzaj_fv: Union[
         Podstawowa,
         Zaliczkowa,
         Rozliczeniowa,
         Korekta
-    ] = Field(
+    ],
+    Field(
+        discriminator="rodzaj_fv"
+    )
+]
+
+
+class SaleInvoice(SaleInvoiceBasic):
+    rodzaj_fv: RodzajFV = Field(
         default=Podstawowa,
         discriminator='rodzaj_fv',
         alias="TypTransakcji",
         title="Typ transakcji",
         exclude=True
     )
+
+    # rodzaj_fv: Union[
+    #     Podstawowa,
+    #     Zaliczkowa,
+    #     Rozliczeniowa,
+    #     Korekta
+    # ] = Field(
+    #     default=Podstawowa,
+    #     discriminator='rodzaj_fv',
+    #     alias="TypTransakcji",
+    #     title="Typ transakcji",
+    #     exclude=True
+    # )
 
     @computed_field(alias="rodzaj_fv")
     @property
@@ -53,16 +52,6 @@ class SaleInvoice(SaleInvoiceBasic):
     )
 
 
-
-
-
-    transaction_items: List[SaleTransactionRows] = Field(
-        default_factory=list,
-        alias="WierszTransakcji",
-        title="Pozycje księgowania",
-        validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
-        serialization_alias="transaction_items",
-    )
 
     @model_validator(mode="after")
     def validate_totals_integrity(self) -> "SaleInvoice":
