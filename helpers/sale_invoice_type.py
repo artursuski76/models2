@@ -67,9 +67,9 @@ class Korekta(TransactionItemsBasic):
     )
     transaction_items_after: List[SaleTransactionRows] = Field(
         default_factory=list,
-        alias="WierszTransakcji",
-        title="Pozycje księgowania",
-        validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
-        serialization_alias="transaction_items",
+        alias="WierszTransakcjiPoKorekcie",
+        title="Pozycje księgowania po korekcie",
+        validation_alias=AliasChoices("transaction_items_after", "WierszTransakcjiPoKorekcie"),
+        serialization_alias="transaction_items_after",
     )
 

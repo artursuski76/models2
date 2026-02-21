@@ -80,7 +80,7 @@ class SaleInvoice(SaleInvoiceBasic):
         list_view_fields = [
             "counterparty_id", "currency", "my_id", "date_posting", "total_net",
             "total_vat", "total_gross", "rodzaj_fv_flat", "original_payload_ref", "status",
-            "transaction_items", "transaction_items_count"
+            "transaction_items", "transaction_items_after", "transaction_items_count"
         ]
         default_sort_field = "date_posting"
         default_sort_dir = "DESC"
