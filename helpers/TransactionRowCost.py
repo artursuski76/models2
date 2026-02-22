@@ -15,7 +15,7 @@ class TransactionRowBase(BaseModel):
     amount_net: Money = Field(..., title="Netto")
     amount_vat: Money = Field(..., title="VAT")
     amount_gross: Money = Field(..., title="Brutto")
-    nkup: bool = Field(False, title="NKUP")
+
 
     # @model_validator(mode="after")
     # def validate_math_base(self) -> "TransactionRowBase":
