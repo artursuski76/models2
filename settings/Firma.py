@@ -23,6 +23,8 @@ class Firma(BasicBasic):
     nazwa: str = Field(title="Nazwa firmy",)
     regon: Optional[str] = Field(title="Regon",)
     krs: Optional[str] = Field(title="KRS",)
+    bdo: Optional[str] = Field(title="BDO",)
+    adr_kod_kraju: str = Field(title="Kod kraju",)
     adr_ulica_nr_domu: str = Field(title="Ulica i nr",)
     adr_kod_i_poczta: str = Field(title="Kod i poczta",)
     dek_imie: str = Field(title="Imię na deklaracji US",)
@@ -31,6 +33,9 @@ class Firma(BasicBasic):
     dek_email: str = Field(title="Email na deklaracji US",)
     dek_kod_us: str = Field(title="Kod US",)
     dek_nazwa_us: str = Field(title="Nazwa US",)
+    fa_informacje: str = Field(title="Informacje o firmie",)
+    fa_tel: str = Field(title="Telefon na fakturze",)
+    fa_email: str = Field(title="Email na fakturze",)
 
 
 
