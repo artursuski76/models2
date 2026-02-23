@@ -1,9 +1,10 @@
+from decimal import Decimal
 from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
 from models2.enums import CostRowType
-from models2.helpers.money import Money
+# from models2.helpers.money import Money
 
 
 class TransactionRowBase(BaseModel):
@@ -12,9 +13,9 @@ class TransactionRowBase(BaseModel):
         CostRowType,
         title="Typ pozycji"
     )
-    amount_net: Money = Field(..., title="Netto")
-    amount_vat: Money = Field(..., title="VAT")
-    amount_gross: Money = Field(..., title="Brutto")
+    amount_net: Decimal = Field(..., max_digits=12, decimal_places=2, title="Netto")
+    amount_vat: Decimal = Field(..., max_digits=12, decimal_places=2, title="VAT")
+    amount_gross: Decimal = Field(..., max_digits=12, decimal_places=2, title="Brutto")
 
 
     # @model_validator(mode="after")

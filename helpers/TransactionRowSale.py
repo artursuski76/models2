@@ -1,10 +1,11 @@
+from decimal import Decimal
 from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from models2.xxx.h_enums import EuropeLandsEnum
 from models2.enums import TowarUsluga, InventoryItemUnit
-from models2.helpers.money import Money
+# from models2.helpers.money import Money
 
 
 class TransactionRowBaseSale(BaseModel):
@@ -18,15 +19,15 @@ class TransactionRowBaseSale(BaseModel):
     )
     quantity: float = Field(title="Ilość")
     uom: InventoryItemUnit = Field(title="Jednostka miary")
-    unit_price_net: Money = Field(title="Cena jednostkowa netto")  # Zmieniono na Money!
+    unit_price_net: Decimal = Field(max_digits=12, decimal_places=2, title="Cena jednostkowa netto")
 
     description: str = Field(
         None,
         title="Opis"
     )
-    amount_net: Money = Field(..., title="Netto")
-    amount_vat: Money = Field(..., title="VAT")
-    amount_gross: Money = Field(..., title="Brutto")
+    amount_net: Decimal = Field(..., max_digits=12, decimal_places=2, title="Netto")
+    amount_vat: Decimal = Field(..., max_digits=12, decimal_places=2, title="VAT")
+    amount_gross: Decimal = Field(..., max_digits=12, decimal_places=2, title="Brutto")
 
     @model_validator(mode="after")
     def validate_math_base(self) -> "TransactionRowBaseSale":

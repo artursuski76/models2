@@ -1,5 +1,6 @@
 import secrets
 from datetime import datetime, date, timezone
+from decimal import Decimal
 from typing import List, Optional, Any  # Dodano Annotated
 from typing import Union
 
@@ -9,7 +10,7 @@ from pydantic import Field, model_validator
 from models2.abase import BasicBasic
 from models2.enums import InvoiceType, SourceInvoiceSource, SourceInvoiceStatus
 from models2.helpers.FlattenMixin import FlattenMixin
-from models2.helpers.money import Money
+
 from models2.helpers.sale_invoice_adnotacje import AdnotacjeNie, AdnotacjeTak
 from models2.xxx.h_enums import CurrencyAB
 from models2.xxx.h_files import TransactionFiles
@@ -82,9 +83,9 @@ class CostInvoiceBasic(BasicBasic, FlattenMixin):
         title="Waluta",
     )
 
-    total_net: Money = Field(title="Razem Netto")
-    total_vat: Money = Field(title="Razem VAT")
-    total_gross: Money = Field(title="Razem Brutto")
+    total_net: Decimal = Field(max_digits=12, decimal_places=2, title="Razem Netto")
+    total_vat: Decimal = Field(max_digits=12, decimal_places=2, title="Razem VAT")
+    total_gross: Decimal = Field(max_digits=12, decimal_places=2, title="Razem Brutto")
 
     @model_validator(mode="before")
     @classmethod

@@ -1,4 +1,5 @@
 from datetime import date
+from decimal import Decimal
 from typing import Optional, Literal, Union, Dict, Any, Annotated
 
 from pydantic import Field, BaseModel, model_serializer
@@ -6,7 +7,7 @@ from pydantic import Field, BaseModel, model_serializer
 from models2.xxx.h_enums import Currency, CurrencyAB
 from models2.abase import BasicBasic
 from models2.enums_all.FinancialTransactionDirection import FinancialTransactionDirection
-from models2.helpers.money import Money
+# from models2.helpers.money import Money
 
 
 
@@ -49,7 +50,7 @@ class FinancialTransactionSource(BasicBasic):
         title="Data transakcji*"
     )
 
-    amount: Money = Field(..., alias="amount", title="Amount*")
+    amount: Decimal = Field(..., max_digits=12, decimal_places=2, alias="amount", title="Amount*")
     ccy: Currency = Field(..., alias="ccy", title="Waluta*")
     direction: FinancialTransactionDirection = Field(FinancialTransactionDirection, alias="direction")
     cty_bank_acc: Optional[str] = Field(None, alias="cty_bank_acc", title="Konto bankowe kontrahenta", json_schema_extra={"exclude_from_form": True})
@@ -57,7 +58,7 @@ class FinancialTransactionSource(BasicBasic):
     cty_address: Optional[str] = Field(None, alias="cty_address", title="Adres kontrahenta", json_schema_extra={"exclude_from_form": True})
     desc: Optional[str] = Field(None, title="Opis")
     desc_type: Optional[str] = Field(None, json_schema_extra={"exclude_from_form": True})
-    orig_amount: Money = Field(..., alias="orig_amount", json_schema_extra={"exclude_from_form": True})
+    orig_amount: Decimal = Field(..., max_digits=12, decimal_places=2, alias="orig_amount", json_schema_extra={"exclude_from_form": True})
     orig_ccy: CurrencyAB = Field(..., alias="orig_ccy", json_schema_extra={"exclude_from_form": True})
 
     is_reconciled: bool = Field(default=False, title="Rozliczone")

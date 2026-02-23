@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import secrets
 from datetime import datetime, date, timezone
+from decimal import Decimal
 from typing import Union, Optional
 
 from pydantic import ConfigDict
@@ -10,7 +11,7 @@ from pydantic import Field, model_validator, computed_field
 from models2.abase import BasicBasic
 from models2.enums import SourceInvoiceSource, SourceInvoiceStatus
 from models2.helpers.forms_type_sales_inv import DostawaWDacieWystawienia, WspolnaDataDostawy, DostawaWOkresieCzasu
-from models2.helpers.money import Money
+# from models2.helpers.money import Money
 from models2.helpers.sale_invoice_adnotacje import AdnotacjeNie, AdnotacjeTak
 
 from models2.xxx.h_enums import CurrencyAB
@@ -105,9 +106,9 @@ class SaleInvoiceBasic(BasicBasic):
         title="Waluta",
     )
 
-    total_net: Money = Field(title="Razem Netto")
-    total_vat: Money = Field(title="Razem VAT")
-    total_gross: Money = Field(title="Razem Brutto")
+    total_net: Decimal = Field(max_digits=12, decimal_places=2, title="Razem Netto")
+    total_vat: Decimal = Field(max_digits=12, decimal_places=2, title="Razem VAT")
+    total_gross: Decimal = Field(max_digits=12, decimal_places=2, title="Razem Brutto")
 
     @model_validator(mode="after")
     def validate_totals(self) -> "SaleInvoiceBasic":

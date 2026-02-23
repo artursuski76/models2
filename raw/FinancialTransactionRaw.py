@@ -1,4 +1,5 @@
 from datetime import date
+from decimal import Decimal
 from typing import Optional
 
 from models2.xxx.h_enums import Currency, CurrencyAB
@@ -6,7 +7,7 @@ from models2.abase import BasicBasic
 from pydantic import Field
 
 from models2.enums_all.FinancialTransactionDirection import FinancialTransactionDirection
-from models2.helpers.money import Money
+# from models2.helpers.money import Money
 
 
 class FinancialTransactionRaw(BasicBasic):
@@ -41,7 +42,7 @@ class FinancialTransactionRaw(BasicBasic):
         title="Data księgowania w banku",
         json_schema_extra={"order": 2}
     )
-    amount: Money = Field(..., alias="amount", title="Amount*", json_schema_extra={"order": 3})
+    amount: Decimal = Field(..., max_digits=12, decimal_places=2, alias="amount", title="Amount*", json_schema_extra={"order": 3})
     ccy: Currency = Field(..., alias="ccy", title="Waluta*", json_schema_extra={"order": 4})
     direction: FinancialTransactionDirection = Field(FinancialTransactionDirection, alias="direction", title="Kierunek*", json_schema_extra={"order": 5})
     cty_bank_acc: Optional[str] = Field(None, alias="cty_bank_acc", title="Konto bankowe kontrahenta", json_schema_extra={"order": 6})
@@ -49,7 +50,7 @@ class FinancialTransactionRaw(BasicBasic):
     cty_address: Optional[str] = Field(None, alias="cty_address", title="Adres kontrahenta", json_schema_extra={"order": 8})
     desc: Optional[str] = Field(None, alias="desc", title="Opis")
     desc_type: Optional[str] = Field(None, alias="desc_type", title="Typ transakcji")
-    orig_amount: Money = Field(..., alias="orig_amount", title="Kwota zlecenia")
+    orig_amount: Decimal = Field(..., max_digits=12, decimal_places=2, alias="orig_amount", title="Kwota zlecenia")
     orig_ccy: CurrencyAB = Field(..., alias="orig_ccy", title="Waluta zlecenia")
 
 

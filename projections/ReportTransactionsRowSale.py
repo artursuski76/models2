@@ -1,10 +1,11 @@
 from datetime import date
+from decimal import Decimal
 from typing import Optional
 
 from pydantic import Field
 
 from models2.abase import BasicBasic
-from models2.helpers.money import Money
+# from models2.helpers.money import Money
 
 
 class ReportTransactionsRowSale(BasicBasic):
@@ -19,9 +20,9 @@ class ReportTransactionsRowSale(BasicBasic):
 
 
     row_type: Optional[str] = Field()
-    amount_net: Money = Field(..., title="Netto")
-    amount_vat: Money = Field(..., title="VAT")
-    amount_gross: Money = Field(..., title="Brutto")
+    amount_net: Decimal = Field(..., max_digits=12, decimal_places=2, title="Netto")
+    amount_vat: Decimal = Field(..., max_digits=12, decimal_places=2, title="VAT")
+    amount_gross: Decimal = Field(..., max_digits=12, decimal_places=2, title="Brutto")
 
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     vat_rate_jpk: Optional[int] = Field(
