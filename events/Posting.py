@@ -10,7 +10,7 @@ from models2.abase import BasicBasic
 
 class Posting(BasicBasic):
     model_name: str = Field(
-        "JournalEntry",
+        "Posting",
         title="Nazwa Modelu",
         json_schema_extra={"exclude_from_form": True}
     )
