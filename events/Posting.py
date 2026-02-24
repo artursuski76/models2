@@ -42,8 +42,15 @@ class Posting(BasicBasic):
     invent_item_id: Optional[str] = Field(None, title="ID przedmiotu")
     lot_id: Optional[str] = Field(None, title="ID partii")
 
-    tags: Optional[List[VATTransactionType]] = Field(None, title="Tagi")
-    flags: Optional[PostingFlags] = Field(None, title="Flagi")
+    tags: List[VATTransactionType] = Field(
+        None,
+        title="Tagi",
+        json_schema_extra={
+            "form_widget": "select_multiple"
+        }
+    )
+
+    flags: Optional[PostingFlags] = Field(None, title="Flagi", )
 
     # ------------------------
     # WALIDATORY / AUTOMATYCZNE POLA

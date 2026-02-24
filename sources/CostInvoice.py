@@ -1,4 +1,4 @@
-from typing import Annotated, Union, List, Any
+from typing import Annotated, Union, Any
 
 from pydantic import Field, AliasChoices, model_validator, computed_field
 
