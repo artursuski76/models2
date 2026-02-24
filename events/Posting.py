@@ -6,25 +6,27 @@ from pydantic import Field, model_validator
 
 from models2.abase import BasicBasic
 from models2.enums import VATTransactionType, PostingFlags
+from models2.helpers.generate_custom_my_id import generate_custom_my_id
 from models2.xxx.h_enums import Currency, UnitType
 
 
+
+
+
 class Posting(BasicBasic):
-    __auto_id__ = True
 
     model_name: str = Field(
         "Posting",
         title="Nazwa Modelu",
         json_schema_extra={"exclude_from_form": True}
     )
+
     my_id: str = Field(
-        title="ID (A-Z,a-z,0-9,:, np.: Abc-sp-zoo:NIP789)",
-        pattern=r"^[A-Za-z0-9]+(:[A-Z0-9][A-Za-z0-9]*)*$",
-        description="Dozwolone tylko litery A-Z, a-z, cyfry 0-9 oraz myślniki.",
+        default_factory=generate_custom_my_id,
+        pattern=r"^[A-Za-z0-9\-:]+$",
         json_schema_extra={"exclude_from_form": True}
     )
 
-    journal_entry_id: str = Field(..., title="ID wpisu dzienniczka*", json_schema_extra={"exclude_from_form": True})
 
     account_id: str = Field(..., title="Konto*")
     account_type: Optional[str] = Field(None, title="Typ konta (automatycznie pobierany z account_id)", json_schema_extra={"exclude_from_form": True})

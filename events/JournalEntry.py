@@ -5,30 +5,29 @@ from pydantic import Field, model_validator
 
 from models2.abase import BasicBasic
 from models2.enums import SourceDocumentType
+from models2.helpers.generate_custom_my_id import generate_custom_my_id
 from models2.xxx.h_enums import Currency
 
 
 class JournalEntry(BasicBasic):
 
-    __auto_id__ = True
 
     model_name: str = Field(
         "JournalEntry",
         title="Nazwa Modelu",
         json_schema_extra={"exclude_from_form": True}
     )
+
     my_id: str = Field(
-        title="Unikalny ID (A-Z, a-z, 0-9, myślniki, np.: AbcSpZoo:PL789)",
-        pattern=r"^[A-Za-z0-9]+(:[A-Z0-9][A-Za-z0-9]*)*$",
-        description="Dozwolone tylko litery A-Z, a-z",
+        default_factory=generate_custom_my_id,
+        pattern=r"^[A-Za-z0-9\-:]+$",
         json_schema_extra={"exclude_from_form": True}
     )
+
     counter: int = Field(
         default=0,
         json_schema_extra={"exclude_from_form": True}
     )
-
-    journal_number: Optional[str] = Field(None, title="Numer konta", json_schema_extra={"exclude_from_form": True})
 
     transaction_date: date = Field(..., title="Data transakcji", json_schema_extra={"exclude_from_form": True})
 
