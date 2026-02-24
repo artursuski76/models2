@@ -22,10 +22,10 @@ class Posting(BasicBasic):
         description="Dozwolone tylko litery A-Z, a-z, cyfry 0-9 oraz myślniki."
     )
 
-    journal_entry_id: str = Field(..., title="ID wpisu dzienniczka*")
+    journal_entry_id: str = Field(..., title="ID wpisu dzienniczka*", json_schema_extra={"exclude_from_form": True})
 
     account_id: str = Field(..., title="Konto*")
-    account_type: Optional[str] = Field(None, title="Typ konta (automatycznie pobierany z account_id)")
+    account_type: Optional[str] = Field(None, title="Typ konta (automatycznie pobierany z account_id)", json_schema_extra={"exclude_from_form": True})
 
     counterparty_id: Optional[str] = Field(None, title="Partner do rozliczenia")
 
@@ -35,12 +35,12 @@ class Posting(BasicBasic):
     exchange_rate: Optional[Decimal] = Field(None, title="Kurs waluty oryginalny")
     exchange_date: Optional[date] = Field(None, title="Data kursu waluty oryginalny")
 
-    settlement_ref: Optional[str] = Field(None, title="Referencja rozliczenia")
+    settlement_ref: Optional[str] = Field(None, title="Referencja rozliczenia", json_schema_extra={"exclude_from_form": True})
 
-    invent_quantity: Optional[Decimal] = Field(None, title="Ilość")
-    invent_unit: Optional[UnitType] = Field(None, title="Jednostka miary")
-    invent_item_id: Optional[str] = Field(None, title="ID przedmiotu")
-    lot_id: Optional[str] = Field(None, title="ID partii")
+    quantity: Optional[Decimal] = Field(None, title="Ilość", json_schema_extra={"exclude_from_form": True},)
+    unit: Optional[UnitType] = Field(None, title="Jednostka miary", json_schema_extra={"exclude_from_form": True})
+    item_id: Optional[str] = Field(None, title="ID przedmiotu", json_schema_extra={"exclude_from_form": True})
+    lot_id: Optional[str] = Field(None, title="ID partii", json_schema_extra={"exclude_from_form": True})
 
     tags: List[VATTransactionType] = Field(
         None,
@@ -50,7 +50,13 @@ class Posting(BasicBasic):
         }
     )
 
-    flags: Optional[PostingFlags] = Field(None, title="Flagi", )
+    flags: List[PostingFlags] = Field(
+        None,
+        title="Flagi",
+        json_schema_extra={
+            "form_widget": "select_multiple"
+        }
+    )
 
     # ------------------------
     # WALIDATORY / AUTOMATYCZNE POLA

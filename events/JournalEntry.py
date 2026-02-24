@@ -44,15 +44,15 @@ class JournalEntry(BasicBasic):
         self.month = self.posting_date.month
         return self
 
-    tax_date: date = Field(..., title="Data podatkowa")
+    tax_date: date = Field(..., title="Data podatkowa", json_schema_extra={"exclude_from_form": True})
 
-    source_doc_type: Optional[SourceDocumentType] = Field(None, title="Typ Dokumentu Źródłowego")
-    source_doc_id: Optional[str] = Field(None, title="ID Dokumentu Źródłowego")
-    source_doc_number: Optional[str] = Field(None, title="Nr dok źródłowego")
+    source_doc_type: Optional[SourceDocumentType] = Field(None, title="Typ Dokumentu Źródłowego", json_schema_extra={"exclude_from_form": True})
+    source_doc_id: Optional[str] = Field(None, title="ID Dokumentu Źródłowego", json_schema_extra={"exclude_from_form": True})
+    source_doc_number: Optional[str] = Field(None, title="Nr dok źródłowego", json_schema_extra={"exclude_from_form": True})
 
-    source_snapshot: dict = Field(default_factory=dict, json_schema_extra={"exclude_from_form": True}, title="Snapshot dokumentu")
+    source_snapshot: dict = Field(default_factory=dict, title="Snapshot dokumentu", json_schema_extra={"exclude_from_form": True})
 
-    base_ccy: Currency = Field(Currency.PLN, title="Podstawowa waluta")
+    base_ccy: Currency = Field(Currency.PLN, title="Podstawowa waluta", json_schema_extra={"exclude_from_form": True})
 
     description: Optional[str] = Field(None, title="Opis")
 
