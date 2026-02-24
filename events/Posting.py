@@ -20,26 +20,26 @@ class Posting(BasicBasic):
         description="Dozwolone tylko litery A-Z, a-z, cyfry 0-9 oraz myślniki. Zalecamy tax-id, pesel, ewentualnie nr-telefonu lub nazwę. Podana treść będzie głównym indeksem wyszukiwania klienta. Podanie istniejącego identyfikatora nadpisze dane w kartotece."
     )
 
-    class Posting(BasicBasic):
-        journal_entry_id: str
-        account_id: str
-        counterparty_id: Optional[str] = None
 
-        amount: Decimal  # w base currency
-        original_amount: Optional[Decimal]
-        original_ccy: Optional[Currency]
-        exchange_rate: Optional[Decimal]
-        exchange_date: Optional[date]
+    journal_entry_id: str
+    account_id: str
+    counterparty_id: Optional[str] = None
 
-        # opcjonalne:
-        settlement_ref: Optional[str] = None
-        quantity: Optional[Decimal] = None
-        unit: Optional[UnitType] = None
-        inventory_item_id: Optional[str] = None
-        lot_id: Optional[str] = None
+    amount: Decimal  # w base currency
+    original_amount: Optional[Decimal]
+    original_ccy: Optional[Currency]
+    exchange_rate: Optional[Decimal]
+    exchange_date: Optional[date]
 
-        tags: PostingTags = PostingTags.N
-        flags: PostingFlags = PostingFlags.N
+    # opcjonalne:
+    settlement_ref: Optional[str] = None
+    quantity: Optional[Decimal] = None
+    unit: Optional[UnitType] = None
+    inventory_item_id: Optional[str] = None
+    lot_id: Optional[str] = None
+
+    tags: PostingTags = PostingTags.N
+    flags: PostingFlags = PostingFlags.N
 
 # JournalEntry → Posting (1:N)
 # Posting → InventoryBatch
