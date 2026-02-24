@@ -1,20 +1,22 @@
 from datetime import date
 from decimal import Decimal
-from typing import Optional, Literal, Union, Dict, Any, Annotated
+from typing import Optional
 
-from pydantic import Field, BaseModel, model_serializer
+from pydantic import Field
 
-from models2.xxx.h_enums import Currency, CurrencyAB
 from models2.abase import BasicBasic
 from models2.enums_all.FinancialTransactionDirection import FinancialTransactionDirection
-# from models2.helpers.money import Money
+from models2.xxx.h_enums import Currency, CurrencyAB
 
 
 
-class FinancialTransactionSource(BasicBasic):
+
+
+
+class FinancialTransaction(BasicBasic):
 
     model_name: str = Field(
-        "FinancialTransactionSource",
+        "FinancialTransaction",
         title="Nazwa Modelu",
         json_schema_extra={"exclude_from_form": True}
     )

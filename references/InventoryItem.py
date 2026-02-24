@@ -72,7 +72,6 @@ class InventoryItem(BasicBasic, FlattenMixin):
         title="Jednostka miary*"
     )
 
-
     active: InventoryItemActive = Field(
         InventoryItemActive.BOTH,
         title="Aktywny w*"

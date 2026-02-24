@@ -24,9 +24,28 @@ class SrodekTrwaly(BaseModel):
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
-    deduction_VAT: Optional[float] = Field(
+    deduction_vat: Optional[float] = Field(
         default=100,
-        alias="refound_VAT"
+        alias="deduction_VAT"
+    )
+    deduction_cit: Optional[float] = Field(
+        default=100
+    )
+    nierozl_vat_w_cit: bool = Field(default=True, alias="Nierozliczony VAT rozlicz w CIT")
+
+
+class RzeczUzytkowana(BaseModel):
+    item_type: Literal["Rzecz_Uzytkowana"] = Field(
+        "Rzecz_Uzytkowana",
+        title="Rodzaj",
+        json_schema_extra={"exclude_from_form": True}
+    )
+    deduction_vat: Optional[float] = Field(
+        default=100,
+        alias="deduction_VAT"
+    )
+    deduction_cit: Optional[float] = Field(
+        default=100
     )
     nierozl_vat_w_cit: bool = Field(default=True, alias="Nierozliczony VAT rozlicz w CIT")
 

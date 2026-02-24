@@ -1,11 +1,11 @@
 from datetime import date
 from typing import Optional
 
-from pydantic import Field
+from pydantic import Field, model_validator, computed_field
 
-from models2.xxx.h_enums import Currency
 from models2.abase import BasicBasic
-from models2.enums import EntryType, SourceDocumentType
+from models2.enums import SourceDocumentType
+from models2.xxx.h_enums import Currency
 
 
 class JournalEntry(BasicBasic):
@@ -28,22 +28,33 @@ class JournalEntry(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    journal_number: Optional[str] = None
+    journal_number: Optional[str] = Field(None, title="Numer konta", json_schema_extra={"exclude_from_form": True})
 
-    transaction_date: date
-    posting_date: date
+    transaction_date: date = Field(..., title="Data transakcji", json_schema_extra={"exclude_from_form": True})
 
-    entry_type: EntryType = EntryType.GENERAL
+    posting_date: date = Field(default_factory=date.today, title="Data wystawienia")
 
-    source_doc_type: Optional[SourceDocumentType] = None
-    source_doc_id: Optional[str] = None
-    source_doc_number: Optional[str] = None
+    year: int = Field(default=0, json_schema_extra={"exclude_from_form": True})
+    month: int = Field(default=0, json_schema_extra={"exclude_from_form": True})
 
-    source_snapshot: Optional[dict] = None
 
-    base_ccy: Currency = Currency.PLN
+    @model_validator(mode="after")
+    def set_year_month(self):
+        self.year = self.posting_date.year
+        self.month = self.posting_date.month
+        return self
 
-    description: Optional[str] = None
+    tax_date: date = Field(..., title="Data podatkowa")
+
+    source_doc_type: Optional[SourceDocumentType] = Field(None, title="Typ Dokumentu Źródłowego")
+    source_doc_id: Optional[str] = Field(None, title="ID Dokumentu Źródłowego")
+    source_doc_number: Optional[str] = Field(None, title="Nr dok źródłowego")
+
+    source_snapshot: dict = Field(default_factory=dict, json_schema_extra={"exclude_from_form": True}, title="Snapshot dokumentu")
+
+    base_ccy: Currency = Field(Currency.PLN, title="Podstawowa waluta")
+
+    description: Optional[str] = Field(None, title="Opis")
 
 
     class Couchbase:

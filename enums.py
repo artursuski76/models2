@@ -11,6 +11,13 @@ class ValuationMethod(str, Enum):
     FIFO = "FIFO"
     ND = "ND"
 
+class PostingTag(str, Enum):
+    CIT_KUP = "CIT_KUP"
+    CIT_NKUP = "CIT_NKUP"
+    VAT_KUP = "VAT_NKUP"
+    VAT = "VAT"
+    ADJUSTMENT = "ADJUSTMENT"
+    GENERAL = "GENERAL"
 
 class EntryType(str, Enum):
     INVENTORY_SALE = "INVENTORY_SALE"
@@ -24,12 +31,10 @@ class EntryType(str, Enum):
     GENERAL = "GENERAL"
 
 class SourceDocumentType(str, Enum):
-    FV_VAT = "FV_VAT"
-    FV_NO_VAT = "FV_NO_VAT"
-    RECEIPT = "RECEIPT"
-    WZ = "WZ"
-    PZ = "PZ"
-    SAD = "SAD"
+    CostInvoice = "CostInvoice"
+    SaleInvoice = "SaleInvoice"
+    FinancialTransaction = "FinancialTransaction"
+    JournalEntry = "JournalEntry"
 
 
 class MovementType(str, Enum):
@@ -337,6 +342,35 @@ class AccountingTargetJPK(str, Enum):
     K_34 = "K_34"
     K_35 = "K_35"
     K_36 = "K_36"
+
+class VATTransactionType(str, Enum):
+    EKSPORT_TOWAROW = "eksport_towarow"
+    DOST_KRAJ_0 = "dost_kraj_0"
+    DOST_KRAJ_0_ART129 = "dost_kraj_0_art129"
+    DOST_KRAJ_5 = "dost_kraj_5"
+    DOST_KRAJ_8 = "dost_kraj_8"
+    DOST_KRAJ_ODW_OBC = "dost_kraj_odw_obc"
+    DOST_KRAJ_STD = "dost_kraj_std"
+    DOST_KRAJ_ZW = "dost_kraj_zw"
+    DOST_MARZA = "dost_marza"
+    DOST_OSS = "dost_oss"
+    DOST_POZA_KRAJ = "dost_poza_kraj"
+    DOST_POZA_KRAJ_USL_28B = "dost_poza_kraj_usl_28b"
+    WDT = "wdt"
+    NAB_SR_TRW = "nab_sr_trw"
+    NAB_POZOSTALE = "nab_pozostale"
+    IMPORT_TOW_ART33A = "import_tow_art33a"
+    IMPORT_USL_28B = "import_usl_28b"
+    IMPORT_USL_NIE_28B = "import_usl_nie_28b"
+    NAB_NIE_PODLEGA = "nab_nie_podlega"
+    WNT = "wnt"
+    WNT_PALIWA_SILNIKOWE = "wnt_paliwa_silnikowe"
+    WNT_SR_TRANSPORTU = "wnt_sr_transportu"
+
+class PostingFlags(str, Enum):
+    NKUP = "NKUP"
+    POW_KAP = "POW_KAP"
+    POW_OSOB = "POW_OSOB"
 
 class AccountingRuleAction(str, Enum):
     CREATE_VAT_POSTINGS = "CREATE_VAT_POSTINGS"  # klasyczne księgowanie VAT
