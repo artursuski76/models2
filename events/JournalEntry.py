@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Optional
 
-from pydantic import Field, model_validator, computed_field
+from pydantic import Field, model_validator
 
 from models2.abase import BasicBasic
 from models2.enums import SourceDocumentType

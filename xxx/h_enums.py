@@ -72,11 +72,7 @@ class PostingTags(str, Enum):
     K_43 = "K_43"
     VAT = "VAT"
 
-class PostingFlags(str, Enum):
-    N = "N"
-    FLAG1 = "Flag1"
-    FLAG2 = "Flag2"
-    FLAG3 = "Flag3"
+
 
 class TransactionTagsCost(str, Enum):
     UNREL = "UNREL"

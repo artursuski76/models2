@@ -5,11 +5,12 @@ from typing import Optional, List
 from pydantic import Field, model_validator
 
 from models2.abase import BasicBasic
-from models2.enums import VATTransactionType
-from models2.xxx.h_enums import Currency, UnitType, PostingFlags
+from models2.enums import VATTransactionType, PostingFlags
+from models2.xxx.h_enums import Currency, UnitType
 
 
 class Posting(BasicBasic):
+    __auto_id__ = True
 
     model_name: str = Field(
         "Posting",
@@ -19,7 +20,8 @@ class Posting(BasicBasic):
     my_id: str = Field(
         title="ID (A-Z,a-z,0-9,:, np.: Abc-sp-zoo:NIP789)",
         pattern=r"^[A-Za-z0-9]+(:[A-Z0-9][A-Za-z0-9]*)*$",
-        description="Dozwolone tylko litery A-Z, a-z, cyfry 0-9 oraz myślniki."
+        description="Dozwolone tylko litery A-Z, a-z, cyfry 0-9 oraz myślniki.",
+        json_schema_extra={"exclude_from_form": True}
     )
 
     journal_entry_id: str = Field(..., title="ID wpisu dzienniczka*", json_schema_extra={"exclude_from_form": True})
