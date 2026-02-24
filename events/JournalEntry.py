@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Optional
 
 from pydantic import Field
 
@@ -26,30 +27,23 @@ class JournalEntry(BasicBasic):
         default=0,
         json_schema_extra={"exclude_from_form": True}
     )
-    date_entry: date
-    date_posting: date
 
-    entry_type: EntryType = Field(
-        default=EntryType
-    )
+    journal_number: Optional[str] = None
 
-    source_doc_type: SourceDocumentType = Field(
-        default=SourceDocumentType.FV_VAT,
-    )
-    source_doc_id: str
-    source_doc_nr: str
+    transaction_date: date
+    posting_date: date
 
+    entry_type: EntryType = EntryType.GENERAL
 
-    ccy: Currency = Field(
-        Currency.PLN,
-        title="Waluta konta"
-    )
-    is_balanced: bool
+    source_doc_type: Optional[SourceDocumentType] = None
+    source_doc_id: Optional[str] = None
+    source_doc_number: Optional[str] = None
 
-    # Posting.journal_entry_id → JournalEntry.my_id
-    # InventoryMovement.journal_entry_id → JournalEntry.my_id
-    # TaxRecord.journal_entry_id → JournalEntry.my_id
+    source_snapshot: Optional[dict] = None
 
+    base_ccy: Currency = Currency.PLN
+
+    description: Optional[str] = None
 
 
     class Couchbase:

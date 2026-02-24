@@ -21,6 +21,7 @@ class EntryType(str, Enum):
     IMPORT = "IMPORT"
     VAT = "VAT"
     ADJUSTMENT = "ADJUSTMENT"
+    GENERAL = "GENERAL"
 
 class SourceDocumentType(str, Enum):
     FV_VAT = "FV_VAT"

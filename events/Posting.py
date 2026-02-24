@@ -1,3 +1,5 @@
+from datetime import date
+from decimal import Decimal
 from typing import Optional
 
 from pydantic import Field
@@ -18,30 +20,27 @@ class Posting(BasicBasic):
         description="Dozwolone tylko litery A-Z, a-z, cyfry 0-9 oraz myślniki. Zalecamy tax-id, pesel, ewentualnie nr-telefonu lub nazwę. Podana treść będzie głównym indeksem wyszukiwania klienta. Podanie istniejącego identyfikatora nadpisze dane w kartotece."
     )
 
-    journal_entry_id: str
-    account_id: str              # LedgerAccount
-    counterparty_id: Optional[str]
+    class Posting(BasicBasic):
+        journal_entry_id: str
+        account_id: str
+        counterparty_id: Optional[str] = None
 
-    amount: int
+        amount: Decimal  # w base currency
+        original_amount: Optional[Decimal]
+        original_ccy: Optional[Currency]
+        exchange_rate: Optional[Decimal]
+        exchange_date: Optional[date]
 
-    ccy: Currency = Field(
-        Currency.PLN,
-        title="Waluta konta"
-    )
+        # opcjonalne:
+        settlement_ref: Optional[str] = None
+        quantity: Optional[Decimal] = None
+        unit: Optional[UnitType] = None
+        inventory_item_id: Optional[str] = None
+        lot_id: Optional[str] = None
 
-    quantity: Optional[int]  # dla magazynu
-    unit: UnitType = Field(
-    )
+        tags: PostingTags = PostingTags.N
+        flags: PostingFlags = PostingFlags.N
 
-    lot_id: Optional[str]        # InventoryBatch
-    inventory_item_id: Optional[str]
-
-    tags: PostingTags = Field(
-        default = PostingTags.N
-    )
-    flags: PostingFlags = Field(
-        default = PostingFlags.N
-    )
 # JournalEntry → Posting (1:N)
 # Posting → InventoryBatch
 # Posting → InventoryItem
