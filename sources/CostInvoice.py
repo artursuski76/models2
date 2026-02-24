@@ -1,4 +1,4 @@
-from typing import Annotated, Union, List
+from typing import Annotated, Union, List, Any
 
 from pydantic import Field, AliasChoices, model_validator, computed_field
 
@@ -19,10 +19,27 @@ RodzajFV = Annotated[
 
 
 class CostInvoice(CostInvoiceBasic):
+    # Pre-procesing: jeżeli klient wysyła dawny format z \"TypTransakcji\" zawierającym \"rodzaj_fv\",
+    # to przenieś to do pola \"rodzaj_fv\" i ustaw domyślny \"transaction_type\".
+    @model_validator(mode="before")
+    @classmethod
+    def _preprocess_typtransakcji_vs_rodzajfv(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            tt = data.get("TypTransakcji") or data.get("transaction_type")
+            # Stary/pomyłkowy przypadek: w \"TypTransakcji\" siedzi struktura unionu rodzaj_fv
+            if isinstance(tt, dict) and ("rodzaj_fv" in tt or "transaction_items" in tt):
+                # Przenieś do pola rodzaj_fv (jeśli nie ma już podane osobno)
+                if "rodzaj_fv" not in data:
+                    data["rodzaj_fv"] = tt
+                # Ustaw minimalny transaction_type, by spełnić dyskryminator 'typ_transakcji'
+                # Wybieramy najprostszy wariant 'data_wspolna'.
+                data["TypTransakcji"] = {"typ_transakcji": "data_wspolna"}
+        return data
+
     rodzaj_fv: RodzajFV = Field(
         default=Podstawowa,
-        discriminator='rodzaj_fv',
-        alias="TypTransakcji",
+        alias="rodzaj_fv",
+        validation_alias=AliasChoices("rodzaj_fv", "TypTransakcji"),
         title="Typ transakcji",
     )
 
@@ -54,13 +71,14 @@ class CostInvoice(CostInvoiceBasic):
         # 1. Najpierw wywołujemy walidację z klasy bazowej (Netto + VAT = Brutto)
         # Pydantic robi to automatycznie, ale tutaj skupiamy się na relacji nagłówek-wiersze.
 
-        if not self.transaction_items:
+        items = getattr(self.rodzaj_fv, 'transaction_items', None)
+        if not items:
             return self
 
         # Obliczamy sumy z wierszy
-        sum_net = sum(row.amount_net for row in self.transaction_items)
-        sum_vat = sum(row.amount_vat for row in self.transaction_items)
-        sum_gross = sum(row.amount_gross for row in self.transaction_items)
+        sum_net = sum(row.amount_net for row in items)
+        sum_vat = sum(row.amount_vat for row in items)
+        sum_gross = sum(row.amount_gross for row in items)
 
         # 2. Porównanie z nagłówkiem (tolerancja 0, bo to liczby całkowite - grosze)
         if sum_net != self.total_net:
