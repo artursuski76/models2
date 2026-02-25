@@ -25,7 +25,7 @@ class FinancialTransactionRaw(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    financial_acc: str = Field(
+    financial_acc: Optional[str] = Field(
         default=None,
         title="Konto księgowe banku/kasy"
     )
@@ -36,8 +36,8 @@ class FinancialTransactionRaw(BasicBasic):
         title="Data transakcji*",
         json_schema_extra={"order": 1}
     )
-    date_bookg: date = Field(
-        ...,
+    date_bookg: Optional[date] = Field(
+        None,
         alias="date_bookg",  # Wymuszenie poprawnej nazwy
         title="Data księgowania w banku",
         json_schema_extra={"order": 2}

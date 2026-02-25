@@ -41,7 +41,7 @@ class FinancialTransaction(BasicBasic):
         title="Rozliczenie z kontrahentem"
     )
 
-    financial_acc: str = Field(
+    financial_acc: Optional[str] = Field(
         default=None,
         title="Konto księgowe"
     )
@@ -50,6 +50,11 @@ class FinancialTransaction(BasicBasic):
         ...,
         alias="date_posting",  # Wymuszenie poprawnej nazwy
         title="Data transakcji*"
+    )
+    date_bookg: Optional[date] = Field(
+        None,
+        alias="date_bookg",  # Wymuszenie poprawnej nazwy
+        title="Data księgowania w banku"
     )
 
     amount: Decimal = Field(..., max_digits=12, decimal_places=2, alias="amount", title="Amount*")
