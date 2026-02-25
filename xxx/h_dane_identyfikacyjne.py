@@ -164,11 +164,11 @@ class Pracownik(BaseModel):
     )
     imie: str = Field(
         None,
-        title="Nr urzędu"
+        title="Imię"
     )
     nazwisko: str = Field(
         None,
-        title="Nazwa urzędu"
+        title="Nazwisko"
     )
     data_ur: date = Field(
         None,
@@ -183,11 +183,11 @@ class CzlonekZarzadu(BaseModel):
     )
     imie: str = Field(
         None,
-        title="Nr urzędu"
+        title="Imię"
     )
     nazwisko: str = Field(
         None,
-        title="Nazwa urzędu"
+        title="Nazwisko"
     )
     data_ur: date = Field(
         None,
