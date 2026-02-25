@@ -31,6 +31,8 @@ class Posting(BasicBasic):
     account_id: str = Field(..., title="Konto*")
     account_type: Optional[str] = Field(None, title="Typ konta (automatycznie pobierany z account_id)", json_schema_extra={"exclude_from_form": True})
 
+    journal_entry_id: Optional[str] = Field(None, title="ID nagłówka księgowania", json_schema_extra={"exclude_from_form": True})
+
     counterparty_id: Optional[str] = Field(None, title="Partner do rozliczenia")
 
     amount: Decimal = Field(..., title="Kwota*")
