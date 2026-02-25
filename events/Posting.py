@@ -6,7 +6,7 @@ from pydantic import Field, model_validator
 
 from models2.abase import BasicBasic
 from models2.enums import VATTransactionType, PostingFlags
-from models2.helpers.generate_custom_my_id import generate_custom_my_id
+from models2.helpers.generate_custom_id import generate_custom_id
 from models2.xxx.h_enums import Currency, UnitType
 
 
@@ -22,7 +22,7 @@ class Posting(BasicBasic):
     )
 
     my_id: str = Field(
-        default_factory=generate_custom_my_id,
+        default_factory=generate_custom_id,
         pattern=r"^[A-Za-z0-9\-:]+$",
         json_schema_extra={"exclude_from_form": True}
     )
