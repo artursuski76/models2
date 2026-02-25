@@ -1,13 +1,14 @@
 from typing import Union, Optional
 
-from pydantic import Field, computed_field
+from pydantic import Field
 
 from models2.abase import BasicBasic
 from models2.enums import InventoryItemUnit, SymbolGTU, InventoryItemActive, \
     VatOssCategory
 from models2.helpers.FlattenMixin import FlattenMixin
 from models2.helpers.form_type_ii import Prosty, Rozbudowany
-from models2.helpers.item_type import PozycjaMagazynowa, Usluga, Produkt, SrodekTrwaly, LicencjePrawa, RzeczUzytkowana
+from models2.helpers.item_type import PozycjaMagazynowa, Usluga, ProduktWlasny, SrodekTrwaly, LicencjePrawa, \
+    RzeczUzytkowana
 
 
 class InventoryItem(BasicBasic, FlattenMixin):
@@ -31,7 +32,7 @@ class InventoryItem(BasicBasic, FlattenMixin):
     item_type: Union[
         PozycjaMagazynowa,
         LicencjePrawa,
-        Produkt,
+        ProduktWlasny,
         RzeczUzytkowana,
         SrodekTrwaly,
         Usluga

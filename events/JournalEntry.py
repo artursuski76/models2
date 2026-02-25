@@ -29,7 +29,7 @@ class JournalEntry(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    transaction_date: date = Field(..., title="Data transakcji", json_schema_extra={"exclude_from_form": True})
+    transaction_date: Optional[date] = Field(None, title="Data transakcji", json_schema_extra={"exclude_from_form": True})
 
     posting_date: date = Field(default_factory=date.today, title="Data wystawienia")
 
@@ -43,7 +43,7 @@ class JournalEntry(BasicBasic):
         self.month = self.posting_date.month
         return self
 
-    tax_date: date = Field(..., title="Data podatkowa", json_schema_extra={"exclude_from_form": True})
+    tax_date: Optional[date] = Field(None, title="Data podatkowa", json_schema_extra={"exclude_from_form": True})
 
     source_doc_type: Optional[SourceDocumentType] = Field(None, title="Typ Dokumentu Źródłowego", json_schema_extra={"exclude_from_form": True})
     source_doc_id: Optional[str] = Field(None, title="ID Dokumentu Źródłowego", json_schema_extra={"exclude_from_form": True})

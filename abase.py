@@ -11,16 +11,20 @@ from models2.enums import StatusBaseBase
 class BasicBasic(BaseModel):
     __auto_id__ = True
 
-    company_uuid: str = Field(
+    company_uuid: Optional[str] = Field(
+        None,
         json_schema_extra={"exclude_from_form": True}
     )
-    company_id: str = Field(
+    company_id: Optional[str] = Field(
+        None,
         json_schema_extra={"exclude_from_form": True}
     )
-    model_name: str = Field(
+    model_name: Optional[str] = Field(
+        None,
         json_schema_extra={"exclude_from_form": True}
     )
-    created_at: datetime = Field(
+    created_at: Optional[datetime] = Field(
+        None,
         json_schema_extra={"exclude_from_form": True}
     )
     last_sync: datetime = Field(

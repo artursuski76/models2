@@ -68,11 +68,6 @@ class Posting(BasicBasic):
 
     @model_validator(mode='before')
     def validate_amount_and_set_account_type(cls, values):
-        # Walidacja amount
-        amount = values.get('amount')
-        if amount is not None and amount <= 0:
-            raise ValueError("Amount must be > 0")
-
         # Automatyczne ustawienie account_type
         account_id = values.get('account_id')
         if account_id and ':' in account_id:
