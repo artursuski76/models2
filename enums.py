@@ -368,9 +368,9 @@ class VATTransactionType(str, Enum):
     WNT_SR_TRANSPORTU = "wnt_sr_transportu"
 
 class PostingFlags(str, Enum):
-    NKUP = "NKUP"
-    POW_KAP = "POW_KAP"
-    POW_OSOB = "POW_OSOB"
+    NKUP = "nkup"
+    POW_KAP = "pow_kap"
+    POW_OSOB = "pow_osob"
 
 class AccountingRuleAction(str, Enum):
     CREATE_VAT_POSTINGS = "CREATE_VAT_POSTINGS"  # klasyczne księgowanie VAT

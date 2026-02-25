@@ -33,7 +33,10 @@ class LedgerAccount(BasicBasic):
         Currency.PLN,
         title="Waluta konta"
     )
-    is_inventory: bool
+    is_inventory: bool = Field(
+        default=False,
+        title="Konto magazynowe"
+    )
 
     # valuation_method: ValuationMethod = Field(
     #     default=ValuationMethod.FIFO,

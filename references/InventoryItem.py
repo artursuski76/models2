@@ -7,7 +7,7 @@ from models2.enums import InventoryItemUnit, SymbolGTU, InventoryItemActive, \
     VatOssCategory
 from models2.helpers.FlattenMixin import FlattenMixin
 from models2.helpers.form_type_ii import Prosty, Rozbudowany
-from models2.helpers.item_type import PozycjaMagazynowa, Usluga, Produkt, SrodekTrwaly
+from models2.helpers.item_type import PozycjaMagazynowa, Usluga, Produkt, SrodekTrwaly, LicencjePrawa, RzeczUzytkowana
 
 
 class InventoryItem(BasicBasic, FlattenMixin):
@@ -30,9 +30,11 @@ class InventoryItem(BasicBasic, FlattenMixin):
 
     item_type: Union[
         PozycjaMagazynowa,
+        LicencjePrawa,
+        Produkt,
+        RzeczUzytkowana,
         SrodekTrwaly,
-        Usluga,
-        Produkt
+        Usluga
     ] = Field(
         ...,
         discriminator='item_type',

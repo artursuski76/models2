@@ -50,6 +50,22 @@ class RzeczUzytkowana(BaseModel):
     nierozl_vat_w_cit: bool = Field(default=True, alias="Nierozliczony VAT rozlicz w CIT")
 
 
+
+class LicencjePrawa(BaseModel):
+    item_type: Literal["Licencje_Prawa"] = Field(
+        "Licencje_Prawa",
+        title="Rodzaj",
+        json_schema_extra={"exclude_from_form": True}
+    )
+    deduction_vat: Optional[float] = Field(
+        default=100,
+        alias="deduction_VAT"
+    )
+    deduction_cit: Optional[float] = Field(
+        default=100
+    )
+    nierozl_vat_w_cit: bool = Field(default=True, alias="Nierozliczony VAT rozlicz w CIT")
+
 class Usluga(Deduction):
     item_type: Literal["Usluga"] = Field(
         "Usluga",
