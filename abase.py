@@ -19,6 +19,10 @@ class BasicBasic(BaseModel):
         None,
         json_schema_extra={"exclude_from_form": True}
     )
+    user_id: Optional[str] = Field(
+        None,
+        json_schema_extra={"exclude_from_form": True}
+    )
     model_name: Optional[str] = Field(
         None,
         json_schema_extra={"exclude_from_form": True}
