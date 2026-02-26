@@ -31,10 +31,10 @@ class EntryType(str, Enum):
     GENERAL = "GENERAL"
 
 class SourceDocumentType(str, Enum):
-    CostInvoice = "CostInvoice"
-    SaleInvoice = "SaleInvoice"
-    FinancialTransaction = "FinancialTransaction"
-    JournalEntry = "JournalEntry"
+    COST_INVOICE = "CostInvoice"
+    SALE_INVOICE = "SaleInvoice"
+    FINANCIAL_TRANSACTION = "FinancialTransaction"
+    JOURNAL_ENTRY = "JournalEntry"
 
 
 class MovementType(str, Enum):
@@ -309,6 +309,7 @@ class JPKAmountType(str, Enum):
     VAT_DUE = "VAT_DUE"
     VAT_INPUT = "VAT_INPUT"
     VAT_ADJUSTMENT = "VAT_ADJUSTMENT"
+    VAT = "VAT"
 
 class AssetPurchaseCategory(str, Enum):
     FIXED_ASSET = "FIXED_ASSET"
