@@ -5,7 +5,8 @@ from typing import Optional, List
 from pydantic import Field, model_validator
 
 from models2.abase import BasicBasic
-from models2.enums import VATTransactionType, PostingFlags
+# from models2.enums import VATTransactionType, PostingFlags  # Decoupled to avoid import issues
+
 from models2.helpers.generate_custom_id import generate_custom_id
 from models2.xxx.h_enums import Currency, UnitType
 
@@ -48,7 +49,7 @@ class Posting(BasicBasic):
     item_id: Optional[str] = Field(None, title="ID przedmiotu", json_schema_extra={"exclude_from_form": True})
     lot_id: Optional[str] = Field(None, title="ID partii", json_schema_extra={"exclude_from_form": True})
 
-    tags: List[VATTransactionType] = Field(
+    tags: Optional[List[str]] = Field(
         None,
         title="Tagi",
         json_schema_extra={
@@ -56,7 +57,7 @@ class Posting(BasicBasic):
         }
     )
 
-    flags: List[PostingFlags] = Field(
+    flags: Optional[List[str]] = Field(
         None,
         title="Flagi",
         json_schema_extra={
