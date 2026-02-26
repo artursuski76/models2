@@ -8,9 +8,8 @@ from pydantic import ConfigDict
 from pydantic import Field, model_validator
 
 from models2.abase import BasicBasic
-from models2.enums import InvoiceType, SourceInvoiceSource, SourceInvoiceStatus
+from models2.enums import InvoiceType, SourceInvoiceSource
 from models2.helpers.FlattenMixin import FlattenMixin
-
 from models2.helpers.sale_invoice_adnotacje import AdnotacjeNie, AdnotacjeTak
 from models2.xxx.h_enums import CurrencyAB
 from models2.xxx.h_files import TransactionFiles

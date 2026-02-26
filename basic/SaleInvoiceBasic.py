@@ -9,15 +9,11 @@ from pydantic import ConfigDict
 from pydantic import Field, model_validator, computed_field
 
 from models2.abase import BasicBasic
-from models2.enums import SourceInvoiceSource, SourceInvoiceStatus
+from models2.enums import SourceInvoiceSource
 from models2.helpers.forms_type_sales_inv import DostawaWDacieWystawienia, WspolnaDataDostawy, DostawaWOkresieCzasu
 # from models2.helpers.money import Money
 from models2.helpers.sale_invoice_adnotacje import AdnotacjeNie, AdnotacjeTak
-
 from models2.xxx.h_enums import CurrencyAB
-
-
-
 
 
 class SaleInvoiceBasic(BasicBasic):
