@@ -46,7 +46,6 @@ class CostTransactionItemsBasic(BaseModel):
         alias="WierszTransakcji",
         title="Pozycje księgowania",
         validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
-        serialization_alias="transaction_items",
     )
 
 

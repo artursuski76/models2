@@ -5,6 +5,8 @@ from pydantic import Field, AliasChoices, model_validator, computed_field
 from models2.basic.CostInvoiceBasic import CostInvoiceBasic
 from models2.helpers.cost_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta
 
+RodzajEnum = Annotated[str, Field(title="Typ dokumentu")]
+
 RodzajFV = Annotated[
     Union[
         Podstawowa,
@@ -40,9 +42,15 @@ class CostInvoice(CostInvoiceBasic):
         default=Podstawowa,
         alias="rodzaj_fv",
         validation_alias=AliasChoices("rodzaj_fv", "TypTransakcji"),
+        serialization_alias="rodzaj_fv",
         title="Typ transakcji",
     )
 
+    @computed_field
+    @property
+    def transaction_items(self) -> Any:
+        """Wypromuj transaction_items na najwyższy poziom podczas serializacji"""
+        return getattr(self.rodzaj_fv, 'transaction_items', [])
 
     @computed_field(alias="rodzaj_fv")
     @property
