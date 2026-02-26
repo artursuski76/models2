@@ -35,7 +35,7 @@ class BasicBasic(BaseModel):
         json_schema_extra={"exclude_from_form": True}
     )
     status: Optional[SourceInvoiceStatus] = Field(
-        default=None,
+        SourceInvoiceStatus.DRAFT,
         json_schema_extra={"exclude_from_form": True}
     )
     sha: Optional[str] = Field(
