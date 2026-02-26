@@ -5,7 +5,7 @@ from pydantic import Field, AliasChoices, model_validator, computed_field
 from models2.basic.CostInvoiceBasic import CostInvoiceBasic
 from models2.helpers.cost_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta
 
-RodzajEnum = Annotated[str, Field(title="Typ dokumentu")]
+
 
 RodzajFV = Annotated[
     Union[
