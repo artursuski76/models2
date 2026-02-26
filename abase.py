@@ -35,7 +35,7 @@ class BasicBasic(BaseModel):
         default_factory=datetime.now,
         json_schema_extra={"exclude_from_form": True}
     )
-    status: Optional[StatusBaseBase] = Field(
+    status: Optional[SourceInvoiceStatus] = Field(
         default=None,
         json_schema_extra={"exclude_from_form": True}
     )

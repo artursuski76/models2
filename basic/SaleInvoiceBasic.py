@@ -73,11 +73,7 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    status: SourceInvoiceStatus = Field(
-        SourceInvoiceStatus.DRAFT,
-        title="Status",
-        json_schema_extra = {"exclude_from_form": True}
-    )
+
 
     source: SourceInvoiceSource = Field(
         SourceInvoiceSource.MANUAL,
