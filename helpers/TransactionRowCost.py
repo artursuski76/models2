@@ -45,7 +45,7 @@ class Wybierz(BaseModel):
 
 class ImportTow33a(TransactionRowBase):
     vat_category: Literal["import_tow_33a"] = "import_tow_33a"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -70,7 +70,7 @@ class ImportTow33a(TransactionRowBase):
 
 class ImportTow33aInwentarz(TransactionRowBase):
     vat_category: Literal["import_tow_33a_inwentarz"] = "import_tow_33a_inwentarz"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -100,7 +100,7 @@ class ImportTow33aInwentarz(TransactionRowBase):
 
 class ImportTow33aRelacja(TransactionRowBase):
     vat_category: Literal["import_tow_33a_relacja"] = "import_tow_33a_relacja"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -130,7 +130,7 @@ class ImportTow33aRelacja(TransactionRowBase):
 
 class ImportUslug28B(TransactionRowBase):
     vat_category: Literal["import_uslug_28b"] = "import_uslug_28b"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -157,7 +157,7 @@ class ImportUslug28B(TransactionRowBase):
 
 class ImportUslug28BRelacja(TransactionRowBase):
     vat_category: Literal["import_uslug_28b_relacja"] = "import_uslug_28b_relacja"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -187,7 +187,7 @@ class ImportUslug28BRelacja(TransactionRowBase):
 
 class ImportUslugNie28B(TransactionRowBase):
     vat_category: Literal["import_uslug_nie_28b"] = "import_uslug_nie_28b"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -213,7 +213,7 @@ class ImportUslugNie28B(TransactionRowBase):
 
 class ImportUslugNie28BRelacja(TransactionRowBase):
     vat_category: Literal["import_uslug_nie_28b_relacja"] = "import_uslug_nie_28b_relacja"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -243,7 +243,7 @@ class ImportUslugNie28BRelacja(TransactionRowBase):
 
 class NabycieKrajowe(TransactionRowBase):
     vat_category: Literal["nabycie_krajowe"] = "nabycie_krajowe"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -260,7 +260,7 @@ class NabycieKrajowe(TransactionRowBase):
 
 class NabycieKrajoweInwentarz(TransactionRowBase):
     vat_category: Literal["nabycie_krajowe_inwentarz"] = "nabycie_krajowe_inwentarz"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -282,7 +282,7 @@ class NabycieKrajoweInwentarz(TransactionRowBase):
 
 class NabycieKrajoweRelacja(TransactionRowBase):
     vat_category: Literal["nabycie_krajowe_relacja"] = "nabycie_krajowe_relacja"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -302,7 +302,7 @@ class NabycieKrajoweRelacja(TransactionRowBase):
 
 class NiePodlega(TransactionRowBase):
     vat_category: Literal["nie_podlega"] = "nie_podlega"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -319,7 +319,7 @@ class NiePodlega(TransactionRowBase):
 
 class NiePodlegaInwentarz(TransactionRowBase):
     vat_category: Literal["nie_podlega_inwentarz"] = "nie_podlega_inwentarz"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -339,7 +339,7 @@ class NiePodlegaInwentarz(TransactionRowBase):
 
 class NiePodlegaRelacja(TransactionRowBase):
     vat_category: Literal["nie_podlega_relacja"] = "nie_podlega_relacja"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -359,7 +359,7 @@ class NiePodlegaRelacja(TransactionRowBase):
 
 class OOKrajTowar(TransactionRowBase):
     vat_category: Literal["oo_kraj_towar"] = "oo_kraj_towar"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -386,7 +386,7 @@ class OOKrajTowar(TransactionRowBase):
 
 class OOKrajTowarInwentarz(TransactionRowBase):
     vat_category: Literal["oo_kraj_towar_inwentarz"] = "oo_kraj_towar_inwentarz"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -416,7 +416,7 @@ class OOKrajTowarInwentarz(TransactionRowBase):
 
 class OOKrajTowarRelacja(TransactionRowBase):
     vat_category: Literal["oo_kraj_towar_relacja"] = "oo_kraj_towar_relacja"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -445,7 +445,7 @@ class OOKrajTowarRelacja(TransactionRowBase):
 
 class OOKrajUsluga(TransactionRowBase):
     vat_category: Literal["oo_kraj_usluga"] = "oo_kraj_usluga"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -471,7 +471,7 @@ class OOKrajUsluga(TransactionRowBase):
 
 class OOKrajUslugaRelacja(TransactionRowBase):
     vat_category: Literal["oo_kraj_usluga_relacja"] = "oo_kraj_usluga_relacja"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -500,7 +500,7 @@ class OOKrajUslugaRelacja(TransactionRowBase):
 
 class WNT(TransactionRowBase):
     vat_category: Literal["wnt"] = "wnt"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -527,7 +527,7 @@ class WNT(TransactionRowBase):
 
 class WNTInwentarz(TransactionRowBase):
     vat_category: Literal["wnt_inwentarz"] = "wnt_inwentarz"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -557,7 +557,7 @@ class WNTInwentarz(TransactionRowBase):
 
 class WNTRelacja(TransactionRowBase):
     vat_category: Literal["wnt_relacja"] = "wnt_relacja"
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
@@ -588,7 +588,7 @@ class WNTRelacja(TransactionRowBase):
 #
 # class PodatkiOplatyRecyklSrodow(TransactionRowBase):
 #     row_type: Literal["podatki_oplaty_recyc_srodow"] = "podatki_oplaty_recyc_srodow"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
@@ -600,14 +600,14 @@ class WNTRelacja(TransactionRowBase):
 #
 # class PodatkiOplatySadowe(TransactionRowBase):
 #     row_type: Literal["podatki_oplaty_sadowe"] = "podatki_oplaty_sadowe"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class PodatkiOplatySkarbowe(TransactionRowBase):
 #     row_type: Literal["podatki_oplaty_skarbowe"] = "podatki_oplaty_skarbowe"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
@@ -619,7 +619,7 @@ class WNTRelacja(TransactionRowBase):
 #
 # class PodatkiOplatyTransportowe(TransactionRowBase):
 #     row_type: Literal["podatki_transportowe"] = "podatki_transportowe"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
@@ -631,7 +631,7 @@ class WNTRelacja(TransactionRowBase):
 #
 # class PodrozeSluzboweInne(TransactionRowBase):
 #     row_type: Literal["podroze_sluzbowe_inne"] = "podroze_sluzbowe_inne"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
@@ -643,14 +643,14 @@ class WNTRelacja(TransactionRowBase):
 #
 # class PodrozeSluzboweNoclegi(TransactionRowBase):
 #     row_type: Literal["podroze_sluzbowe_noclegi"] = "podroze_sluzbowe_noclegi"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class PodrozeSluzboweOplatyDrogowe(TransactionRowBase):
 #     row_type: Literal["podroze_sluzbowe_oplaty_drogowe"] = "podroze_sluzbowe_oplaty_drogowe"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
@@ -662,35 +662,35 @@ class WNTRelacja(TransactionRowBase):
 #
 # class PodrozeSluzboweWyzywienie(TransactionRowBase):
 #     row_type: Literal["podroze_sluzbowe_wyzywienie"] = "podroze_sluzbowe_wyzywienie"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class Reklama(TransactionRowBase):
 #     row_type: Literal["reklama"] = "reklama"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class Reprezentacja(TransactionRowBase):
 #     row_type: Literal["reprezentacja"] = "reprezentacja"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class SwiadczeniaNaRzeczPracownikow(TransactionRowBase):
 #     row_type: Literal["swiad_na_rzecz_pracownikow"] = "swiad_na_rzecz_pracownikow"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class UbezpMajatkowe(TransactionRowBase):
 #     row_type: Literal["ubezpieczenia_majatkowe"] = "ubezpieczenia_majatkowe"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
@@ -702,35 +702,35 @@ class WNTRelacja(TransactionRowBase):
 #
 # class UslugiObceDoradcze(TransactionRowBase):
 #     row_type: Literal["usl_obce_doradcze"] = "usl_obce_doradcze"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class UslugiObceInformatyczne(TransactionRowBase):
 #     row_type: Literal["usl_obce_informatyczne"] = "usl_obce_informatyczne"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class UslugiObceInne(TransactionRowBase):
 #     row_type: Literal["usl_obce_inne"] = "usl_obce_inne"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class UslugiObceKsiegowe(TransactionRowBase):
 #     row_type: Literal["usl_obce_ksiegowe"] = "usl_obce_ksiegowe"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class UslugiObceLeasingi(TransactionRowBase):
 #     row_type: Literal["usl_obce_leasingi"] = "usl_obce_leasingi"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
@@ -742,7 +742,7 @@ class WNTRelacja(TransactionRowBase):
 #
 # class UslugiObceNajmyCzynsze(TransactionRowBase):
 #     row_type: Literal["usl_obce_najmy_czynsze"] = "usl_obce_najmy_czynsze"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
@@ -754,56 +754,56 @@ class WNTRelacja(TransactionRowBase):
 #
 # class UslugiObcePrawne(TransactionRowBase):
 #     row_type: Literal["usl_obce_prawne"] = "usl_obce_prawne"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class UslugiObceTelekomunikacyjne(TransactionRowBase):
 #     row_type: Literal["usl_obce_telekomunikacyjne"] = "usl_obce_telekomunikacyjne"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class UslugiObceTransportowe(TransactionRowBase):
 #     row_type: Literal["usl_obce_transportowe"] = "usl_obce_transportowe"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class WartoscSprzedanychTowarow(TransactionRowBase):
 #     row_type: Literal["wartosc_sprzedanych_towarow"] = "wartosc_sprzedanych_towarow"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class ZaliczkiNaDostawy(TransactionRowBase):
 #     row_type: Literal["zaliczki_na_dostawy"] = "zaliczki_na_dostawy"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class ZapasyTowarPL(TransactionRowBase):
 #     row_type: Literal["zapasy_towar_pl"] = "zapasy_towar_pl"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class ZapasyTowarWDrodze(TransactionRowBase):
 #     row_type: Literal["zapasy_towar_w_drodze"] = "zapasy_towar_w_drodze"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
 #
 # class ZdarzeniaLosowe(TransactionRowBase):
 #     row_type: Literal["zdarzenia_losowe"] = "zdarzenia_losowe"
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )
@@ -813,7 +813,7 @@ class WNTRelacja(TransactionRowBase):
 # class INWENTARZ(TransactionRowBase):
 #     row_type: Literal["inventory"] = "inventory"
 #     inventory_item_id: str
-#     description: str = Field(
+#     description: Optional[str] = Field(
 #         None,
 #         title="Opis"
 #     )

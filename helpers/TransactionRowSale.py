@@ -21,7 +21,7 @@ class TransactionRowBaseSale(BaseModel):
     uom: InventoryItemUnit = Field(title="Jednostka miary")
     unit_price_net: Decimal = Field(max_digits=12, decimal_places=2, title="Cena jednostkowa netto")
 
-    description: str = Field(
+    description: Optional[str] = Field(
         None,
         title="Opis"
     )
