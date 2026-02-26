@@ -40,16 +40,9 @@ TransactionRow = Annotated[
     Field(discriminator="vat_category"),
 ]
 
-class CostTransactionItemsBasic(BaseModel):
-    transaction_items: List[TransactionRow] = Field(
-        default_factory=list,
-        alias="WierszTransakcji",
-        title="Pozycje księgowania",
-        validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
-    )
 
 
-class Podstawowa(CostTransactionItemsBasic):
+class Podstawowa(BaseModel):
     rodzaj_fv: Literal["Podstawowa"] = Field(
         "Podstawowa",
         title="Rodzaj",
@@ -57,7 +50,7 @@ class Podstawowa(CostTransactionItemsBasic):
     )
 
 
-class Zaliczkowa(CostTransactionItemsBasic):
+class Zaliczkowa(BaseModel):
     rodzaj_fv: Literal["Zaliczkowa"] = Field(
         "Zaliczkowa",
         title="Rodzaj",
@@ -65,14 +58,14 @@ class Zaliczkowa(CostTransactionItemsBasic):
     )
 
 
-class Rozliczeniowa(CostTransactionItemsBasic):
+class Rozliczeniowa(BaseModel):
     rodzaj_fv: Literal["Rozliczeniowa"] = Field(
         "Rozliczeniowa",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
 
-class Korekta(CostTransactionItemsBasic):
+class Korekta(BaseModel):
     rodzaj_fv: Literal["Korekta"] = Field(
         "Korekta",
         title="Rodzaj",

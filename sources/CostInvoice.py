@@ -3,7 +3,7 @@ from typing import Annotated, Union, Any
 from pydantic import Field, AliasChoices, model_validator, computed_field
 
 from models2.basic.CostInvoiceBasic import CostInvoiceBasic
-from models2.helpers.cost_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta
+from models2.helpers.cost_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta, TransactionRow
 
 
 
@@ -27,35 +27,57 @@ class CostInvoice(CostInvoiceBasic):
     @classmethod
     def _preprocess_typtransakcji_vs_rodzajfv(cls, data: Any) -> Any:
         if isinstance(data, dict):
+            # 1. Obsługa transaction_items na najwyższym poziomie
+            # Jeśli transaction_items są w rodzaj_fv lub TypTransakcji, wyciągnij je wyżej
+            for field in ["rodzaj_fv", "rodzaj_fv_obj", "TypTransakcji", "transaction_type"]:
+                val = data.get(field)
+                if isinstance(val, dict) and "transaction_items" in val:
+                    if "transaction_items" not in data:
+                        data["transaction_items"] = val["transaction_items"]
+
             tt = data.get("TypTransakcji") or data.get("transaction_type")
-            # Stary/pomyłkowy przypadek: w \"TypTransakcji\" siedzi struktura unionu rodzaj_fv
+            # Stary/pomyłkowy przypadek: w \"TypTransakcji\" siedzi strukturę unionu rodzaj_fv
             if isinstance(tt, dict) and ("rodzaj_fv" in tt or "transaction_items" in tt):
-                # Przenieś do pola rodzaj_fv (jeśli nie ma już podane osobno)
-                if "rodzaj_fv" not in data:
-                    data["rodzaj_fv"] = tt
+                # Przenieś do pola rodzaj_fv_obj (jeśli nie ma już podane osobno)
+                if "rodzaj_fv_obj" not in data and "rodzaj_fv" not in data:
+                    data["rodzaj_fv_obj"] = tt
                 # Ustaw minimalny transaction_type, by spełnić dyskryminator 'typ_transakcji'
                 # Wybieramy najprostszy wariant 'data_wspolna'.
                 data["TypTransakcji"] = {"typ_transakcji": "data_wspolna"}
-        return data
 
-    rodzaj_fv: RodzajFV = Field(
-        default=Podstawowa,
-        alias="rodzaj_fv",
-        validation_alias=AliasChoices("rodzaj_fv", "TypTransakcji"),
-        serialization_alias="rodzaj_fv",
-        title="Typ transakcji",
-    )
+            # Mapowanie rodzaj_fv -> rodzaj_fv_obj dla pydantica
+            if "rodzaj_fv" in data and "rodzaj_fv_obj" not in data:
+                # Jeśli to jest string, musimy go zamienić na dict dla dyskryminatora RodzajFV
+                if isinstance(data["rodzaj_fv"], str):
+                    data["rodzaj_fv_obj"] = {"rodzaj_fv": data["rodzaj_fv"]}
+                else:
+                    data["rodzaj_fv_obj"] = data.pop("rodzaj_fv")
+
+        return data
 
     @computed_field
     @property
-    def transaction_items(self) -> Any:
-        """Wypromuj transaction_items na najwyższy poziom podczas serializacji"""
-        return getattr(self.rodzaj_fv, 'transaction_items', [])
+    def rodzaj_fv(self) -> str:
+        return self.rodzaj_fv_obj.rodzaj_fv
 
-    @computed_field(alias="rodzaj_fv")
+    rodzaj_fv_obj: RodzajFV = Field(
+        default=Podstawowa(),
+        alias="rodzaj_fv_obj",
+        validation_alias=AliasChoices("rodzaj_fv_obj", "rodzaj_fv", "TypTransakcji"),
+        title="Typ transakcji",
+        exclude=True
+    )
+
+    transaction_items: list[TransactionRow] = Field(
+        default_factory=list,
+        alias="transaction_items",
+        validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
+        title="Pozycje księgowania",
+    )
+
     @property
     def rodzaj_fv_flat(self) -> str:
-        return self.rodzaj_fv.rodzaj_fv
+        return self.rodzaj_fv_obj.rodzaj_fv
 
     model_name: str = Field(
         "CostInvoice",
@@ -79,7 +101,7 @@ class CostInvoice(CostInvoiceBasic):
         # 1. Najpierw wywołujemy walidację z klasy bazowej (Netto + VAT = Brutto)
         # Pydantic robi to automatycznie, ale tutaj skupiamy się na relacji nagłówek-wiersze.
 
-        items = getattr(self.rodzaj_fv, 'transaction_items', None)
+        items = self.transaction_items
         if not items:
             return self
 
