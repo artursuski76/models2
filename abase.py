@@ -4,7 +4,7 @@ from typing import Optional
 from pydantic import BaseModel
 from pydantic import Field
 
-from models2.enums import StatusBaseBase, SourceInvoiceStatus
+from models2.enums import SourceInvoiceStatus
 
 
 class BasicBasic(BaseModel):
