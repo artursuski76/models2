@@ -1,3 +1,4 @@
+# cost_invoice_type.py
 
 from typing import Literal, List, Annotated, Union
 
