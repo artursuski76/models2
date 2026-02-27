@@ -419,7 +419,7 @@ class SourceInvoiceStatus(str, Enum):
     DRAFT = "draft",
     VERIFIED = "verified",
     APPROVED = "approved",
-    BOOKED = "booked"
+    POSTED = "posted"
 
 class VatDirection(str, Enum):
     PURCHASE = "PURCHASE"

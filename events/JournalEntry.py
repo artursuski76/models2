@@ -19,7 +19,6 @@ class JournalEntry(BasicBasic):
     )
 
     my_id: str = Field(
-        default_factory=generate_custom_id,
         pattern=r"^[A-Za-z0-9\-:]+$",
         json_schema_extra={"exclude_from_form": True}
     )
