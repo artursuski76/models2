@@ -1,0 +1,2033 @@
+{
+    "$defs": {
+        "CostRowType": {
+            "enum": [
+                "darowizny",
+                "energia_cieplna",
+                "energia_gaz",
+                "energia_inna",
+                "energia_olej_opalowy",
+                "energia_paliwa_silnikowe",
+                "energia_prad_elektryczny",
+                "energia_woda_scieki",
+                "inne_finansowe",
+                "inne_operacyjne",
+                "inne_rodzajowe",
+                "kary_grzywny_mandaty",
+                "materialy_biurowe",
+                "materialy_czesci_zamienne",
+                "materialy_produkcyjne",
+                "odsetki_bankowe",
+                "odsetki_budzetowe",
+                "odsetki_handlowe",
+                "podatki_akcyzowe",
+                "podatki_od_nieruchomosci",
+                "podatki_oplaty_inne",
+                "podatki_oplaty_recyc_srodow",
+                "podatki_oplaty_sadowe",
+                "podatki_oplaty_skarbowe",
+                "podatki_transportowe",
+                "podroze_sluzbowe_inne",
+                "podroze_sluzbowe_noclegi",
+                "podroze_sluzbowe_oplaty_drogowe",
+                "podroze_sluzbowe_wyzywienie",
+                "reklama",
+                "reprezentacja",
+                "swiad_na_rzecz_pracownikow",
+                "ubezpieczenia_majatkowe",
+                "usl_obce_doradcze",
+                "usl_obce_informatyczne",
+                "usl_obce_inne",
+                "usl_obce_ksiegowe",
+                "usl_obce_leasingi",
+                "usl_obce_najmy_czynsze",
+                "usl_obce_prawne",
+                "usl_obce_telekomunikacyjne",
+                "usl_obce_transportowe",
+                "wartosc_sprzedanych_towarow",
+                "zaliczki_na_dostawy",
+                "zapasy_materialy",
+                "zapasy_towary",
+                "zapasy_towary_w_drodze",
+                "zdarzenia_losowe"
+            ],
+            "title": "CostRowType",
+            "type": "string"
+        },
+        "DaneFaKorygowanej": {
+            "properties": {
+                "DataWystFaKorygowanej": {
+                    "default": null,
+                    "format": "date",
+                    "title": "Data wystawienia faktury korygowanej",
+                    "type": "string"
+                },
+                "NrFAKorygowanej": {
+                    "default": null,
+                    "title": "Numer faktury korygowanej",
+                    "type": "string"
+                },
+                "NrKsefFAKorygowanej": {
+                    "default": null,
+                    "title": "Numer Ksef faktury korygowanej",
+                    "type": "string"
+                },
+                "NrFAKorygowanejWKsef": {
+                    "default": null,
+                    "title": "Numer faktury korygowanej w Ksef",
+                    "type": "string"
+                }
+            },
+            "title": "DaneFaKorygowanej",
+            "type": "object"
+        },
+        "ImportTow33a": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "import_tow_33a",
+                    "default": "import_tow_33a",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "ImportTow33a",
+            "type": "object"
+        },
+        "ImportTow33aInwentarz": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "import_tow_33a_inwentarz",
+                    "default": "import_tow_33a_inwentarz",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "ImportTow33aInwentarz",
+            "type": "object"
+        },
+        "ImportTow33aRelacja": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "import_tow_33a_relacja",
+                    "default": "import_tow_33a_relacja",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "ImportTow33aRelacja",
+            "type": "object"
+        },
+        "ImportUslug28B": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "import_uslug_28b",
+                    "default": "import_uslug_28b",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "ImportUslug28B",
+            "type": "object"
+        },
+        "ImportUslug28BRelacja": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "import_uslug_28b_relacja",
+                    "default": "import_uslug_28b_relacja",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "ImportUslug28BRelacja",
+            "type": "object"
+        },
+        "ImportUslugNie28B": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "import_uslug_nie_28b",
+                    "default": "import_uslug_nie_28b",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "ImportUslugNie28B",
+            "type": "object"
+        },
+        "ImportUslugNie28BRelacja": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "import_uslug_nie_28b_relacja",
+                    "default": "import_uslug_nie_28b_relacja",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "ImportUslugNie28BRelacja",
+            "type": "object"
+        },
+        "NabycieKrajowe": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "nabycie_krajowe",
+                    "default": "nabycie_krajowe",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "vat_rate_doc": {
+                    "default": 23,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "NabycieKrajowe",
+            "type": "object"
+        },
+        "NabycieKrajoweInwentarz": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "nabycie_krajowe_inwentarz",
+                    "default": "nabycie_krajowe_inwentarz",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 23,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "NabycieKrajoweInwentarz",
+            "type": "object"
+        },
+        "NabycieKrajoweRelacja": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "nabycie_krajowe_relacja",
+                    "default": "nabycie_krajowe_relacja",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 23,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "NabycieKrajoweRelacja",
+            "type": "object"
+        },
+        "NiePodlega": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "nie_podlega",
+                    "default": "nie_podlega",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "NiePodlega",
+            "type": "object"
+        },
+        "NiePodlegaInwentarz": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "nie_podlega_inwentarz",
+                    "default": "nie_podlega_inwentarz",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "NiePodlegaInwentarz",
+            "type": "object"
+        },
+        "NiePodlegaRelacja": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "nie_podlega_relacja",
+                    "default": "nie_podlega_relacja",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "NiePodlegaRelacja",
+            "type": "object"
+        },
+        "OOKrajTowar": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "oo_kraj_towar",
+                    "default": "oo_kraj_towar",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "OOKrajTowar",
+            "type": "object"
+        },
+        "OOKrajTowarInwentarz": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "oo_kraj_towar_inwentarz",
+                    "default": "oo_kraj_towar_inwentarz",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "OOKrajTowarInwentarz",
+            "type": "object"
+        },
+        "OOKrajTowarRelacja": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "oo_kraj_towar_relacja",
+                    "default": "oo_kraj_towar_relacja",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "OOKrajTowarRelacja",
+            "type": "object"
+        },
+        "OOKrajUsluga": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "oo_kraj_usluga",
+                    "default": "oo_kraj_usluga",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "OOKrajUsluga",
+            "type": "object"
+        },
+        "OOKrajUslugaRelacja": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "oo_kraj_usluga_relacja",
+                    "default": "oo_kraj_usluga_relacja",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "OOKrajUslugaRelacja",
+            "type": "object"
+        },
+        "SkutekPodatkowyKorekty": {
+            "description": "Enum for different types of corrections in invoices.",
+            "enum": [
+                "W dacie faktury pierwotnej",
+                "W dacie faktury korygującej",
+                "W innej dacie"
+            ],
+            "title": "SkutekPodatkowyKorekty",
+            "type": "string"
+        },
+        "WNT": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "wnt",
+                    "default": "wnt",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "WNT",
+            "type": "object"
+        },
+        "WNTInwentarz": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "wnt_inwentarz",
+                    "default": "wnt_inwentarz",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "WNTInwentarz",
+            "type": "object"
+        },
+        "WNTRelacja": {
+            "properties": {
+                "row_type": {
+                    "$ref": "#/$defs/CostRowType",
+                    "title": "Typ pozycji"
+                },
+                "amount_net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Netto"
+                },
+                "amount_vat": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "VAT"
+                },
+                "amount_gross": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Brutto"
+                },
+                "vat_category": {
+                    "const": "wnt_relacja",
+                    "default": "wnt_relacja",
+                    "title": "Vat Category",
+                    "type": "string"
+                },
+                "description": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Opis"
+                },
+                "inventory_item_id": {
+                    "default": null,
+                    "title": "Kod inwent.",
+                    "type": "string"
+                },
+                "vat_rate_doc": {
+                    "default": 0,
+                    "title": "VAT_doc %",
+                    "type": "integer"
+                },
+                "vat_rate_jpk": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": 23,
+                    "title": "VAT_jpk %"
+                }
+            },
+            "required": [
+                "amount_net",
+                "amount_vat",
+                "amount_gross"
+            ],
+            "title": "WNTRelacja",
+            "type": "object"
+        },
+        "Wybierz": {
+            "properties": {
+                "vat_category": {
+                    "const": "wybierz",
+                    "default": "wybierz",
+                    "title": "Wybierz typ pozycji...",
+                    "type": "string"
+                }
+            },
+            "title": "Wybierz",
+            "type": "object"
+        }
+    },
+    "properties": {
+        "rodzaj_fv": {
+            "const": "Korekta",
+            "default": "Korekta",
+            "exclude_from_form": true,
+            "title": "Rodzaj",
+            "type": "string"
+        },
+        "transaction_items": {
+            "items": {
+                "discriminator": {
+                    "mapping": {
+                        "import_tow_33a": "#/$defs/ImportTow33a",
+                        "import_tow_33a_inwentarz": "#/$defs/ImportTow33aInwentarz",
+                        "import_tow_33a_relacja": "#/$defs/ImportTow33aRelacja",
+                        "import_uslug_28b": "#/$defs/ImportUslug28B",
+                        "import_uslug_28b_relacja": "#/$defs/ImportUslug28BRelacja",
+                        "import_uslug_nie_28b": "#/$defs/ImportUslugNie28B",
+                        "import_uslug_nie_28b_relacja": "#/$defs/ImportUslugNie28BRelacja",
+                        "nabycie_krajowe": "#/$defs/NabycieKrajowe",
+                        "nabycie_krajowe_inwentarz": "#/$defs/NabycieKrajoweInwentarz",
+                        "nabycie_krajowe_relacja": "#/$defs/NabycieKrajoweRelacja",
+                        "nie_podlega": "#/$defs/NiePodlega",
+                        "nie_podlega_inwentarz": "#/$defs/NiePodlegaInwentarz",
+                        "nie_podlega_relacja": "#/$defs/NiePodlegaRelacja",
+                        "oo_kraj_towar": "#/$defs/OOKrajTowar",
+                        "oo_kraj_towar_inwentarz": "#/$defs/OOKrajTowarInwentarz",
+                        "oo_kraj_towar_relacja": "#/$defs/OOKrajTowarRelacja",
+                        "oo_kraj_usluga": "#/$defs/OOKrajUsluga",
+                        "oo_kraj_usluga_relacja": "#/$defs/OOKrajUslugaRelacja",
+                        "wnt": "#/$defs/WNT",
+                        "wnt_inwentarz": "#/$defs/WNTInwentarz",
+                        "wnt_relacja": "#/$defs/WNTRelacja",
+                        "wybierz": "#/$defs/Wybierz"
+                    },
+                    "propertyName": "vat_category"
+                },
+                "oneOf": [
+                    {
+                        "$ref": "#/$defs/Wybierz"
+                    },
+                    {
+                        "$ref": "#/$defs/ImportTow33a"
+                    },
+                    {
+                        "$ref": "#/$defs/ImportTow33aInwentarz"
+                    },
+                    {
+                        "$ref": "#/$defs/ImportTow33aRelacja"
+                    },
+                    {
+                        "$ref": "#/$defs/ImportUslug28B"
+                    },
+                    {
+                        "$ref": "#/$defs/ImportUslug28BRelacja"
+                    },
+                    {
+                        "$ref": "#/$defs/ImportUslugNie28B"
+                    },
+                    {
+                        "$ref": "#/$defs/ImportUslugNie28BRelacja"
+                    },
+                    {
+                        "$ref": "#/$defs/NabycieKrajowe"
+                    },
+                    {
+                        "$ref": "#/$defs/NabycieKrajoweInwentarz"
+                    },
+                    {
+                        "$ref": "#/$defs/NabycieKrajoweRelacja"
+                    },
+                    {
+                        "$ref": "#/$defs/NiePodlega"
+                    },
+                    {
+                        "$ref": "#/$defs/NiePodlegaInwentarz"
+                    },
+                    {
+                        "$ref": "#/$defs/NiePodlegaRelacja"
+                    },
+                    {
+                        "$ref": "#/$defs/OOKrajTowar"
+                    },
+                    {
+                        "$ref": "#/$defs/OOKrajTowarInwentarz"
+                    },
+                    {
+                        "$ref": "#/$defs/OOKrajTowarRelacja"
+                    },
+                    {
+                        "$ref": "#/$defs/OOKrajUsluga"
+                    },
+                    {
+                        "$ref": "#/$defs/OOKrajUslugaRelacja"
+                    },
+                    {
+                        "$ref": "#/$defs/WNT"
+                    },
+                    {
+                        "$ref": "#/$defs/WNTInwentarz"
+                    },
+                    {
+                        "$ref": "#/$defs/WNTRelacja"
+                    }
+                ]
+            },
+            "title": "Pozycje księgowania",
+            "type": "array"
+        },
+        "PrzyczynaKorekty": {
+            "default": null,
+            "title": "Przyczyna korekty",
+            "type": "string"
+        },
+        "TypKorekty": {
+            "$ref": "#/$defs/SkutekPodatkowyKorekty",
+            "default": null,
+            "title": "Typ korekty"
+        },
+        "DaneFAKorygowane": {
+            "$ref": "#/$defs/DaneFaKorygowanej",
+            "default": null,
+            "title": "Dane FA korygowane"
+        }
+    },
+    "title": "KorektaK",
+    "type": "object"
+}

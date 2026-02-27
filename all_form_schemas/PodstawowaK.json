@@ -1,0 +1,13 @@
+{
+    "properties": {
+        "rodzaj_fv": {
+            "const": "Podstawowa",
+            "default": "Podstawowa",
+            "exclude_from_form": true,
+            "title": "Rodzaj",
+            "type": "string"
+        }
+    },
+    "title": "PodstawowaK",
+    "type": "object"
+}

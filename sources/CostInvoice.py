@@ -3,16 +3,16 @@ from typing import Annotated, Union, Any
 from pydantic import Field, AliasChoices, model_validator, computed_field
 
 from models2.basic.CostInvoiceBasic import CostInvoiceBasic
-from models2.helpers.cost_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta, TransactionRow
+from models2.helpers.cost_invoice_type import PodstawowaK, ZaliczkowaK, RozliczeniowaK, KorektaK, TransactionRow
 
 
 
 RodzajFV = Annotated[
     Union[
-        Podstawowa,
-        Zaliczkowa,
-        Rozliczeniowa,
-        Korekta
+        PodstawowaK,
+        ZaliczkowaK,
+        RozliczeniowaK,
+        KorektaK
     ],
     Field(
         discriminator="rodzaj_fv"
@@ -61,7 +61,7 @@ class CostInvoice(CostInvoiceBasic):
         return self.rodzaj_fv_obj.rodzaj_fv
 
     rodzaj_fv_obj: RodzajFV = Field(
-        default=Podstawowa(),
+        default=PodstawowaK(),
         alias="rodzaj_fv_obj",
         validation_alias=AliasChoices("rodzaj_fv_obj", "rodzaj_fv", "TypTransakcji"),
         title="Typ transakcji",

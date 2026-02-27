@@ -1,0 +1,730 @@
+{
+    "$defs": {
+        "AdnotacjeNie": {
+            "properties": {
+                "adnotacje": {
+                    "const": "nie",
+                    "default": "nie",
+                    "exclude_from_form": true,
+                    "title": "Adnotacje",
+                    "type": "string"
+                }
+            },
+            "title": "AdnotacjeNie",
+            "type": "object"
+        },
+        "AdnotacjeTak": {
+            "properties": {
+                "adnotacje": {
+                    "const": "tak",
+                    "default": "tak",
+                    "exclude_from_form": true,
+                    "title": "Adnotacje",
+                    "type": "string"
+                },
+                "cash_method": {
+                    "default": false,
+                    "title": "Cash Method",
+                    "type": "boolean"
+                },
+                "self_billing": {
+                    "default": false,
+                    "title": "Self Billing",
+                    "type": "boolean"
+                },
+                "reverse_charge": {
+                    "default": false,
+                    "title": "Reverse Charge",
+                    "type": "boolean"
+                },
+                "split_payment": {
+                    "default": false,
+                    "title": "Split Payment",
+                    "type": "boolean"
+                },
+                "ec_simplified": {
+                    "default": false,
+                    "title": "Ec Simplified",
+                    "type": "boolean"
+                },
+                "ProceduraMarzy": {
+                    "discriminator": {
+                        "mapping": {
+                            "nie": "#/$defs/MarzaNie",
+                            "tak": "#/$defs/MarzaTak"
+                        },
+                        "propertyName": "p_marzy"
+                    },
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/MarzaNie"
+                        },
+                        {
+                            "$ref": "#/$defs/MarzaTak"
+                        }
+                    ],
+                    "title": "Procedura Marży"
+                }
+            },
+            "required": [
+                "ProceduraMarzy"
+            ],
+            "title": "AdnotacjeTak",
+            "type": "object"
+        },
+        "CurrencyAB": {
+            "enum": [
+                "PLN",
+                "EUR",
+                "USD",
+                "RUB",
+                "CHF",
+                "GBP",
+                "AUD",
+                "BGN",
+                "BRL",
+                "CAD",
+                "CLP",
+                "CNY",
+                "CZK",
+                "DKK",
+                "HKD",
+                "HUF",
+                "IDR",
+                "ILS",
+                "INR",
+                "ISK",
+                "JPY",
+                "KRW",
+                "MXN",
+                "MYR",
+                "NOK",
+                "NZD",
+                "PHP",
+                "RON",
+                "SEK",
+                "SGD",
+                "THB",
+                "TRY",
+                "UAH",
+                "XDR",
+                "ZAR"
+            ],
+            "title": "CurrencyAB",
+            "type": "string"
+        },
+        "DataWspolna": {
+            "properties": {
+                "typ_transakcji": {
+                    "const": "data_wspolna",
+                    "default": "data_wspolna",
+                    "exclude_from_form": true,
+                    "title": "Rodzaj",
+                    "type": "string"
+                }
+            },
+            "title": "DataWspolna",
+            "type": "object"
+        },
+        "InvoiceType": {
+            "enum": [
+                "SALES",
+                "PURCHASE"
+            ],
+            "title": "InvoiceType",
+            "type": "string"
+        },
+        "MarzaNie": {
+            "properties": {
+                "p_marzy": {
+                    "const": "nie",
+                    "default": "nie",
+                    "exclude_from_form": true,
+                    "title": "Procedura Marży",
+                    "type": "string"
+                },
+                "p_marzy_n": {
+                    "default": true,
+                    "description": "Czy procedura Marży jest nieaktywna?",
+                    "exclude_from_form": true,
+                    "title": "Procedura Marży - Nie",
+                    "type": "boolean"
+                }
+            },
+            "title": "MarzaNie",
+            "type": "object"
+        },
+        "MarzaTak": {
+            "properties": {
+                "p_marzy": {
+                    "const": "tak",
+                    "default": "tak",
+                    "exclude_from_form": true,
+                    "title": "Procedura Marży",
+                    "type": "string"
+                },
+                "uslugi_turystyki": {
+                    "default": false,
+                    "title": "Uslugi Turystyki",
+                    "type": "boolean"
+                },
+                "towary_uzywane": {
+                    "default": false,
+                    "title": "Towary Uzywane",
+                    "type": "boolean"
+                },
+                "dziela_sztuki": {
+                    "default": false,
+                    "title": "Dziela Sztuki",
+                    "type": "boolean"
+                },
+                "przedm_kolekc_i_antyki": {
+                    "default": false,
+                    "title": "Przedm Kolekc I Antyki",
+                    "type": "boolean"
+                }
+            },
+            "title": "MarzaTak",
+            "type": "object"
+        },
+        "RozneDaty": {
+            "properties": {
+                "typ_transakcji": {
+                    "const": "rozne_daty",
+                    "default": "rozne_daty",
+                    "exclude_from_form": true,
+                    "title": "Rodzaj",
+                    "type": "string"
+                },
+                "date_vat": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data VAT"
+                },
+                "date_cit": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data CIT"
+                },
+                "date_supply": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data sprzedaży/dostawy"
+                },
+                "date_settlement": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Termin zapłaty"
+                },
+                "date_issue": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data wystawienia dokumentu"
+                },
+                "date_received": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data otrzymania faktury"
+                },
+                "date_goods_receipt": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data przyjęcia towaru"
+                }
+            },
+            "title": "RozneDaty",
+            "type": "object"
+        },
+        "SourceInvoiceSource": {
+            "enum": [
+                "MANUAL",
+                "KSEF",
+                "IMPORT"
+            ],
+            "title": "SourceInvoiceSource",
+            "type": "string"
+        },
+        "SourceInvoiceStatus": {
+            "enum": [
+                "draft",
+                "verified",
+                "approved",
+                "posted"
+            ],
+            "title": "SourceInvoiceStatus",
+            "type": "string"
+        },
+        "SprzedazOdDo": {
+            "properties": {
+                "typ_transakcji": {
+                    "const": "sprzedaz_od_do",
+                    "default": "sprzedaz_od_do",
+                    "exclude_from_form": true,
+                    "title": "Rodzaj",
+                    "type": "string"
+                },
+                "date_supply_from": {
+                    "default": null,
+                    "format": "date",
+                    "title": "From*",
+                    "type": "string"
+                },
+                "date_supply_to": {
+                    "default": null,
+                    "format": "date",
+                    "title": "To*",
+                    "type": "string"
+                },
+                "date_vat": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data VAT"
+                },
+                "date_cit": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data CIT"
+                },
+                "date_settlement": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Termin zapłaty"
+                },
+                "date_issue": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data wystawienia dokumentu"
+                },
+                "date_received": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data otrzymania faktury"
+                },
+                "date_goods_receipt": {
+                    "anyOf": [
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Data przyjęcia towaru"
+                }
+            },
+            "title": "SprzedazOdDo",
+            "type": "object"
+        },
+        "TransactionFiles": {
+            "properties": {
+                "status": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "status",
+                    "exclude_from_form": true,
+                    "title": "Status"
+                },
+                "filename": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "filename",
+                    "title": "Filename"
+                },
+                "minio_key": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Plik - key",
+                    "title": "Minio Key"
+                },
+                "minio_bucket": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Plik - bucket",
+                    "exclude_from_form": true,
+                    "title": "Minio Bucket"
+                },
+                "minio_url": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Plik - url",
+                    "exclude_from_form": true,
+                    "title": "Minio Url"
+                }
+            },
+            "title": "TransactionFiles",
+            "type": "object"
+        }
+    },
+    "properties": {
+        "company_uuid": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "exclude_from_form": true,
+            "title": "Company Uuid"
+        },
+        "company_id": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "exclude_from_form": true,
+            "title": "Company Id"
+        },
+        "user_id": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "exclude_from_form": true,
+            "title": "User Id"
+        },
+        "model_name": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "exclude_from_form": true,
+            "title": "Model Name"
+        },
+        "created_at": {
+            "exclude_from_form": true,
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+        },
+        "last_sync": {
+            "exclude_from_form": true,
+            "format": "date-time",
+            "title": "Last Sync",
+            "type": "string"
+        },
+        "status": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/SourceInvoiceStatus"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": "draft",
+            "exclude_from_form": true
+        },
+        "sha": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "exclude_from_form": true,
+            "title": "Sha"
+        },
+        "files": {
+            "items": {
+                "$ref": "#/$defs/TransactionFiles"
+            },
+            "title": "Files",
+            "type": "array"
+        },
+        "TypTransakcji": {
+            "discriminator": {
+                "mapping": {
+                    "data_wspolna": "#/$defs/DataWspolna",
+                    "rozne_daty": "#/$defs/RozneDaty",
+                    "sprzedaz_od_do": "#/$defs/SprzedazOdDo"
+                },
+                "propertyName": "typ_transakcji"
+            },
+            "flatten": true,
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/DataWspolna"
+                },
+                {
+                    "$ref": "#/$defs/RozneDaty"
+                },
+                {
+                    "$ref": "#/$defs/SprzedazOdDo"
+                }
+            ],
+            "title": "Typ transakcji"
+        },
+        "Adnotacje": {
+            "discriminator": {
+                "mapping": {
+                    "nie": "#/$defs/AdnotacjeNie",
+                    "tak": "#/$defs/AdnotacjeTak"
+                },
+                "propertyName": "adnotacje"
+            },
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/AdnotacjeNie"
+                },
+                {
+                    "$ref": "#/$defs/AdnotacjeTak"
+                }
+            ],
+            "title": "Adnotcje"
+        },
+        "my_id": {
+            "exclude_from_form": true,
+            "title": "My Id",
+            "type": "string"
+        },
+        "source": {
+            "$ref": "#/$defs/SourceInvoiceSource",
+            "default": "MANUAL",
+            "exclude_from_form": true,
+            "title": "Zródło"
+        },
+        "TypFaktury": {
+            "$ref": "#/$defs/InvoiceType",
+            "default": "PURCHASE",
+            "exclude_from_form": true
+        },
+        "inv_nr": {
+            "title": "Inv Nr",
+            "type": "string"
+        },
+        "date_posting": {
+            "format": "date",
+            "title": "Data księgowania",
+            "type": "string"
+        },
+        "counterparty_id": {
+            "title": "Kontrahent",
+            "type": "string"
+        },
+        "Waluta": {
+            "$ref": "#/$defs/CurrencyAB",
+            "title": "Waluta"
+        },
+        "total_net": {
+            "anyOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                    "type": "string"
+                }
+            ],
+            "title": "Razem Netto"
+        },
+        "total_vat": {
+            "anyOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                    "type": "string"
+                }
+            ],
+            "title": "Razem VAT"
+        },
+        "total_gross": {
+            "anyOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,10}|(?=[\\d.]{1,13}0*$)\\d{0,10}\\.\\d{0,2}0*$)",
+                    "type": "string"
+                }
+            ],
+            "title": "Razem Brutto"
+        },
+        "KsefRef": {
+            "default": "",
+            "exclude_from_form": true,
+            "title": "Ksefref",
+            "type": "string"
+        },
+        "original_payload_ref": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "exclude_from_form": true,
+            "title": "Oryg Payload Ref"
+        }
+    },
+    "required": [
+        "TypTransakcji",
+        "Adnotacje",
+        "inv_nr",
+        "date_posting",
+        "counterparty_id",
+        "total_net",
+        "total_vat",
+        "total_gross"
+    ],
+    "title": "Formularz Dodawania Cost",
+    "type": "object"
+}

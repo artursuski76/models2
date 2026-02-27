@@ -43,7 +43,7 @@ TransactionRow = Annotated[
 
 
 
-class Podstawowa(BaseModel):
+class PodstawowaK(BaseModel):
     rodzaj_fv: Literal["Podstawowa"] = Field(
         "Podstawowa",
         title="Rodzaj",
@@ -51,7 +51,7 @@ class Podstawowa(BaseModel):
     )
 
 
-class Zaliczkowa(BaseModel):
+class ZaliczkowaK(BaseModel):
     rodzaj_fv: Literal["Zaliczkowa"] = Field(
         "Zaliczkowa",
         title="Rodzaj",
@@ -59,14 +59,14 @@ class Zaliczkowa(BaseModel):
     )
 
 
-class Rozliczeniowa(BaseModel):
+class RozliczeniowaK(BaseModel):
     rodzaj_fv: Literal["Rozliczeniowa"] = Field(
         "Rozliczeniowa",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
 
-class Korekta(BaseModel):
+class KorektaK(BaseModel):
     rodzaj_fv: Literal["Korekta"] = Field(
         "Korekta",
         title="Rodzaj",

@@ -1,0 +1,13 @@
+{
+    "properties": {
+        "rodzaj_fv": {
+            "const": "Zaliczkowa",
+            "default": "Zaliczkowa",
+            "exclude_from_form": true,
+            "title": "Rodzaj",
+            "type": "string"
+        }
+    },
+    "title": "ZaliczkowaK",
+    "type": "object"
+}

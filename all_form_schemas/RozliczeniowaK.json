@@ -1,0 +1,13 @@
+{
+    "properties": {
+        "rodzaj_fv": {
+            "const": "Rozliczeniowa",
+            "default": "Rozliczeniowa",
+            "exclude_from_form": true,
+            "title": "Rodzaj",
+            "type": "string"
+        }
+    },
+    "title": "RozliczeniowaK",
+    "type": "object"
+}
