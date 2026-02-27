@@ -2,10 +2,10 @@ from enum import Enum
 
 
 class StatusBaseBase(str, Enum):
-    POSTED = "POSTED"
-    DRAFT = "DRAFT"
-    VOID = "VOID"
-    PROCESSED = "PROCESSED"
+    POSTED = "draft"
+    DRAFT = "verified"
+    VOID = "approved"
+    PROCESSED = "posted"
 
 class ValuationMethod(str, Enum):
     FIFO = "FIFO"
