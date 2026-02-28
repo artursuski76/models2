@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
@@ -6,11 +7,10 @@ from models2.enums import ValuationMethod
 from models2.helpers.deduction import Deduction
 
 class DeductionCitVat(BaseModel):
-    deduction_vat: Optional[float] = Field(
-        default=100,
-        alias="deduction_vat"
+    deduction_vat: Decimal = Field(
+        default=100
     )
-    deduction_cit: Optional[float] = Field(
+    deduction_cit: Decimal = Field(
         default=100
     )
     nierozl_vat_w_cit: bool = Field(default=True, title="Nierozliczony VAT rozlicz w CIT")

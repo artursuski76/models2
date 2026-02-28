@@ -146,7 +146,8 @@ class CostInvoiceBasic(BasicBasic, FlattenMixin):
         None,
         alias="Nazwa",
         title="Pełna nazwa Kontrahenta",
-        max_length=200
+        max_length=200,
+        json_schema_extra={"exclude_from_form": True}
     )
     c_nip: Optional[str] = Field(
         None,
@@ -154,26 +155,31 @@ class CostInvoiceBasic(BasicBasic, FlattenMixin):
         title="NIP",
         min_length=10,
         max_length=10,
-        pattern=r'^\d{10}$|^brak$'
+        pattern=r'^\d{10}$|^brak$',
+        json_schema_extra={"exclude_from_form": True}
     )
     c_kod_ue: Optional[EuropeLandsEnum] = Field(
         None,
         alias="KodUE",
-        title="VIESS – kod UE"
+        title="VIESS – kod UE",
+        json_schema_extra={"exclude_from_form": True}
     )
     c_nr_vat_ue: Optional[str] = Field(
         None,
         alias="NrVatUE",
-        title="VIESS – nr identyfikacyjny bez kodu kraju"
+        title="VIESS – nr identyfikacyjny bez kodu kraju",
+        json_schema_extra={"exclude_from_form": True}
     )
 
     c_kod_kraju: Optional[WorldLandsEnum] = Field(
         None,
         alias="KodKraju",
-        title="EKSPORT – kod kraju"
+        title="EKSPORT – kod kraju",
+        json_schema_extra={"exclude_from_form": True}
     )
     c_tax_id: Optional[str] = Field(
         None,
         alias="NrID",
-        title="EKSPORT – Numer podatkowy"
+        title="EKSPORT – Numer podatkowy",
+        json_schema_extra={"exclude_from_form": True}
     )
