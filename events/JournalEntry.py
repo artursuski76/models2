@@ -74,8 +74,14 @@ class JournalEntry(BasicBasic):
         title="Błąd z KSeF",
         json_schema_extra={"exclude_from_form": True}
     )
-    ksef_payload_hash: Optional[str]
-    ksef_schema_version: Optional[str]
+    ksef_payload_hash: Optional[str] = Field(
+        None,
+        title="Hash Payload",
+    )
+    ksef_schema_version: Optional[str] = Field(
+        None,
+        title="Wersja schematu KSeF",
+    )
 
     is_correction: bool = False
     corrected_entry_id: Optional[str] = None
