@@ -26,4 +26,4 @@ class Deduction(BaseModel):
         max_digits=12, decimal_places=2,
         alias="wartosc_calkowita_do_limitu_CIT"
     )
-    nierozl_vat_w_cit: bool = Field(default=True, alias="Nierozliczony VAT rozlicz w CIT")
+    nierozl_vat_w_cit: bool = Field(default=True, title="Nierozliczony VAT rozlicz w CIT")

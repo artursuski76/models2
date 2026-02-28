@@ -5,6 +5,15 @@ from pydantic import BaseModel, Field
 from models2.enums import ValuationMethod
 from models2.helpers.deduction import Deduction
 
+class DeductionCitVat(BaseModel):
+    deduction_vat: Optional[float] = Field(
+        default=100,
+        alias="deduction_vat"
+    )
+    deduction_cit: Optional[float] = Field(
+        default=100
+    )
+    nierozl_vat_w_cit: bool = Field(default=True, title="Nierozliczony VAT rozlicz w CIT")
 
 class PozycjaMagazynowa(BaseModel):
     item_type: Literal["Pozycja_Magazynowa"] = Field(
@@ -19,39 +28,22 @@ class PozycjaMagazynowa(BaseModel):
         alias="valuation_method"
     )
 
-class SrodekTrwaly(BaseModel):
+class SrodekTrwaly(DeductionCitVat):
     item_type: Literal["Srodek_Trwaly"] = Field(
         "Srodek_Trwaly",
         alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
-    deduction_vat: Optional[float] = Field(
-        default=100,
-        alias="deduction_VAT"
-    )
-    deduction_cit: Optional[float] = Field(
-        default=100
-    )
-    nierozl_vat_w_cit: bool = Field(default=True, alias="Nierozliczony VAT rozlicz w CIT")
 
 
-class RzeczUzytkowana(BaseModel):
+class RzeczUzytkowana(DeductionCitVat):
     item_type: Literal["Rzecz_Uzytkowana"] = Field(
         "Rzecz_Uzytkowana",
         alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
-    deduction_vat: Optional[float] = Field(
-        default=100,
-        alias="deduction_VAT"
-    )
-    deduction_cit: Optional[float] = Field(
-        default=100
-    )
-    nierozl_vat_w_cit: bool = Field(default=True, alias="Nierozliczony VAT rozlicz w CIT")
-
 
 
 class LicencjePrawa(BaseModel):
