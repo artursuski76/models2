@@ -91,7 +91,7 @@ class Posting(BasicBasic):
         title="Typ dokumentu"
     )
 
-    vat_transaction_type: VATTransactionType = Field(
+    vat_transaction_type: Optional[VATTransactionType] = Field(
         None,
         title="Typ transakcji VAT"
     )
