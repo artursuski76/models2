@@ -13,7 +13,7 @@ from models2.enums import SourceInvoiceSource
 from models2.helpers.forms_type_sales_inv import DostawaWDacieWystawienia, WspolnaDataDostawy, DostawaWOkresieCzasu
 # from models2.helpers.money import Money
 from models2.helpers.sale_invoice_adnotacje import AdnotacjeNie, AdnotacjeTak
-from models2.xxx.h_enums import CurrencyAB
+from models2.xxx.h_enums import CurrencyAB, EuropeLandsEnum, WorldLandsEnum
 
 
 class SaleInvoiceBasic(BasicBasic):
@@ -133,4 +133,41 @@ class SaleInvoiceBasic(BasicBasic):
     created_at: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc),  # Dodaj import timezone z datetime
         json_schema_extra={"exclude_from_form": True}
+    )
+
+
+    c_nazwa: str = Field(
+        ...,
+        alias="Nazwa",
+        title="Pełna nazwa Kontrahenta",
+        max_length=200
+    )
+    c_nip: Optional[str] = Field(
+        ...,
+        alias="NIP",
+        title="NIP",
+        min_length=10,
+        max_length=10,
+        pattern=r'^\d{10}$|^brak$'
+    )
+    c_kod_ue: EuropeLandsEnum = Field(
+        None,
+        alias="KodUE",
+        title="VIESS – kod UE"
+    )
+    c_nr_vat_ue: Optional[str] = Field(
+        None,
+        alias="NrVatUE",
+        title="VIESS – nr identyfikacyjny bez kodu kraju"
+    )
+
+    c_kod_kraju: WorldLandsEnum = Field(
+        None,
+        alias="KodKraju",
+        title="EKSPORT – kod kraju"
+    )
+    c_tax_id: Optional[str] = Field(
+        None,
+        alias="NrID",
+        title="EKSPORT – Numer podatkowy"
     )
