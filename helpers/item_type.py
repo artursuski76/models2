@@ -66,10 +66,10 @@ class LicencjePrawa(BaseModel):
 class ProduktWlasny(BaseModel):
     item_type: Literal["Produkt_Wlasny"] = Field(
         "Produkt_Wlasny",
+        alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
-    alias = "typ_transakcji",
     valuation_method: ValuationMethod = Field(
         ValuationMethod.FIFO,
         title = "Metoda wyceny*",
