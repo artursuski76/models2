@@ -246,6 +246,7 @@ class CostRowType(str, Enum):
     REPREZENTACJA = "reprezentacja"
     SWIAD_NA_RZECZ_PRACOWNIKOW = "swiad_na_rzecz_pracownikow"
     UBEZPIECZENIA_MAJATKOWE = "ubezpieczenia_majatkowe"
+    USL_OBCE_BANKOWE = "usl_obce_bankowe"
     USL_OBCE_DORADCZE = "usl_obce_doradcze"
     USL_OBCE_INFORMATYCZNE = "usl_obce_informatyczne"
     USL_OBCE_INNE = "usl_obce_inne"

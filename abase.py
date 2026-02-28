@@ -26,10 +26,14 @@ class BasicBasic(BaseModel):
         None,
         json_schema_extra={"exclude_from_form": True}
     )
-    created_at: Optional[datetime] = Field(
-        None,
+    created_at: datetime = Field(
+        # Używamy default_factory, aby datetime.now() wywoływało się przy każdym nowym obiekcie
+        default_factory=lambda: datetime.now(),
+        # Zapobiega zmianie pola po utworzeniu instancji (Pydantic v2)
+        frozen=True,
         json_schema_extra={"exclude_from_form": True}
     )
+
     last_sync: datetime = Field(
         default_factory=datetime.now,
         json_schema_extra={"exclude_from_form": True}

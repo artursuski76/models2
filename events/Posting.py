@@ -5,13 +5,11 @@ from typing import Optional, List
 from pydantic import Field, model_validator
 
 from models2.abase import BasicBasic
+from models2.enums import VATTransactionType
+from models2.xxx.h_enums import Currency, UnitType, EuropeLandsEnum, WorldLandsEnum
+
+
 # from models2.enums import VATTransactionType, PostingFlags  # Decoupled to avoid import issues
-
-from models2.helpers.generate_custom_id import generate_custom_id
-from models2.xxx.h_enums import Currency, UnitType
-
-
-
 
 
 class Posting(BasicBasic):
@@ -47,6 +45,63 @@ class Posting(BasicBasic):
     unit: Optional[UnitType] = Field(None, title="Jednostka miary", json_schema_extra={"exclude_from_form": True})
     item_id: Optional[str] = Field(None, title="ID przedmiotu", json_schema_extra={"exclude_from_form": True})
     lot_id: Optional[str] = Field(None, title="ID partii", json_schema_extra={"exclude_from_form": True})
+    c_nazwa: str = Field(
+        ...,
+        alias="Nazwa",
+        title="Pełna nazwa Kontrahenta",
+        max_length=200
+    )
+    c_nip: Optional[str] = Field(
+        ...,
+        alias="NIP",
+        title="NIP",
+        min_length=10,
+        max_length=10,
+        pattern=r'^\d{10}$|^brak$'
+    )
+    c_kod_ue: EuropeLandsEnum = Field(
+        None,
+        alias="KodUE",
+        title="VIESS – kod UE"
+    )
+    c_nr_vat_ue: Optional[str] = Field(
+        None,
+        alias="NrVatUE",
+        title="VIESS – nr identyfikacyjny bez kodu kraju"
+    )
+
+    c_kod_kraju: WorldLandsEnum = Field(
+        None,
+        alias="KodKraju",
+        title="EKSPORT – kod kraju"
+    )
+    c_tax_id: Optional[str] = Field(
+        None,
+        alias="NrID",
+        title="EKSPORT – Numer podatkowy"
+    )
+    doc_nr: Optional[str] = Field(
+        None,
+        alias="NrDok",
+        title="Numer dokumentu"
+    )
+    doc_type: Optional[str] = Field(
+        None,
+        alias="TypDok",
+        title="Typ dokumentu"
+    )
+
+    vat_transaction_type: VATTransactionType = Field(
+        None,
+        title="Typ transakcji VAT"
+    )
+
+    inventory_ref: str | None
+
+    is_tax_deductible: Optional[bool] = None
+
+    vat_base_amount: Optional[Decimal] = None
+    vat_amount: Optional[Decimal] = None
 
     tags: Optional[List[str]] = Field(
         None,

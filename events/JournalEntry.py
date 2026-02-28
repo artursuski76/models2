@@ -1,11 +1,11 @@
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 
 from pydantic import Field, model_validator
 
 from models2.abase import BasicBasic
 from models2.enums import SourceDocumentType
-from models2.helpers.generate_custom_id import generate_custom_id
+from models2.enums_all.ksef import KSeFStatus
 from models2.xxx.h_enums import Currency
 
 
@@ -54,6 +54,32 @@ class JournalEntry(BasicBasic):
 
     description: Optional[str] = Field(None, title="Opis")
 
+    ksef_status: Optional[KSeFStatus] = Field(
+        None,
+        title="Status w KSeF",
+        json_schema_extra={"exclude_from_form": True}
+    )
+    ksef_reference_number: Optional[str] = Field(
+        None,
+        title="Numer referencyjny KSeF",
+        json_schema_extra={"exclude_from_form": True}
+    )
+    ksef_sent_at: Optional[datetime] = Field(
+        None,
+        title="Data wysłania do KSeF",
+        json_schema_extra={"exclude_from_form": True}
+    )
+    ksef_error_message: Optional[str] = Field(
+        None,
+        title="Błąd z KSeF",
+        json_schema_extra={"exclude_from_form": True}
+    )
+    ksef_payload_hash: Optional[str]
+    ksef_schema_version: Optional[str]
+
+    is_correction: bool = False
+    corrected_entry_id: Optional[str] = None
+    correction_reason: Optional[str] = None
 
     class Couchbase:
         bucket = "Accounting"
