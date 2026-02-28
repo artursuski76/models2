@@ -256,8 +256,6 @@ class CostRowType(str, Enum):
     USL_OBCE_PRAWNE = "usl_obce_prawne"
     USL_OBCE_TELEKOMUNIKACYJNE = "usl_obce_telekomunikacyjne"
     USL_OBCE_TRANSPORTOWE = "usl_obce_transportowe"
-    WARTOSC_SPRZEDANYCH_TOWAROW = "wartosc_sprzedanych_towarow"
-    ZALICZKI_NA_DOSTAWY = "zaliczki_na_dostawy"
     ZAPASY_MATERIALY = "zapasy_materialy"
     ZAPASY_TOWARY = "zapasy_towary"
     ZAPASY_TOWARY_W_DRODZE = "zapasy_towary_w_drodze"
