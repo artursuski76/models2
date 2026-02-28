@@ -29,7 +29,6 @@ class JournalEntry(BasicBasic):
     )
 
     transaction_date: Optional[date] = Field(None, title="Data transakcji", json_schema_extra={"exclude_from_form": True})
-
     posting_date: date = Field(default_factory=date.today, title="Data wystawienia")
 
     year: int = Field(default=0, json_schema_extra={"exclude_from_form": True})
