@@ -96,7 +96,7 @@ class Posting(BasicBasic):
         title="Typ transakcji VAT"
     )
 
-    inventory_ref: Optional[str] | None
+    inventory_ref: Optional[str] = None
 
     is_tax_deductible: Optional[bool] = None
 
