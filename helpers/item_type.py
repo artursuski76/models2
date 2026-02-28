@@ -9,6 +9,7 @@ from models2.helpers.deduction import Deduction
 class PozycjaMagazynowa(BaseModel):
     item_type: Literal["Pozycja_Magazynowa"] = Field(
         "Pozycja_Magazynowa",
+        alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
@@ -21,6 +22,7 @@ class PozycjaMagazynowa(BaseModel):
 class SrodekTrwaly(BaseModel):
     item_type: Literal["Srodek_Trwaly"] = Field(
         "Srodek_Trwaly",
+        alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
@@ -37,6 +39,7 @@ class SrodekTrwaly(BaseModel):
 class RzeczUzytkowana(BaseModel):
     item_type: Literal["Rzecz_Uzytkowana"] = Field(
         "Rzecz_Uzytkowana",
+        alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
@@ -54,6 +57,7 @@ class RzeczUzytkowana(BaseModel):
 class LicencjePrawa(BaseModel):
     item_type: Literal["Licencje_Prawa"] = Field(
         "Licencje_Prawa",
+        alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
@@ -65,6 +69,7 @@ class ProduktWlasny(BaseModel):
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
+    alias = "typ_transakcji",
     valuation_method: ValuationMethod = Field(
         ValuationMethod.FIFO,
         title = "Metoda wyceny*",
@@ -75,14 +80,17 @@ class ProduktWlasny(BaseModel):
 class Usluga(Deduction):
     item_type: Literal["Usluga"] = Field(
         "Usluga",
+        alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
 
 
+
 class Produkt(Deduction):
     item_type: Literal["Produkt"] = Field(
         "Produkt",
+        alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )

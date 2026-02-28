@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 class Prosty(BaseModel):
     form_type_ii: Literal["prosty"] = Field(
         "prosty",
+        alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
@@ -14,6 +15,7 @@ class Prosty(BaseModel):
 class Rozbudowany(BaseModel):
     form_type_ii: Literal["rozbudowany"] = Field(
         "rozbudowany",
+        alias="typ_transakcji",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
     )
