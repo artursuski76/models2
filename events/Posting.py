@@ -2,7 +2,7 @@ from datetime import date
 from decimal import Decimal
 from typing import Optional, List
 
-from pydantic import Field, model_validator
+from pydantic import Field, model_validator, ConfigDict
 
 from models2.abase import BasicBasic
 from models2.enums import VATTransactionType
@@ -13,6 +13,7 @@ from models2.xxx.h_enums import Currency, UnitType, EuropeLandsEnum, WorldLandsE
 
 
 class Posting(BasicBasic):
+    model_config = ConfigDict(populate_by_name=True)
 
     model_name: str = Field(
         "Posting",

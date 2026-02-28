@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Optional
 
-from pydantic import Field, model_validator
+from pydantic import Field, model_validator, ConfigDict
 
 from models2.abase import BasicBasic
 from models2.enums import SourceDocumentType
@@ -10,7 +10,7 @@ from models2.xxx.h_enums import Currency
 
 
 class JournalEntry(BasicBasic):
-
+    model_config = ConfigDict(populate_by_name=True)
 
     model_name: str = Field(
         "JournalEntry",
