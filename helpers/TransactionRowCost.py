@@ -17,6 +17,11 @@ class TransactionRowBase(BaseModel):
     amount_vat: Decimal = Field(..., max_digits=12, decimal_places=2, title="VAT")
     amount_gross: Decimal = Field(..., max_digits=12, decimal_places=2, title="Brutto")
 
+    quantity: Optional[Decimal] = Field(None, title="Ilość")
+    uom: Optional[str] = Field(None, title="Jednostka miary")
+    unit_price_net: Optional[Decimal] = Field(None, title="Cena jedn. netto")
+    inventory_item_id: Optional[str] = Field(None, title="Kod inwent.", alias="inventory_ref")
+
 
     # @model_validator(mode="after")
     # def validate_math_base(self) -> "TransactionRowBase":
