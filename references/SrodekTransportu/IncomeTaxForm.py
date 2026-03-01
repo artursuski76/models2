@@ -1,7 +1,7 @@
-from enum import Enum
-
-class IncomeTaxForm(str, Enum):
-    OWNED = "posiadanie"
-    LEASE_FINANCIAL = "leasing_finansowy"
-    LEASE_OPERATING = "leasing_operacyjny"
-    RENT = "najem"
+# from enum import Enum
+#
+# class IncomeTaxForm(str, Enum):
+#     OWNED = "posiadanie"
+#     LEASE_FINANCIAL = "leasing_finansowy"
+#     LEASE_OPERATING = "leasing_operacyjny"
+#     RENT = "najem"

@@ -488,3 +488,5 @@ class SaleAccounts(str, Enum):
 class TowarUsluga(str, Enum):
     T = "T"
     U = "U"
+
+
