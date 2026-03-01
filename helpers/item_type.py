@@ -28,9 +28,9 @@ class SrodekTrwaly(BaseModel):
     )
 
 
-class SrodekTrwalyTransportu(SrodekTransportu):
-    item_type: Literal["srodek_trwaly_transportu"] = Field(
-        "srodek_trwaly_transportu",
+class SrodekTrwalyTransportowy(SrodekTransportu):
+    item_type: Literal["srodek_trwaly_transportowy"] = Field(
+        "srodek_trwaly_transportowy",
         alias="typ_transakcji"
     )
 
@@ -44,9 +44,9 @@ class UzytkowanaRzecz(BaseModel):
     )
 
 
-class UzytkowanySrodekTransportu(SrodekTransportu):
-    item_type: Literal["uzytkowany_srodek_transportu"] = Field(
-        "uzytkowany_srodek_transportu",
+class UzytkowanySrodekTransportowy(SrodekTransportu):
+    item_type: Literal["uzytkowany_srodek_transportowy"] = Field(
+        "uzytkowany_srodek_transportowy",
         alias="typ_transakcji"
     )
 

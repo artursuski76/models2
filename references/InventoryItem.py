@@ -69,7 +69,8 @@ class InventoryItem(BasicBasic, FlattenMixin):
 
     active: InventoryItemActive = Field(
         InventoryItemActive.BOTH,
-        title="Aktywny w*"
+        title="Aktywny w*",
+        json_schema_extra = {"flatten": True}
     )
 
     class FormConfig:
