@@ -10,7 +10,7 @@ from models2.references.SrodekTransportu.VehicleUsageType import VehicleUsageTyp
 
 class VehicleIncomeTaxProfile(BaseModel):
 
-    tax_form: IncomeTaxForm = IncomeTaxForm.OWNED
+    tax_form: IncomeTaxForm = IncomeTaxForm.LEASE_OPERATING
 
     fuel: FuelTaxVehicleCategory = Field(default=FuelTaxVehicleCategory.GASOLINE)
 
@@ -32,10 +32,19 @@ class VehicleIncomeTaxProfile(BaseModel):
         if self.custom_limit:
             return self.custom_limit
 
-        if self.is_electric:
+        if self.fuel == FuelTaxVehicleCategory.GASOLINE:
+            return Decimal("100000.00")
+
+        if self.fuel == FuelTaxVehicleCategory.DIESEL:
+            return Decimal("100000.00")
+
+        if self.fuel == FuelTaxVehicleCategory.HYBRID_PLUGIN:
+            return Decimal("150000.00")
+
+        if self.fuel == FuelTaxVehicleCategory.ELECTRIC:
             return Decimal("225000.00")
 
-        return Decimal("150000.00")
+        return Decimal("225000.00")
 
     def get_deductible_ratio(self) -> Decimal:
         """
