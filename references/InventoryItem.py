@@ -7,8 +7,8 @@ from models2.enums import InventoryItemUnit, SymbolGTU, InventoryItemActive, \
     VatOssCategory
 from models2.helpers.FlattenMixin import FlattenMixin
 from models2.helpers.form_type_ii import Prosty, Rozbudowany
-from models2.helpers.item_type import PozycjaMagazynowa, Usluga, ProduktWlasny, SrodekTrwaly, LicencjePrawa, \
-    RzeczUzytkowana
+from models2.helpers.item_type import PozycjaMagazynowa, Usluga, ProduktWlasny, SrodekTrwaly, SrodekTrwalyTransportu, \
+    UzytkowanaRzecz, UzytkowanySrodekTransportu, WartosciNiematerialneIPrawne, Produkt
 
 
 class InventoryItem(BasicBasic, FlattenMixin):
