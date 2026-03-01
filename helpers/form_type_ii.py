@@ -2,6 +2,7 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
 
+from models2.enums import VatOssCategory, SymbolGTU
 
 
 class Prosty(BaseModel):
@@ -20,7 +21,11 @@ class Rozbudowany(BaseModel):
         json_schema_extra={"exclude_from_form": True}
     )
 
-
+    vat_oss_category: VatOssCategory = Field(
+        VatOssCategory.OTHER_ARTICLES,
+        alias="vat_oss_category",
+        title="Kategoria dla VAT-OSS*"
+    )
 
     suppliers_product_id: Optional[str] = Field(
         None,
@@ -56,4 +61,8 @@ class Rozbudowany(BaseModel):
     cn: Optional[str] = Field(
         None,
         alias="cn"
+    )
+    gtu: SymbolGTU = Field(
+        None,
+        title="GTU"
     )

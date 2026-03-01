@@ -5,23 +5,23 @@ from pydantic import BaseModel, Field, model_validator
 from models2.references.SrodekTransportu.VatDeductionBasis import VatDeductionBasis
 
 
-class VehicleVatProfile(BaseModel):
+# class VehicleVatProfile(BaseModel):
 
-    deduction_basis: VatDeductionBasis = Field(
-        default=VatDeductionBasis.MIXED_USE_50
-    )
-
-    deduction_percentage: Decimal = Field(
-        default=Decimal("50.00"),
-        max_digits=5,
-        decimal_places=2
-    )
-
-    vat_26_submitted: bool = False
-    mileage_log_kept: bool = False
-    structural_full_right: bool = False
-
-    correction_period_years: int = 5  # standard 5 lat dla środków trwałych
+    # vat_deduction_basis: VatDeductionBasis = Field(
+    #     default=VatDeductionBasis.MIXED_USE_50
+    # )
+    #
+    # vat_deduction_percentage: Decimal = Field(
+    #     default=Decimal("50.00"),
+    #     max_digits=5,
+    #     decimal_places=2
+    # )
+    #
+    # vat_26_submitted: bool = False
+    # vat_mileage_log_kept: bool = False
+    # vat_structural_full_right: bool = False
+    #
+    # vat_correction_period_years: int = 5  # standard 5 lat dla środków trwałych
 
     # =====================================================
     # WALIDATORY

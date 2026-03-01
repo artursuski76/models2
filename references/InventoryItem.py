@@ -67,11 +67,6 @@ class InventoryItem(BasicBasic, FlattenMixin):
         title="GTU"
     )
 
-    vat_oss_category: VatOssCategory = Field(
-        VatOssCategory.OTHER_ARTICLES,
-        alias="vat_oss_category",
-        title="Kategoria dla VAT-OSS*"
-    )
 
     unit: InventoryItemUnit = Field(
         InventoryItemUnit,

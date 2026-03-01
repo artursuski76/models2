@@ -5,7 +5,7 @@ from pydantic import Field
 
 from models2.enums import ValuationMethod
 
-from models2.references.SrodekTransportu.SrodekTransportu import SrodekTransportu
+
 
 
 class PozycjaMagazynowa(BaseModel):

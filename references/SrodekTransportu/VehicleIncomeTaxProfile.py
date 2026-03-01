@@ -12,78 +12,15 @@ class VehicleIncomeTaxProfile(BaseModel):
 
     tax_form: IncomeTaxForm = IncomeTaxForm.LEASE_OPERATING
 
-    fuel: FuelTaxVehicleCategory = Field(default=FuelTaxVehicleCategory.GASOLINE)
+    tax_category_fuel: FuelTaxVehicleCategory = Field(default=FuelTaxVehicleCategory.GASOLINE)
 
-    purchase_value: Decimal = Field(
+    tax_purchase_value: Decimal = Field(
         default=0,
         max_digits=12,
         decimal_places=2
     )
 
-    custom_limit: Optional[Decimal] = None
+    tax_custom_limit: Optional[Decimal] = Field(None, max_digits=12, decimal_places=2)
 
-    usage_type: VehicleUsageType = VehicleUsageType.MIXED_USE
+    tax_usage_type: VehicleUsageType = VehicleUsageType.MIXED_USE
 
-    # =====================================================
-    # LOGIKA LIMITU
-    # =====================================================
-
-    def get_limit(self) -> Decimal:
-        if self.custom_limit:
-            return self.custom_limit
-
-        if self.fuel == FuelTaxVehicleCategory.GASOLINE:
-            return Decimal("100000.00")
-
-        if self.fuel == FuelTaxVehicleCategory.DIESEL:
-            return Decimal("100000.00")
-
-        if self.fuel == FuelTaxVehicleCategory.HYBRID_PLUGIN:
-            return Decimal("150000.00")
-
-        if self.fuel == FuelTaxVehicleCategory.ELECTRIC:
-            return Decimal("225000.00")
-
-        return Decimal("225000.00")
-
-    def get_deductible_ratio(self) -> Decimal:
-        """
-        Zwraca proporcję kosztową przy przekroczeniu limitu.
-        """
-        limit = self.get_limit()
-
-        if self.purchase_value == 0:
-            return Decimal("0")
-
-        if self.purchase_value <= limit:
-            return Decimal("1")
-
-        return limit / self.purchase_value
-
-    def get_cost_usage_ratio(self) -> Decimal:
-        """
-        75% kosztów przy użytku mieszanym (eksploatacja).
-        100% przy firmowym.
-        """
-        if self.usage_type == VehicleUsageType.MIXED_USE:
-            return Decimal("0.75")
-
-        if self.usage_type == VehicleUsageType.BUSINESS_ONLY:
-            return Decimal("1.00")
-
-        return Decimal("0.00")
-
-    # =====================================================
-    # WALIDATOR
-    # =====================================================
-
-    @model_validator(mode="after")
-    def validate_income_tax_logic(self):
-
-        if self.purchase_value < 0:
-            raise ValueError("Wartość pojazdu nie może być ujemna.")
-
-        if self.tax_form == IncomeTaxForm.LEASE_OPERATING and self.purchase_value == 0:
-            raise ValueError("Leasing wymaga określenia wartości pojazdu do limitu.")
-
-        return self

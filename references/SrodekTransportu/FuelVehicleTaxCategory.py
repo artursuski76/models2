@@ -8,5 +8,4 @@ class FuelTaxVehicleCategory(str, Enum):
     ELECTRIC = "elektryczny"
     HYDROGEN = "wodor"
 
-    def __str__(self) -> str:
-        return self.value
+
