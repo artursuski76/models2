@@ -61,11 +61,6 @@ class InventoryItem(BasicBasic, FlattenMixin):
         title="Opis"
     )
 
-    gtu: SymbolGTU = Field(
-        None,
-        title="GTU"
-    )
-
 
     unit: InventoryItemUnit = Field(
         InventoryItemUnit,
