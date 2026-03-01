@@ -31,10 +31,13 @@ class InventoryItem(BasicBasic, FlattenMixin):
 
     item_type: Union[
         PozycjaMagazynowa,
-        LicencjePrawa,
-        ProduktWlasny,
-        RzeczUzytkowana,
         SrodekTrwaly,
+        SrodekTrwalyTransportu,
+        UzytkowanaRzecz,
+        UzytkowanySrodekTransportu,
+        WartosciNiematerialneIPrawne,
+        ProduktWlasny,
+        Produkt,
         Usluga
     ] = Field(
         ...,

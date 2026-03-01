@@ -193,24 +193,27 @@ class VatCategoryTargetType(str, Enum):
 #####################################################################
 
 class VatCostCategoryTargetType(str, Enum):
-
-    NIE_PODLEGA = "NIE_PODLEGA"
-    NABYCIE_KRAJOWE = "NABYCIE_KRAJOWE"
-    NABYCIE_KRAJOWE_SR_TRW = "NABYCIE_KRAJOWE_SR_TRW"
-
-    IMPORT_USL_NIE_28B = "IMPORT_USL_NIE_28B"
-    IMPORT_USL_28B = "IMPORT_USL_28B"
-
-    WNT = "WNT"
-    WNT_SR_TRW = "WNT_SR_TRW"
-    WNT_SR_TRW_TRANS = "WNT_SR_TRW_TRANS"
-
-    IMPORT_TOW_ART33A = "IMPORT_TOW_ART33A"
-    IMPORT_TOW_ART33A_SR_TRW = "IMPORT_TOW_ART33A_SR_TRW"
-
-
-    NABYCIE_OO_KRAJ_TOWAR = "NABYCIE_OO_KRAJ_TOWAR"
-    NABYCIE_OO_KRAJ_USLUGI = "NABYCIE_OO_KRAJ_USLUGI"
+    IMPORT_TOW_33A = "import_tow_33a"
+    IMPORT_TOW_33A_INWENTARZ = "import_tow_33a_inwentarz"
+    IMPORT_TOW_33A_RELACJA = "import_tow_33a_relacja"
+    IMPORT_USLUG_28B = "import_uslug_28b"
+    IMPORT_USLUG_28B_RELACJA = "import_uslug_28b_relacja"
+    IMPORT_USLUG_NIE_28B = "import_uslug_nie_28b"
+    IMPORT_USLUG_NIE_28B_RELACJA = "import_uslug_nie_28b_relacja"
+    NABYCIE_KRAJOWE = "nabycie_krajowe"
+    NABYCIE_KRAJOWE_INWENTARZ = "nabycie_krajowe_inwentarz"
+    NABYCIE_KRAJOWE_RELACJA = "nabycie_krajowe_relacja"
+    NIE_PODLEGA = "nie_podlega"
+    NIE_PODLEGA_INWENTARZ = "nie_podlega_inwentarz"
+    NIE_PODLEGA_RELACJA = "nie_podlega_relacja"
+    NABYCIE_OO_KRAJ_TOWAR = "oo_kraj_towar"
+    NABYCIE_OO_KRAJ_TOWAR_INWENTARZ = "oo_kraj_towar_inwentarz"
+    NABYCIE_OO_KRAJ_TOWAR_RELACJA = "oo_kraj_towar_relacja"
+    NABYCIE_OO_KRAJ_USLUGA = "oo_kraj_usluga"
+    NABYCIE_OO_KRAJ_USLUGA_RELACJA = "oo_kraj_usluga_relacja"
+    WNT = "wnt"
+    WNT_INWENTARZ = "wnt_inwentarz"
+    WNT_RELACJA = "wnt_relacja"
 
 class CostRowType(str, Enum):
     DAROWIZNY = "darowizny"
@@ -370,6 +373,16 @@ class PostingFlags(str, Enum):
     NKUP = "nkup"
     POW_KAP = "pow_kap"
     POW_OSOB = "pow_osob"
+
+class VatCalculationMode(str, Enum):
+    DOCUMENT = "DOCUMENT"
+    JPK = "JPK"
+    NONE = "NONE"
+
+class CostRowCalculationMode(str, Enum):
+    SIMPLE = "SIMPLE"                 # zwykłe nabycie_krajowe
+    INVENTORY = "INVENTORY"           # nabycie_krajowe_inwentarz
+    RELATION = "RELATION"   # nabycie_krajowe_relacja
 
 class AccountingRuleAction(str, Enum):
     CREATE_VAT_POSTINGS = "CREATE_VAT_POSTINGS"  # klasyczne księgowanie VAT
