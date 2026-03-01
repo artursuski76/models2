@@ -3,6 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field, model_validator
 
+from models2.references.SrodekTransportu.FuelVehicleTaxCategory import FuelTaxVehicleCategory
 from models2.references.SrodekTransportu.IncomeTaxForm import IncomeTaxForm
 from models2.references.SrodekTransportu.VehicleUsageType import VehicleUsageType
 
@@ -11,10 +12,10 @@ class VehicleIncomeTaxProfile(BaseModel):
 
     tax_form: IncomeTaxForm = IncomeTaxForm.OWNED
 
-    is_electric: bool = False
+    fuel: FuelTaxVehicleCategory = Field(default=FuelTaxVehicleCategory.GASOLINE)
 
     purchase_value: Decimal = Field(
-        default=Decimal("0.00"),
+        default=0,
         max_digits=12,
         decimal_places=2
     )
