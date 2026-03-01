@@ -32,11 +32,11 @@ class SrodekTransportu(BaseModel):
         default=VatDeductionBasis.MIXED_USE_50
     )
     vat_deduction_percentage: Decimal = Field(
-        default=Decimal("50.00"),
+        default=50.0,
         max_digits=5,
         decimal_places=2
     )
     vat_26_submitted: bool = False
     vat_mileage_log_kept: bool = False
     vat_structural_full_right: bool = False
-    vat_correction_period_years: int = 5  # standard 5 lat dla środków trwałych
+    vat_correction_period_monats: int = 60  # standard 5 lat dla środków trwałych
