@@ -69,10 +69,11 @@ class SrodekTransportu(BaseModel):
     vat_mileage_log_kept: bool = False
     vat_structural_full_right: bool = False
 
-    vat_correction_period_months: int = Field(
-        default=60,
-        ge=1
-    )
+ # potrzebne do modelu SrodekTrwaly
+    # vat_correction_period_months: int = Field(
+    #     default=60,
+    #     ge=1
+    # )
 
     # =====================================================
     # WALIDACJA VAT

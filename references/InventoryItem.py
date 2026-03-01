@@ -7,7 +7,7 @@ from models2.enums import InventoryItemUnit, InventoryItemActive
 from models2.helpers.FlattenMixin import FlattenMixin
 from models2.helpers.form_type_ii import Prosty, Rozbudowany
 from models2.helpers.item_type import PozycjaMagazynowa, Usluga, ProduktWlasny, SrodekTrwaly, SrodekTrwalyTransportowy, \
-    UzytkowanaRzecz, UzytkowanySrodekTransportowy, WartosciNiematerialneIPrawne, Produkt
+    UzytkowanaRzecz, WartosciNiematerialneIPrawne, Produkt, UzytkowanaRzeczTransportowa
 
 
 class InventoryItem(BasicBasic, FlattenMixin):
@@ -33,7 +33,7 @@ class InventoryItem(BasicBasic, FlattenMixin):
         SrodekTrwaly,
         SrodekTrwalyTransportowy,
         UzytkowanaRzecz,
-        UzytkowanySrodekTransportowy,
+        UzytkowanaRzeczTransportowa,
         WartosciNiematerialneIPrawne,
         ProduktWlasny,
         Produkt,

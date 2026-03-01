@@ -4,8 +4,13 @@ from pydantic import BaseModel
 from pydantic import Field
 
 from models2.enums import ValuationMethod
-from models2.references.SrodekTransportu.SrodekTransportu import SrodekTransportu
 
+from models2.references.SrodekTransportu.VehicleLimitPeriod import VehicleLimitPeriod
+from models2.references.SrodekTransportu.VehicleTaxProfile import VehicleTaxProfile
+
+class VehicleItemFields(BaseModel):
+    vehicle_limit_period: VehicleLimitPeriod
+    vehicle_tax_profile: VehicleTaxProfile
 
 class PozycjaMagazynowa(BaseModel):
     item_type: Literal["pozycja_magazynowa"] = Field(
@@ -27,11 +32,11 @@ class SrodekTrwaly(BaseModel):
         json_schema_extra={"exclude_from_form": True}
     )
 
-
-class SrodekTrwalyTransportowy(SrodekTransportu):
+class SrodekTrwalyTransportowy(VehicleItemFields):
     item_type: Literal["srodek_trwaly_transportowy"] = Field(
         "srodek_trwaly_transportowy",
-        alias="typ_transakcji"
+        alias="typ_transakcji",
+        json_schema_extra={"exclude_from_form": True}
     )
 
 
@@ -43,13 +48,12 @@ class UzytkowanaRzecz(BaseModel):
         json_schema_extra={"exclude_from_form": True}
     )
 
-
-class UzytkowanySrodekTransportowy(SrodekTransportu):
-    item_type: Literal["uzytkowany_srodek_transportowy"] = Field(
-        "uzytkowany_srodek_transportowy",
-        alias="typ_transakcji"
+class UzytkowanaRzeczTransportowa(VehicleItemFields):
+    item_type: Literal["uzytkowana_rzecz_transportowa"] = Field(
+        "uzytkowana_rzecz_transportowa",
+        alias="typ_transakcji",
+        json_schema_extra={"exclude_from_form": True}
     )
-
 
 class WartosciNiematerialneIPrawne(BaseModel):
     item_type: Literal["wartosci_niematerialne_i_prawne"] = Field(
