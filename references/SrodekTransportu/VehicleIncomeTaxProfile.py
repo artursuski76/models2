@@ -83,7 +83,7 @@ class VehicleIncomeTaxProfile(BaseModel):
         if self.purchase_value < 0:
             raise ValueError("Wartość pojazdu nie może być ujemna.")
 
-        if self.tax_form == IncomeTaxForm.LEASE and self.purchase_value == 0:
+        if self.tax_form == IncomeTaxForm.LEASE_OPERATING and self.purchase_value == 0:
             raise ValueError("Leasing wymaga określenia wartości pojazdu do limitu.")
 
         return self
