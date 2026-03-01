@@ -4,13 +4,8 @@ from pydantic import BaseModel
 from pydantic import Field
 
 from models2.enums import ValuationMethod
-
-from models2.references.SrodekTransportu.VehicleLimitPeriod import VehicleLimitPeriod
 from models2.references.SrodekTransportu.VehicleTaxProfile import VehicleTaxProfile
 
-class VehicleItemFields(BaseModel):
-    vehicle_limit_period: VehicleLimitPeriod
-    vehicle_tax_profile: VehicleTaxProfile
 
 class PozycjaMagazynowa(BaseModel):
     item_type: Literal["pozycja_magazynowa"] = Field(
@@ -32,7 +27,7 @@ class SrodekTrwaly(BaseModel):
         json_schema_extra={"exclude_from_form": True}
     )
 
-class SrodekTrwalyTransportowy(VehicleItemFields):
+class SrodekTrwalyTransportowy(VehicleTaxProfile):
     item_type: Literal["srodek_trwaly_transportowy"] = Field(
         "srodek_trwaly_transportowy",
         alias="typ_transakcji",
@@ -48,7 +43,7 @@ class UzytkowanaRzecz(BaseModel):
         json_schema_extra={"exclude_from_form": True}
     )
 
-class UzytkowanaRzeczTransportowa(VehicleItemFields):
+class UzytkowanaRzeczTransportowa(VehicleTaxProfile):
     item_type: Literal["uzytkowana_rzecz_transportowa"] = Field(
         "uzytkowana_rzecz_transportowa",
         alias="typ_transakcji",
