@@ -13,7 +13,7 @@ class TaxLimitType(str, Enum):
 class TaxUzytkowanieAuta(str, Enum):
     TYLKO_FIRMOWO = "tylko_firmowo"
     TYLKO_PRYWATNIE = "tylko_prywatnie"
-    MIESZANIE = "mieszanie"
+    MIESZANY = "mieszany"
 
 class VehicleLimitPeriod(BaseModel):
     valid_from: date = Field(..., title="Data obowiązywania", description="Data, od kiedy obowiązuje limit")
