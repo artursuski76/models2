@@ -101,7 +101,8 @@ def generate_form_rules(model_cls):
         
         visible_if = {}
         # heurystyka: jeśli pole nie jest wymagane i mamy parent_field, dodajemy placeholder widoczności
-        if not required and parent_field_name and name != parent_field_name:
+        # CHYBA ŻE flaga exclude_from_visibility_logic jest True
+        if not required and parent_field_name and name != parent_field_name and not extra.get("exclude_from_visibility_logic"):
             visible_if = {parent_field_name: "EXPECTED_VALUE"}
 
         # jeśli typ jest Enum lub Literal → wyciągamy opcje
