@@ -50,9 +50,8 @@ class ApiloToken(BasicBasic):
 
     status_for_inv: Optional[int] = Field(None, title="Status Apilo Order do automatycznych faktur")
     payment_status_for_counterparty: Optional[int] = Field(None, title="Status patności dla tworzenia kontrahenta")
-    frazy_dla_przesylek: Optional[str] = Field(None, title="Frazy dla przesyłek")
-    kategoria_dla_przesylek: Optional[str] = Field(None, title="Kategoria dla przesyłek")
-    Kategoria_dla_towaru: Optional[str] = Field(None, title="Kategoria dla przesyłek")
+    frazy_dla_przesylek_23: Optional[str] = Field(None, title="Frazy dla przesyłek 23")
+    frazy_dla_przesylek_zw: Optional[str] = Field(None, title="Frazy dla przesyłek zw")
 
     class FormConfig:
         prefill_initial_data = True
