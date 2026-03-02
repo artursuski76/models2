@@ -48,6 +48,8 @@ class ApiloToken(BasicBasic):
     refresh_token: Optional[str] = Field(None, alias="refreshToken")
     rt_expires_at: Optional[str] = Field(None, alias="tokenExpiresAt")
 
+    auto_inv: Optional[int] = Field(None, title="Status Apilo Order do automatycznych faktur")
+
 
     class FormConfig:
         prefill_initial_data = True
