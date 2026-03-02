@@ -30,13 +30,7 @@ SaleTransactionRows = Annotated[
 ]
 
 class SaleTransactionItemsBasic(BaseModel):
-    transaction_items: List[SaleTransactionRows] = Field(
-        default_factory=list,
-        alias="WierszTransakcji",
-        title="Pozycje księgowania",
-        validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
-        serialization_alias="transaction_items",
-    )
+    pass
 
 
 class Podstawowa(SaleTransactionItemsBasic):
@@ -67,13 +61,6 @@ class Korekta(SaleTransactionItemsBasic):
         "Korekta",
         title="Rodzaj",
         json_schema_extra={"exclude_from_form": True}
-    )
-    transaction_items_after: List[SaleTransactionRows] = Field(
-        default_factory=list,
-        alias="WierszTransakcjiPoKorekcie",
-        title="Pozycje księgowania po korekcie",
-        validation_alias=AliasChoices("transaction_items_after", "WierszTransakcjiPoKorekcie"),
-        serialization_alias="transaction_items_after",
     )
     przyczyna_korekty: str = Field(
         default=None,

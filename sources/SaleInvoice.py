@@ -1,9 +1,9 @@
-from typing import Annotated, Union
+from typing import Annotated, Union, Any, List
 
-from pydantic import Field, computed_field, model_validator
+from pydantic import Field, computed_field, model_validator, AliasChoices
 
 from models2.basic.SaleInvoiceBasic import SaleInvoiceBasic
-from models2.helpers.sale_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta
+from models2.helpers.sale_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta, SaleTransactionRows
 
 RodzajFV = Annotated[
     Union[
@@ -19,13 +19,55 @@ RodzajFV = Annotated[
 
 
 class SaleInvoice(SaleInvoiceBasic):
+    @model_validator(mode="before")
+    @classmethod
+    def _preprocess_typtransakcji_vs_rodzajfv(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            # 1. Obsługa transaction_items i transaction_items_after na najwyższym poziomie
+            # Jeśli są w TypTransakcji lub rodzaj_fv, wyciągnij je wyżej
+            for field in ["rodzaj_fv", "TypTransakcji"]:
+                val = data.get(field)
+                if isinstance(val, dict):
+                    # transaction_items
+                    for item_field in ["transaction_items", "WierszTransakcji"]:
+                        if item_field in val and "transaction_items" not in data:
+                            data["transaction_items"] = val[item_field]
+                    # transaction_items_after
+                    for item_field_after in ["transaction_items_after", "WierszTransakcjiPoKorekcie"]:
+                        if item_field_after in val and "transaction_items_after" not in data:
+                            data["transaction_items_after"] = val[item_field_after]
+
+            # 2. Mapowanie rodzaj_fv -> TypTransakcji (rodzaj_fv_obj odpowiednik) dla pydantica
+            # SaleInvoice używa pola 'rodzaj_fv' z aliasem 'TypTransakcji'
+            if "rodzaj_fv" in data and "TypTransakcji" not in data:
+                if isinstance(data["rodzaj_fv"], str):
+                    data["TypTransakcji"] = {"rodzaj_fv": data["rodzaj_fv"]}
+                else:
+                    data["TypTransakcji"] = data.pop("rodzaj_fv")
+
+        return data
+
     rodzaj_fv: RodzajFV = Field(
         default=Podstawowa,
         discriminator='rodzaj_fv',
         alias="TypTransakcji",
         title="Typ transakcji",
+        exclude=True
     )
 
+    transaction_items: List[SaleTransactionRows] = Field(
+        default_factory=list,
+        alias="WierszTransakcji",
+        validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
+        title="Pozycje księgowania",
+    )
+
+    transaction_items_after: List[SaleTransactionRows] = Field(
+        default_factory=list,
+        alias="WierszTransakcjiPoKorekcie",
+        validation_alias=AliasChoices("transaction_items_after", "WierszTransakcjiPoKorekcie"),
+        title="Pozycje księgowania po korekcie",
+    )
 
     @computed_field(alias="rodzaj_fv")
     @property
@@ -48,14 +90,14 @@ class SaleInvoice(SaleInvoiceBasic):
         """
         # Dla korekty sprawdzamy sumy jako różnicę między 'after' a 'before'
         if self.rodzaj_fv.rodzaj_fv == "Korekta":
-            items_before = getattr(self.rodzaj_fv, "transaction_items", [])
-            items_after = getattr(self.rodzaj_fv, "transaction_items_after", [])
+            items_before = self.transaction_items
+            items_after = self.transaction_items_after
 
             sum_net = sum(row.amount_net for row in items_after) - sum(row.amount_net for row in items_before)
             sum_vat = sum(row.amount_vat for row in items_after) - sum(row.amount_vat for row in items_before)
             sum_gross = sum(row.amount_gross for row in items_after) - sum(row.amount_gross for row in items_before)
         else:
-            items = getattr(self.rodzaj_fv, "transaction_items", [])
+            items = self.transaction_items
             if not items:
                 return self
 
