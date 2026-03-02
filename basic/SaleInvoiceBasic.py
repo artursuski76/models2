@@ -136,6 +136,13 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
+    c_rodzaj_kontr: Optional[str] = Field(
+        None,
+        alias="RodzajKontr",
+        title="Rodzaj kontrahenta",
+        max_length=50,
+        json_schema_extra={"exclude_from_form": True}
+    )
 
     c_nazwa: Optional[str] = Field(
         None,
