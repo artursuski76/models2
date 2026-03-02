@@ -45,7 +45,7 @@ class TransactionRowBaseSale(BaseModel):
 
             # Dopuszczamy błąd zaokrągleń - np. 2 grosze lub 1% przy dużych kwotach
             # (przy liczeniu od brutto mogą wystąpić większe różnice)
-            tolerance = max(2, abs(expected_vat * 0.01))
+            tolerance = max(Decimal(2), abs(expected_vat * Decimal('0.01')))
 
             if abs(self.amount_vat - expected_vat) > tolerance:
                 raise ValueError(

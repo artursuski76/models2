@@ -120,7 +120,8 @@ class SaleInvoiceBasic(BasicBasic):
 
     ksef_ref: Optional[str] = Field(
         None,
-        alias="KsefRef"
+        alias="KsefRef",
+        json_schema_extra={"exclude_from_form": True}
     )
 
     original_payload_ref: str = Field(
