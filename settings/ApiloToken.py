@@ -38,10 +38,10 @@ class ApiloToken(BasicBasic):
         title="Endpoint API",
         description="Adres URL API APIlo"
     )
-    client_id: str = Field()
-    client_secret: str = Field()
-    authorize_code: str = Field()
-    waznosc_do: datetime.datetime = Field()
+    client_id: Optional[str] = Field()
+    client_secret: Optional[str] = Field()
+    authorize_code: Optional[str] = Field()
+    waznosc_do: Optional[str] = Field()
 
     access_token: Optional[str] = Field(None, alias="accessToken")
     at_expires_at: Optional[str] = Field(None, alias="atExpiresAt")
