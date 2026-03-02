@@ -9,16 +9,13 @@ from models2.enums import TowarUsluga, InventoryItemUnit
 
 
 class TransactionRowBaseSale(BaseModel):
-    tu: TowarUsluga = Field(
-        default=None,
-        title="T/U"
-    )
-    inventory_item_id: Optional[str] = Field(
+
+    inventory_item_id: str = Field(
         default=None,
         title="Kod inwent."
     )
     quantity: float = Field(title="Ilość")
-    uom: InventoryItemUnit = Field(title="Jednostka miary")
+    # uom: InventoryItemUnit = Field(title="Jednostka miary")
     unit_price_net: Decimal = Field(max_digits=12, decimal_places=2, title="Cena jednostkowa netto")
 
     description: Optional[str] = Field(

@@ -62,12 +62,7 @@ class SaleInvoice(SaleInvoiceBasic):
         title="Pozycje księgowania",
     )
 
-    transaction_items_after: List[SaleTransactionRows] = Field(
-        default_factory=list,
-        alias="WierszTransakcjiPoKorekcie",
-        validation_alias=AliasChoices("transaction_items_after", "WierszTransakcjiPoKorekcie"),
-        title="Pozycje księgowania po korekcie",
-    )
+
 
     @computed_field(alias="rodzaj_fv")
     @property
@@ -80,43 +75,6 @@ class SaleInvoice(SaleInvoiceBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-
-
-    @model_validator(mode="after")
-    def validate_totals_integrity(self) -> "SaleInvoice":
-        """
-        Sprawdza czy sumy w nagłówku (z SaleInvoiceBasic)
-        zgadzają się z sumą poszczególnych wierszy.
-        """
-        # Dla korekty sprawdzamy sumy jako różnicę między 'after' a 'before'
-        if self.rodzaj_fv.rodzaj_fv == "Korekta":
-            items_before = self.transaction_items
-            items_after = self.transaction_items_after
-
-            sum_net = sum(row.amount_net for row in items_after) - sum(row.amount_net for row in items_before)
-            sum_vat = sum(row.amount_vat for row in items_after) - sum(row.amount_vat for row in items_before)
-            sum_gross = sum(row.amount_gross for row in items_after) - sum(row.amount_gross for row in items_before)
-        else:
-            items = self.transaction_items
-            if not items:
-                return self
-
-            # Obliczamy sumy z wierszy
-            sum_net = sum(row.amount_net for row in items)
-            sum_vat = sum(row.amount_vat for row in items)
-            sum_gross = sum(row.amount_gross for row in items)
-
-        # 2. Porównanie z nagłówkiem (tolerancja 0, bo to liczby całkowite - grosze)
-        if sum_net != self.total_net:
-            raise ValueError(f"Suma Netto wierszy ({sum_net}) != Razem Netto ({self.total_net})")
-
-        if sum_vat != self.total_vat:
-            raise ValueError(f"Suma VAT wierszy ({sum_vat}) != Razem VAT ({self.total_vat})")
-
-        if sum_gross != self.total_gross:
-            raise ValueError(f"Suma Brutto wierszy ({sum_gross}) != Razem Brutto ({self.total_gross})")
-
-        return self
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
