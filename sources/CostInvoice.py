@@ -1,6 +1,6 @@
 from typing import Annotated, Union, Any
 
-from pydantic import Field, AliasChoices, model_validator, computed_field
+from pydantic import Field, AliasChoices, model_validator, computed_field, ConfigDict
 
 from models2.basic.CostInvoiceBasic import CostInvoiceBasic
 from models2.helpers.cost_invoice_type import PodstawowaK, ZaliczkowaK, RozliczeniowaK, KorektaK, TransactionRow
@@ -21,6 +21,8 @@ RodzajFV = Annotated[
 
 
 class CostInvoice(CostInvoiceBasic):
+    model_config = ConfigDict(populate_by_name=True, serialize_by_alias=True)
+
     # Pre-procesing: jeżeli klient wysyła dawny format z \"TypTransakcji\" zawierającym \"rodzaj_fv\",
     # to przenieś to do pola \"rodzaj_fv\" i ustaw domyślny \"transaction_type\".
     @model_validator(mode="before")
@@ -70,8 +72,8 @@ class CostInvoice(CostInvoiceBasic):
 
     transaction_items: list[TransactionRow] = Field(
         default_factory=list,
-        alias="transaction_items",
         validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
+        serialization_alias="WierszTransakcji",
         title="Pozycje księgowania",
     )
 

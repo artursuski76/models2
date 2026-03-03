@@ -20,7 +20,11 @@ from models2.xxx.h_enums import CurrencyAB, EuropeLandsEnum, WorldLandsEnum
 class SaleInvoiceBasic(BasicBasic):
     # files: List[TransactionFiles] = Field(default_factory=list)
 
-    model_config = ConfigDict(populate_by_name=True, title="Formularz Dodawania Sale Invoice")
+    model_config = ConfigDict(
+        populate_by_name=True,
+        serialize_by_alias=True,
+        title="Formularz Dodawania Sale Invoice"
+    )
 
     date_sale: Union[
         DostawaWDacieWystawienia,
@@ -137,9 +141,10 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    p2_rodzaj_kontr: Optional[str] = Field(
+    c_rodzaj_kontr: Optional[str] = Field(
         None,
         validation_alias=AliasChoices("RodzajKontr", "p2_rodzaj_kontr", "c_rodzaj_kontr"),
+        serialization_alias="RodzajKontr",
         title="Rodzaj kontrahenta",
         max_length=50,
         json_schema_extra={"exclude_from_form": True}
@@ -148,6 +153,7 @@ class SaleInvoiceBasic(BasicBasic):
     c_nazwa: Optional[str] = Field(
         None,
         validation_alias=AliasChoices("Nazwa", "p2_nazwa", "c_nazwa"),
+        serialization_alias="Nazwa",
         title="Pełna nazwa Kontrahenta",
         max_length=200,
         json_schema_extra={"exclude_from_form": True}
@@ -155,6 +161,7 @@ class SaleInvoiceBasic(BasicBasic):
     c_nip: Optional[str] = Field(
         None,
         validation_alias=AliasChoices("NIP", "p2_nip", "c_nip"),
+        serialization_alias="NIP",
         title="NIP",
         min_length=10,
         max_length=10,
@@ -164,12 +171,14 @@ class SaleInvoiceBasic(BasicBasic):
     c_kod_ue: Optional[EuropeLandsEnum] = Field(
         None,
         validation_alias=AliasChoices("KodUE", "c_kod_ue", "p2_kod_ue"),
+        serialization_alias="KodUE",
         title="VIESS – kod UE",
         json_schema_extra={"exclude_from_form": True}
     )
     c_nr_vat_ue: Optional[str] = Field(
         None,
         validation_alias=AliasChoices("NrVatUE", "c_nr_vat_ue", "p2_nr_vat_ue"),
+        serialization_alias="NrVatUE",
         title="VIESS – nr identyfikacyjny bez kodu kraju",
         json_schema_extra={"exclude_from_form": True}
     )
@@ -177,12 +186,14 @@ class SaleInvoiceBasic(BasicBasic):
     c_kod_kraju: Optional[WorldLandsEnum] = Field(
         None,
         validation_alias=AliasChoices("KodKraju", "c_kod_kraju", "p2_kod_kraju"),
+        serialization_alias="KodKraju",
         title="EKSPORT – kod kraju",
         json_schema_extra={"exclude_from_form": True}
     )
     c_tax_id: Optional[str] = Field(
         None,
         validation_alias=AliasChoices("NrID", "c_tax_id", "p2_tax_id"),
+        serialization_alias="NrID",
         title="EKSPORT – Numer podatkowy",
         json_schema_extra={"exclude_from_form": True}
     )

@@ -1,6 +1,6 @@
 from typing import Annotated, Union, Any, List
 
-from pydantic import Field, computed_field, model_validator, AliasChoices
+from pydantic import Field, computed_field, model_validator, AliasChoices, ConfigDict
 
 from models2.basic.SaleInvoiceBasic import SaleInvoiceBasic
 from models2.helpers.sale_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta, SaleTransactionRows
@@ -19,6 +19,8 @@ RodzajFV = Annotated[
 
 
 class SaleInvoice(SaleInvoiceBasic):
+    model_config = ConfigDict(populate_by_name=True, serialize_by_alias=True)
+
     @model_validator(mode="before")
     @classmethod
     def _preprocess_typtransakcji_vs_rodzajfv(cls, data: Any) -> Any:
@@ -57,8 +59,8 @@ class SaleInvoice(SaleInvoiceBasic):
 
     transaction_items: List[SaleTransactionRows] = Field(
         default_factory=list,
-        alias="WierszTransakcji",
         validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
+        serialization_alias="WierszTransakcji",
         title="Pozycje księgowania",
     )
 
