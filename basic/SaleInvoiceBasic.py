@@ -7,6 +7,7 @@ from typing import Union, Optional
 
 from pydantic import ConfigDict
 from pydantic import Field, model_validator, computed_field
+from pydantic import AliasChoices
 
 from models2.abase import BasicBasic
 from models2.enums import SourceInvoiceSource
@@ -136,9 +137,9 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    c_rodzaj_kontr: Optional[str] = Field(
+    p2_rodzaj_kontr: Optional[str] = Field(
         None,
-        alias="RodzajKontr",
+        validation_alias=AliasChoices("RodzajKontr", "p2_rodzaj_kontr", "c_rodzaj_kontr"),
         title="Rodzaj kontrahenta",
         max_length=50,
         json_schema_extra={"exclude_from_form": True}
@@ -146,14 +147,14 @@ class SaleInvoiceBasic(BasicBasic):
 
     c_nazwa: Optional[str] = Field(
         None,
-        alias="Nazwa",
+        validation_alias=AliasChoices("Nazwa", "p2_nazwa", "c_nazwa"),
         title="Pełna nazwa Kontrahenta",
         max_length=200,
         json_schema_extra={"exclude_from_form": True}
     )
     c_nip: Optional[str] = Field(
         None,
-        alias="NIP",
+        validation_alias=AliasChoices("NIP", "p2_nip", "c_nip"),
         title="NIP",
         min_length=10,
         max_length=10,
@@ -162,26 +163,26 @@ class SaleInvoiceBasic(BasicBasic):
     )
     c_kod_ue: Optional[EuropeLandsEnum] = Field(
         None,
-        alias="KodUE",
+        validation_alias=AliasChoices("KodUE", "c_kod_ue", "p2_kod_ue"),
         title="VIESS – kod UE",
         json_schema_extra={"exclude_from_form": True}
     )
     c_nr_vat_ue: Optional[str] = Field(
         None,
-        alias="NrVatUE",
+        validation_alias=AliasChoices("NrVatUE", "c_nr_vat_ue", "p2_nr_vat_ue"),
         title="VIESS – nr identyfikacyjny bez kodu kraju",
         json_schema_extra={"exclude_from_form": True}
     )
 
     c_kod_kraju: Optional[WorldLandsEnum] = Field(
         None,
-        alias="KodKraju",
+        validation_alias=AliasChoices("KodKraju", "c_kod_kraju", "p2_kod_kraju"),
         title="EKSPORT – kod kraju",
         json_schema_extra={"exclude_from_form": True}
     )
     c_tax_id: Optional[str] = Field(
         None,
-        alias="NrID",
+        validation_alias=AliasChoices("NrID", "c_tax_id", "p2_tax_id"),
         title="EKSPORT – Numer podatkowy",
         json_schema_extra={"exclude_from_form": True}
     )
