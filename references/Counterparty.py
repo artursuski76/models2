@@ -1,7 +1,7 @@
 
 from typing import Optional, Union, Dict, Any
 
-from pydantic import Field, model_serializer
+from pydantic import Field, model_serializer, ConfigDict
 
 from models2.xxx.h_dane_identyfikacyjne import (OsobaFizyczna,
                                                PodatnikKrajowy,
@@ -13,6 +13,10 @@ from models2.abase import BasicBasic
 
 
 class Counterparty(BasicBasic):
+    model_config = ConfigDict(
+        populate_by_name=True,
+        serialize_by_alias=True
+    )
 
     model_name: str = Field(
         "Counterparty",

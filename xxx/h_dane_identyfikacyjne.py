@@ -1,38 +1,45 @@
 from datetime import date
 from typing import Literal, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict, AliasChoices
 
 from models2.xxx.h_enums import EuropeLandsEnum, WorldLandsEnum
 from models2.enums import CounterpartyType
 
 
 class ZagraniczneFirmoweDaneIdentyfikacyjne(BaseModel):
+    model_config = ConfigDict(populate_by_name=True, serialize_by_alias=True)
+
     nazwa: str = Field(
         ...,
-        alias="Nazwa",
+        validation_alias=AliasChoices( "Nazwa", "nazwa" ),
+        serialization_alias="Nazwa",
         title="Pełna nazwa Kontrahenta",
         max_length=200
     )
     kod_ue: EuropeLandsEnum = Field(
         None,
-        alias="KodUE",
+        validation_alias=AliasChoices( "KodUE", "kod_ue" ),
+        serialization_alias="KodUE",
         title="VIESS – kod UE"
     )
     nr_vat_ue: Optional[str] = Field(
         None,
-        alias="NrVatUE",
+        validation_alias=AliasChoices( "NrVatUE", "nr_vat_ue" ),
+        serialization_alias="NrVatUE",
         title="VIESS – nr identyfikacyjny bez kodu kraju"
     )
 
     kod_kraju: WorldLandsEnum = Field(
         None,
-        alias="KodKraju",
+        validation_alias=AliasChoices( "KodKraju", "kod_kraju" ),
+        serialization_alias="KodKraju",
         title="EKSPORT – kod kraju"
     )
     tax_id: str = Field(
         None,
-        alias="NrID",
+        validation_alias=AliasChoices( "NrID", "tax_id" ),
+        serialization_alias="NrID",
         title="EKSPORT – Numer podatkowy"
     )
 
@@ -44,20 +51,23 @@ class OsobaFizyczna(BaseModel):
     )
     brak_id: str = Field(
         default="1",
-        alias="BrakID",
+        validation_alias=AliasChoices( "BrakID", "brak_id" ),
+        serialization_alias="BrakID",
         description="znacznik braku ID",
         json_schema_extra={"exclude_from_form": True}
     )
     nazwa: str = Field(
         ...,
-        alias="Nazwa",
+        validation_alias=AliasChoices( "Nazwa", "nazwa" ),
+        serialization_alias="Nazwa",
         title="Pełna nazwa Kontrahenta",
         max_length=200
     )
 
     type: CounterpartyType = Field(
         CounterpartyType,
-        alias="Typ",
+        validation_alias=AliasChoices( "Typ", "type"),
+        serialization_alias="Typ",
         title="Typ"
     )
 
@@ -70,13 +80,15 @@ class PodatnikKrajowy(BaseModel):
 
     nazwa: str = Field(
         ...,
-        alias="Nazwa",
+        validation_alias=AliasChoices( "Nazwa", "nazwa" ),
+        serialization_alias="Nazwa",
         title="Pełna nazwa Kontrahenta",
         max_length=200
     )
     nip: str = Field(
         ...,
-        alias="NIP",
+        validation_alias=AliasChoices( "NIP", "nip"),
+        serialization_alias="NIP",
         title="NIP",
         min_length=10,
         max_length=10,
@@ -84,7 +96,8 @@ class PodatnikKrajowy(BaseModel):
     )
     type: CounterpartyType = Field(
         CounterpartyType,
-        alias="Typ",
+        validation_alias=AliasChoices( "Typ", "type"),
+        serialization_alias="Typ",
         title="Typ"
     )
 
@@ -97,13 +110,15 @@ class PodatnikVIES(ZagraniczneFirmoweDaneIdentyfikacyjne):
 
     nazwa: str = Field(
         ...,
-        alias="Nazwa",
+        validation_alias=AliasChoices( "Nazwa", "nazwa" ),
+        serialization_alias="Nazwa",
         title="Pełna nazwa Kontrahenta",
         max_length=200
     )
     type: CounterpartyType = Field(
         CounterpartyType,
-        alias="Typ",
+        validation_alias=AliasChoices("Typ", "type"),
+        serialization_alias="Typ",
         title="Typ"
     )
 class PodatnikZagraniczny(ZagraniczneFirmoweDaneIdentyfikacyjne):
@@ -115,34 +130,18 @@ class PodatnikZagraniczny(ZagraniczneFirmoweDaneIdentyfikacyjne):
 
     nazwa: str = Field(
         ...,
-        alias="Nazwa",
+        validation_alias=AliasChoices( "Nazwa", "nazwa" ),
+        serialization_alias="Nazwa",
         title="Pełna nazwa Kontrahenta",
         max_length=200
     )
     type: CounterpartyType = Field(
         CounterpartyType,
-        alias="Typ",
+        validation_alias=AliasChoices("Typ", "type"),
+        serialization_alias="Typ",
         title="Typ"
     )
 
-# class OwnBankAccount(BaseModel):
-#     iban: str  # IBAN
-#     currency: str  # PLN, EUR
-#     accounting_code: str  # np. "130-01" (powiązanie z kontem w FK)
-#     name: str  # np. "Konto firmowe główne"
-
-
-
-# class Bank(BaseModel):
-#     rodzaj_kontr: Literal["bank"] = Field(
-#         "bank",
-#         title="Rodzaj",
-#         json_schema_extra={"exclude_from_form": True}
-#     )
-#     nazwa_banku: str = Field(
-#         None,
-#         description="Numer IBAN"
-#     )
 
 
 class UrzadSkarbowy(BaseModel):
@@ -153,6 +152,8 @@ class UrzadSkarbowy(BaseModel):
     )
     nazwa_urzedu: str = Field(
         None,
+        validation_alias=AliasChoices( "NazwaUrzedu", "nazwa_urzedu" ),
+        serialization_alias="NazwaUrzedu",
         title="Nazwa urzędu"
     )
 
