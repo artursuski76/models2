@@ -52,7 +52,6 @@ class ApiloToken(BasicBasic):
     status_for_inv: Optional[int] = Field(None, title="Status Apilo Order do automatycznych faktur")
     payment_status_for_counterparty: Optional[int] = Field(None, title="Status patności dla tworzenia kontrahenta")
 
-    frazy_dla_przesylek: Optional[str] = Field(None, title="Frazy dla przesyłek 23")
     type_1: ApiloTkoenKategoriePoz = Field(None, title="Typ 1")
     type_2: ApiloTkoenKategoriePoz = Field(None, title="Typ 2")
 
@@ -65,4 +64,4 @@ class ApiloToken(BasicBasic):
     class Couchbase:
         bucket = "Accounting"
         scope = "settings"
-        collection = "ksef_token"
+        collection = "apilo_token"
