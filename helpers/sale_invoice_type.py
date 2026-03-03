@@ -7,7 +7,7 @@ from pydantic import Field, AliasChoices
 from models2.enums_all.dane_fa_korygowanej import DaneFaKorygowanej
 from models2.enums_all.typy_korekty import SkutekPodatkowyKorekty
 from models2.helpers.TransactionRowSale import (EksportTowarow, Kraj0, Kraj0Art129, KrajSTD, Kraj5, Kraj8,
-                                                KrajOdwObc, KrajZW, Marza, OSS, PozaKrajem, WDT, PozaKrajUslugiArt28b)
+                                                KrajOdwObc, KrajZW, Marza, OSS, PozaKrajem, WDT, PozaKrajUslugi28b)
 
 
 SaleTransactionRows = Annotated[
@@ -24,7 +24,7 @@ SaleTransactionRows = Annotated[
         OSS,
         PozaKrajem,
         WDT,
-        PozaKrajUslugiArt28b
+        PozaKrajUslugi28b
     ],
     Field(discriminator="vat_category"),
 ]

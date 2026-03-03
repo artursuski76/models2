@@ -136,7 +136,7 @@ class PozaKrajem(TransactionRowBaseSale):
             raise ValueError('VAT rate must be exactly 0')
         return v
 
-class PozaKrajUslugiArt28b(TransactionRowBaseSale):
+class PozaKrajUslugi28b(TransactionRowBaseSale):
     vat_category: Literal["poza_kraj_usl_28b"] = "poza_kraj_usl_28b"
 
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")

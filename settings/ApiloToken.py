@@ -5,6 +5,7 @@ from typing import Optional
 
 # Zakładam, że BasicBasic dostarcza podstawowej funkcjonalności modelu
 from models2.abase import BasicBasic
+from models2.enums_all.ApiloTkoenKategoriePoz import ApiloTkoenKategoriePoz
 
 
 class SyncStatus(str, Enum):
@@ -50,8 +51,10 @@ class ApiloToken(BasicBasic):
 
     status_for_inv: Optional[int] = Field(None, title="Status Apilo Order do automatycznych faktur")
     payment_status_for_counterparty: Optional[int] = Field(None, title="Status patności dla tworzenia kontrahenta")
-    frazy_dla_przesylek_23: Optional[str] = Field(None, title="Frazy dla przesyłek 23")
-    frazy_dla_przesylek_zw: Optional[str] = Field(None, title="Frazy dla przesyłek zw")
+
+    frazy_dla_przesylek: Optional[str] = Field(None, title="Frazy dla przesyłek 23")
+    type_1: ApiloTkoenKategoriePoz = Field(None, title="Typ 1")
+    type_2: ApiloTkoenKategoriePoz = Field(None, title="Typ 2")
 
     class FormConfig:
         prefill_initial_data = True

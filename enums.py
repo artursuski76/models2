@@ -424,6 +424,7 @@ class SalesInvoiceType(str, Enum):
 class SourceInvoiceSource(str, Enum):
     MANUAL = "MANUAL"
     KSEF = "KSEF"
+    AUTOMATIC = "AUTOMATIC"
     IMPORT = "IMPORT"
 
 class SourceInvoiceStatus(str, Enum):

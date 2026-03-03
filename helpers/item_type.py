@@ -85,15 +85,15 @@ class Usluga(BaseModel):
     )
 
 class NieruchomosciWlasne(BaseModel):
-    item_type: Literal["budynki_lokalne"] = Field(
-        "budynki_lokale_wlasne",
+    item_type: Literal["nieruchomosci_wlasne"] = Field(
+        "nieruchomosci_wlasne",
         alias="typ_transakcji",
         json_schema_extra={"exclude_from_form": True}
     )
 
 class NieruchomosciNajmowane(BaseModel):
-    item_type: Literal["budynki_lokalne"] = Field(
-        "budynki_lokale_najmowane",
+    item_type: Literal["nieruchomosci_najmowane"] = Field(
+        "nieruchomosci_najmowane",
         alias="typ_transakcji",
         json_schema_extra={"exclude_from_form": True}
     )
