@@ -437,6 +437,7 @@ class SourceInvoiceStatus(str, Enum):
 class SaleKsefStatus(str, Enum):
     NOT_APPLICABLE = "not_applicable"
     NOT_SENT = "not_sent"
+    JSON_GENERATED = "json_generated"
     XML_GENERATED = "xml_generated"
     SENT = "sent"
     PROCESSING = "processing"
