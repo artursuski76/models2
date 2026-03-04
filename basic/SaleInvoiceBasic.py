@@ -10,15 +10,15 @@ from pydantic import Field, model_validator, computed_field
 from pydantic import AliasChoices
 
 from models2.abase import BasicBasic
-from models2.enums import SourceInvoiceSource
+from models2.enums import SourceInvoiceSource, SaleKsefStatus, SourceInvoiceStatus
 from models2.helpers.forms_type_sales_inv import DostawaWDacieWystawienia, WspolnaDataDostawy, DostawaWOkresieCzasu
 # from models2.helpers.money import Money
 from models2.helpers.sale_invoice_adnotacje import AdnotacjeNie, AdnotacjeTak
 from models2.xxx.h_enums import CurrencyAB, EuropeLandsEnum, WorldLandsEnum
+from models2.xxx.h_files import TransactionFiles
 
 
 class SaleInvoiceBasic(BasicBasic):
-    # files: List[TransactionFiles] = Field(default_factory=list)
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -33,7 +33,8 @@ class SaleInvoiceBasic(BasicBasic):
     ] = Field(
         ...,
         discriminator='date_sale',
-        alias="DataSprzedazy",
+        validation_alias=AliasChoices("DataSprzedazy", "date_sale"),
+        serialization_alias="DataSprzedazy",
         title="Data sprzedaży",
     )
 
@@ -63,7 +64,8 @@ class SaleInvoiceBasic(BasicBasic):
     ] = Field(
         ...,
         discriminator='adnotacje',
-        alias="Adnotacje",
+        validation_alias=AliasChoices("Adnotacje", "adnotacje"),
+        serialization_alias="Adnotacje",
         title="Adnotcje",
     )
 
@@ -99,7 +101,8 @@ class SaleInvoiceBasic(BasicBasic):
 
     currency: CurrencyAB = Field(
         CurrencyAB,
-        alias="Waluta",
+        validation_alias=AliasChoices("Waluta", "currency"),
+        serialization_alias="Waluta",
         title="Waluta",
     )
 
@@ -125,7 +128,34 @@ class SaleInvoiceBasic(BasicBasic):
 
     ksef_ref: Optional[str] = Field(
         None,
-        alias="KsefRef",
+        validation_alias=AliasChoices( "KsefRef", "ksef_ref" ),
+        serialization_alias="KsefRef",
+        json_schema_extra={"exclude_from_form": True}
+    )
+
+    ksef_status: SaleKsefStatus = Field(
+        SaleKsefStatus.NOT_SENT,
+        validation_alias=AliasChoices( "KsefStatus", "ksef_status" ),
+        serialization_alias="KsefStatus",
+        json_schema_extra={"exclude_from_form": True}
+    )
+    ksef_json_file: TransactionFiles | None = Field(
+        default=None,
+        validation_alias=AliasChoices( "KsefJsonFile", "ksef_json_file" ),
+        serialization_alias="KsefJsonFile",
+        json_schema_extra={"exclude_from_form": True}
+    )
+    ksef_xml_file: TransactionFiles | None = Field(
+        default=None,
+        validation_alias=AliasChoices( "KsefXmlFile", "ksef_xml_file" ),
+        serialization_alias="KsefXmlFile",
+        json_schema_extra={"exclude_from_form": True}
+    )
+
+    accounting_status: SourceInvoiceStatus = Field(
+        SourceInvoiceStatus.DRAFT,
+        validation_alias=AliasChoices( "StatusKonta", "accounting_status" ),
+        serialization_alias="StatusKonta",
         json_schema_extra={"exclude_from_form": True}
     )
 

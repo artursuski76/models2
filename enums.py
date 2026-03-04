@@ -428,10 +428,28 @@ class SourceInvoiceSource(str, Enum):
     IMPORT = "IMPORT"
 
 class SourceInvoiceStatus(str, Enum):
-    DRAFT = "draft",
-    VERIFIED = "verified",
-    APPROVED = "approved",
+    DRAFT = "draft"
+    VERIFIED = "verified"
+    APPROVED = "approved"
     POSTED = "posted"
+    CANCELLED = "cancelled"
+
+class SaleKsefStatus(str, Enum):
+    NOT_APPLICABLE = "not_applicable"
+    NOT_SENT = "not_sent"
+    XML_GENERATED = "xml_generated"
+    SENT = "sent"
+    PROCESSING = "processing"
+    ACCEPTED = "accepted"
+    REJECTED = "rejected"
+    ERROR = "error"
+
+class PurchaseKsefStatus(str, Enum):
+    NOT_APPLICABLE = "not_applicable"
+    IMPORTED = "imported"
+    MATCHED = "matched"
+    DUPLICATE = "duplicate"
+    REJECTED_IMPORT = "rejected_import"
 
 class VatDirection(str, Enum):
     PURCHASE = "PURCHASE"
