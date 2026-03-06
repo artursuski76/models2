@@ -5,7 +5,7 @@ from typing import List, Optional, Any  # Dodano Annotated
 from typing import Union
 
 from pydantic import ConfigDict
-from pydantic import Field, model_validator
+from pydantic import Field, model_validator, AliasChoices
 
 from models2.abase import BasicBasic
 from models2.enums import InvoiceType, SourceInvoiceSource
