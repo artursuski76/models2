@@ -133,9 +133,9 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    wyslij_do_ksef: bool = Field(
-        False,
-        validation_alias=AliasChoices( "WyslijDoKsef", "wyslij_do_ksef" ),
+    wyslij_do_ksef: bool | None = Field(
+        default=None,
+        validation_alias=AliasChoices("WyslijDoKsef", "wyslij_do_ksef"),
         serialization_alias="WyslijDoKsef",
     )
 
