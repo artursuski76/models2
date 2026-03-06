@@ -233,3 +233,21 @@ class SaleInvoiceBasic(BasicBasic):
         title="EKSPORT – Numer podatkowy",
         json_schema_extra={"exclude_from_form": True}
     )
+
+    c_address_l1: Optional[str] = Field(
+        None,
+        alias="CAdresL1",
+        title="Adres - ulica i nr",
+        max_length=100
+    )
+    c_address_l2: Optional[str] = Field(
+        None,
+        alias="CAdresL2",
+        title="Adres - kod i poczta",
+        max_length=100
+    )
+    c_address_country: WorldLandsEnum = Field(
+        WorldLandsEnum.PL,
+        alias="CKraj",
+        title="Adres - kraj",
+    )

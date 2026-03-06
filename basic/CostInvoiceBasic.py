@@ -144,7 +144,8 @@ class CostInvoiceBasic(BasicBasic, FlattenMixin):
 
     c_rodzaj_kontr: Optional[str] = Field(
         None,
-        alias="RodzajKontr",
+        validation_alias=AliasChoices("RodzajKontr", "p2_rodzaj_kontr", "c_rodzaj_kontr"),
+        serialization_alias="RodzajKontr",
         title="Rodzaj kontrahenta",
         max_length=50,
         json_schema_extra={"exclude_from_form": True}
@@ -152,14 +153,16 @@ class CostInvoiceBasic(BasicBasic, FlattenMixin):
 
     c_nazwa: Optional[str] = Field(
         None,
-        alias="Nazwa",
+        validation_alias=AliasChoices("Nazwa", "p2_nazwa", "c_nazwa"),
+        serialization_alias="Nazwa",
         title="Pełna nazwa Kontrahenta",
         max_length=200,
         json_schema_extra={"exclude_from_form": True}
     )
     c_nip: Optional[str] = Field(
         None,
-        alias="NIP",
+        validation_alias=AliasChoices("NIP", "p2_nip", "c_nip"),
+        serialization_alias="NIP",
         title="NIP",
         min_length=10,
         max_length=10,
@@ -168,26 +171,48 @@ class CostInvoiceBasic(BasicBasic, FlattenMixin):
     )
     c_kod_ue: Optional[EuropeLandsEnum] = Field(
         None,
-        alias="KodUE",
+        validation_alias=AliasChoices("KodUE", "c_kod_ue", "p2_kod_ue"),
+        serialization_alias="KodUE",
         title="VIESS – kod UE",
         json_schema_extra={"exclude_from_form": True}
     )
     c_nr_vat_ue: Optional[str] = Field(
         None,
-        alias="NrVatUE",
+        validation_alias=AliasChoices("NrVatUE", "c_nr_vat_ue", "p2_nr_vat_ue"),
+        serialization_alias="NrVatUE",
         title="VIESS – nr identyfikacyjny bez kodu kraju",
         json_schema_extra={"exclude_from_form": True}
     )
 
     c_kod_kraju: Optional[WorldLandsEnum] = Field(
         None,
-        alias="KodKraju",
+        validation_alias=AliasChoices("KodKraju", "c_kod_kraju", "p2_kod_kraju"),
+        serialization_alias="KodKraju",
         title="EKSPORT – kod kraju",
         json_schema_extra={"exclude_from_form": True}
     )
     c_tax_id: Optional[str] = Field(
         None,
-        alias="NrID",
+        validation_alias=AliasChoices("NrID", "c_tax_id", "p2_tax_id"),
+        serialization_alias="NrID",
         title="EKSPORT – Numer podatkowy",
         json_schema_extra={"exclude_from_form": True}
+    )
+
+    c_address_l1: Optional[str] = Field(
+        None,
+        alias="CAdresL1",
+        title="Adres - ulica i nr",
+        max_length=100
+    )
+    c_address_l2: Optional[str] = Field(
+        None,
+        alias="CAdresL2",
+        title="Adres - kod i poczta",
+        max_length=100
+    )
+    c_address_country: WorldLandsEnum = Field(
+        WorldLandsEnum.PL,
+        alias="CKraj",
+        title="Adres - kraj",
     )
