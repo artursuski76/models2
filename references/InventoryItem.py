@@ -61,10 +61,11 @@ class InventoryItem(BasicBasic, FlattenMixin):
         title="Opis"
     )
 
-
-    unit: InventoryItemUnit = Field(
-        InventoryItemUnit,
-        title="Jednostka miary*"
+    unit: str = Field(
+        ...,  # lub None, jeśli pole nie jest wymagane
+        title="Jednostka miary*",
+        max_length=20,
+        description="Dowolny ciąg znaków (np. szt., kg, opak.), max 20 znaków"
     )
 
     active: InventoryItemActive = Field(
