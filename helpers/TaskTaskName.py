@@ -15,6 +15,15 @@ class StatusyZamowienWooCommerce(str, Enum):
     CANCELLED = "cancelled"
     REFUNDED = "refunded"
 
+class StatusZamowienia(str, Enum):
+    PENDING = "pending"
+    PROCESSING = "processing"
+    ON_HOLD = "on-hold"
+    COMPLETED = "completed"
+    CANCELLED = "cancelled"
+    REFUNDED = "refunded"
+    FAILED = "failed"
+
 class Monthly(BaseModel):
     year: Year
     month: Month

@@ -4,6 +4,7 @@ from typing import Optional, Any, Dict
 from pydantic import ConfigDict, Field
 
 from models2.abase import BasicBasic
+from models2.helpers.TaskTaskName import StatusZamowienia
 
 
 class ApiloOrder(BasicBasic):
@@ -20,6 +21,7 @@ class ApiloOrder(BasicBasic):
         pattern=r"^[A-Za-z0-9]+(:[A-Z0-9][A-Za-z0-9]*)*$",
         description="Dozwolone tylko litery A-Z, a-z, cyfry 0-9 oraz myślniki. Zalecamy tax-id, pesel, ewentualnie nr-telefonu lub nazwę. Podana treść będzie głównym indeksem wyszukiwania klienta. Podanie istniejącego identyfikatora nadpisze dane w kartotece."
     )
+    status_zamowienia: StatusZamowienia = Field(default=StatusZamowienia.PENDING)
 
     processed_at: Optional[date] = Field(
         None,
@@ -49,7 +51,7 @@ class ApiloOrder(BasicBasic):
         header = "Lista zleceń pobranych z WooCommerce"
         # Optymalizacja N1QL: pobieraj tylko te pola do listy
         list_view_fields = [
-        "my_id", "simple", "payment", "processed_to_invoice" "processed_at", "sale_invoice_ref"
+        "my_id", "simple", "payment", "processed_to_invoice" "processed_at", "sale_invoice_ref", "status_zamowienia"
         ]
         default_sort_field = "date_completed"
         default_sort_dir = "DESC"
