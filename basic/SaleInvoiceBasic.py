@@ -133,6 +133,12 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
+    wyslij_do_ksef: bool = Field(
+        False,
+        validation_alias=AliasChoices( "WyslijDoKsef", "wyslij_do_ksef" ),
+        serialization_alias="WyslijDoKsef",
+    )
+
     ksef_status: SaleKsefStatus = Field(
         SaleKsefStatus.NOT_SENT,
         validation_alias=AliasChoices( "KsefStatus", "ksef_status" ),
