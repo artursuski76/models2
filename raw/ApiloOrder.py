@@ -70,7 +70,7 @@ class ApiloOrder(BasicBasic):
         list_view_fields = [
         "my_id", "simple", "payment", "processed_to_invoice" "processed_at", "sale_invoice_ref", "status_zamowienia"
         ]
-        default_sort_field = "date_completed"
+        default_sort_field = "createdAt"
         default_sort_dir = "DESC"
 
     class Couchbase:
