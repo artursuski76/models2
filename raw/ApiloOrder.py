@@ -1,12 +1,9 @@
-from datetime import date
-from typing import Optional, List, Any
+from datetime import date, datetime
+from typing import Optional, Any, Dict
 
-from pydantic import Field
 from pydantic import ConfigDict, Field
 
 from models2.abase import BasicBasic
-from models2.helpers.WooOrdersHelpers import WooBillingAndShipping, WooLineItems, WooShippingLines, WooMetaData
-
 
 
 class ApiloOrder(BasicBasic):
@@ -34,6 +31,18 @@ class ApiloOrder(BasicBasic):
         title="Data przetworzenia zamówienia",
         json_schema_extra={"exclude_from_form": True}
     )
+
+    # --- Twoje zdefiniowane pola najwyższego rzędu ---
+    processed_to_invoice: bool = Field(default=False)
+    processed_at: Optional[datetime] = None
+    sale_invoice_ref: Optional[str] = None
+
+    # Przykładowe pola obiektowe, które też mogą być "elastyczne"
+    # (Pamiętaj, by w ich definicjach w models2 również dodać extra='allow')
+    simple: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    details: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    payment: Optional[Dict[str, Any]] = Field(default_factory=dict)
+
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
