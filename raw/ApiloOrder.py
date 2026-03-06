@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Optional, Any, Dict
 
-from pydantic import ConfigDict, Field
+from pydantic import ConfigDict, Field, model_validator
 
 from models2.abase import BasicBasic
 from models2.helpers.TaskTaskName import StatusZamowienia
@@ -16,7 +16,8 @@ class ApiloOrder(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    my_id: str = Field(
+    my_id: Optional[str] = Field(
+        None,
         title="Unikalny ID, np.: Abcde:PL789331 *",
         pattern=r"^[A-Za-z0-9]+(:[A-Z0-9][A-Za-z0-9]*)*$",
         description="Dozwolone tylko litery A-Z, a-z, cyfry 0-9 oraz myślniki. Zalecamy tax-id, pesel, ewentualnie nr-telefonu lub nazwę. Podana treść będzie głównym indeksem wyszukiwania klienta. Podanie istniejącego identyfikatora nadpisze dane w kartotece."
@@ -44,6 +45,22 @@ class ApiloOrder(BasicBasic):
     simple: Optional[Dict[str, Any]] = Field(default_factory=dict)
     details: Optional[Dict[str, Any]] = Field(default_factory=dict)
     payment: Optional[Dict[str, Any]] = Field(default_factory=dict)
+
+    shipping_date: Optional[date] = Field(
+        None,
+        title="Data wysyłki"
+    )
+
+    @model_validator(mode='before')
+    @classmethod
+    def set_my_id_from_simple(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            my_id = data.get('my_id')
+            if not my_id:
+                simple = data.get('simple')
+                if isinstance(simple, dict) and 'id' in simple:
+                    data['my_id'] = str(simple['id'])
+        return data
 
 
     class FormConfig:
