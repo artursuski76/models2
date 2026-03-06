@@ -1,7 +1,7 @@
 
 from typing import Optional, Union, Dict, Any
 
-from pydantic import Field, model_serializer, ConfigDict
+from pydantic import Field, model_serializer, ConfigDict, model_validator
 
 from models2.xxx.h_dane_identyfikacyjne import (OsobaFizyczna,
                                                PodatnikKrajowy,
@@ -59,6 +59,20 @@ class Counterparty(BasicBasic):
         alias="DaneIdentyfikacyjne",
         title="Dane Kontrahenta"
     )
+
+    @model_validator(mode="before")
+    @classmethod
+    def wrap_dane_identyfikacyjne(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            # Jeśli dane_identyfikacyjne nie ma w słowniku, a jest rodzaj_kontr,
+            # to próbujemy "zwinąć" płaskie pola do dane_identyfikacyjne.
+            if "dane_identyfikacyjne" not in data and "DaneIdentyfikacyjne" not in data:
+                if "rodzaj_kontr" in data:
+                    # Pola, które mogą należeć do dane_identyfikacyjne
+                    # Możemy po prostu przekazać cały słownik jako dane_identyfikacyjne,
+                    # Pydantic wybierze to co potrzebuje dla konkretnego modelu z Union.
+                    data["dane_identyfikacyjne"] = data.copy()
+        return data
 
     @model_serializer(mode="wrap")
     def serialize_flat(self, handler) -> Dict[str, Any]:
