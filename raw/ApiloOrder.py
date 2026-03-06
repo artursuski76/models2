@@ -68,9 +68,9 @@ class ApiloOrder(BasicBasic):
         header = "Lista zleceń pobranych z WooCommerce"
         # Optymalizacja N1QL: pobieraj tylko te pola do listy
         list_view_fields = [
-        "my_id", "simple", "payment", "processed_to_invoice" "processed_at", "sale_invoice_ref", "status_zamowienia"
+        "my_id", "simple", "payment", "shipping_date", "processed_to_invoice", "processed_at", "sale_invoice_ref", "status_zamowienia"
         ]
-        default_sort_field = "createdAt"
+        default_sort_field = "simple.createdAt"
         default_sort_dir = "DESC"
 
     class Couchbase:
