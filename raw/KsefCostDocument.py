@@ -80,8 +80,8 @@ class KSeFCostDoc(BasicBasic):
         page_title = "Faktury kosztowe KSeF"
         header = "Lista faktur kosztowych KSeF"
         list_view_fields = [
-            "seller.name", "issueDate", "invoiceNumber", "grossAmount",
-            "currency", "invoiceType", "ksefNumber"
+            "seller", "issueDate", "invoiceNumber", "grossAmount",
+            "currency", "invoiceType", "ksefNumber", "buyer"
         ]
         default_sort_field = "issueDate"
         default_sort_dir = "DESC"
