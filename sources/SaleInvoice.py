@@ -84,7 +84,7 @@ class SaleInvoice(SaleInvoiceBasic):
         # Optymalizacja N1QL: pobieraj tylko te pola do listy
         list_view_fields = [
             "counterparty_id", "currency", "my_id", "date_posting", "total_net",
-            "wyslij_do_ksef", "WyslijDoKsef",
+            "wyslij_do_ksef", "WyslijDoKsef", "saleinvoice",
             "total_vat", "total_gross", "rodzaj_fv_flat", "original_payload_ref", "status",
             "transaction_items", "transaction_items_after", "transaction_items_count", "ksef_json_file", "ksef_xml_file",
         ]
