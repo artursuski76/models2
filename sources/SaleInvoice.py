@@ -103,8 +103,8 @@ class SaleInvoice(SaleInvoiceBasic):
             "KsefJsonFile",
             "KsefRef",
             "KsefStatus",
-            "KsefJsonFile",
-            "KsefXmlFile",
+            # "KsefJsonFile",
+            # "KsefXmlFile",
             "last_sync",
             "model_name",
             "my_id",
@@ -124,7 +124,7 @@ class SaleInvoice(SaleInvoiceBasic):
             "total_vat",
             "user_id",
             "Waluta",
-            "WierszTransakcji",
+            # "WierszTransakcji",
             "WyslijDoKsef",
         ]
         default_sort_field = "date_posting"
