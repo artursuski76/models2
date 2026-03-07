@@ -15,7 +15,7 @@ class TransactionRowBaseSale(BaseModel):
         title="Kod inwent."
     )
     quantity: float = Field(title="Ilość")
-    # uom: InventoryItemUnit = Field(title="Jednostka miary")
+    uom: str = Field(title="Jednostka miary")
     unit_price_net: Decimal = Field(max_digits=12, decimal_places=2, title="Cena jednostkowa netto")
     name: Optional[str] = Field(None, title="Nazwa")
 
