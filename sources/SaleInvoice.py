@@ -83,7 +83,6 @@ class SaleInvoice(SaleInvoiceBasic):
         header = "Lista zleceń pobranych z WooCommerce"
         # Optymalizacja N1QL: pobieraj tylko te pola do listy
         list_view_fields = [
-            "common_date_sale",
             "company_id",
             "company_uuid",
             "counter",
