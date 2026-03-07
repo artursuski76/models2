@@ -95,8 +95,6 @@ class SaleInvoice(SaleInvoiceBasic):
             "KsefJsonFile",
             "KsefRef",
             "KsefStatus",
-            "KsefJsonFile",
-            "KsefXmlFile",
             "model_name",
             "my_id",
             "Nazwa",
