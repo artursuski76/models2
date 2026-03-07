@@ -125,12 +125,12 @@ class CostInvoice(CostInvoiceBasic):
         return self
 
     class FormConfig:
-        page_title = "Zlecenia WooCommerce"
-        header = "Lista zleceń pobranych z WooCommerce"
+        page_title = "Faktury Kosztowe"
+        header = "Lista faktur kosztowych"
         # Optymalizacja N1QL: pobieraj tylko te pola do listy
         list_view_fields = [
             "counterparty_id", "inv_nr", "currency", "my_id", "date_posting", "total_net",
-            "total_vat", "total_gross", "transaction_items"
+            "total_vat", "total_gross", "WierszTransakcji"
         ]
         default_sort_field = "date_posting"
         default_sort_dir = "DESC"

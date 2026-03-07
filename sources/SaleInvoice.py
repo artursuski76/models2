@@ -72,7 +72,7 @@ class SaleInvoice(SaleInvoiceBasic):
         return self.rodzaj_fv.rodzaj_fv
 
     model_name: str = Field(
-        "CostInvoice",
+        "SaleInvoice",
         title="Nazwa Modelu",
         json_schema_extra={"exclude_from_form": True}
     )
