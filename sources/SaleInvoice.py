@@ -82,51 +82,7 @@ class SaleInvoice(SaleInvoiceBasic):
         page_title = "Zlecenia WooCommerce"
         header = "Lista zleceń pobranych z WooCommerce"
         # Optymalizacja N1QL: pobieraj tylko te pola do listy
-        list_view_fields = [
-            "Adnotacje",
-            "CAdresL1",
-            "CAdresL2",
-            "CKraj",
-            "common_date_sale",
-            "company_id",
-            "company_uuid",
-            "counter",
-            "counterparty_id",
-            "created_at",
-            "DataSprzedazy",
-            "date_posting",
-            "date_sale_from",
-            "date_sale_to",
-            "date_sale",
-            "KodKraju",
-            "KodUE",
-            "KsefJsonFile",
-            "KsefRef",
-            "KsefStatus",
-            # "KsefJsonFile",
-            # "KsefXmlFile",
-            "last_sync",
-            "model_name",
-            "my_id",
-            "Nazwa",
-            "NIP",
-            "NrID",
-            "NrVatUE",
-            "original_payload_ref",
-            "rodzaj_fv",
-            "RodzajKontr",
-            "sha",
-            "source",
-            "status",
-            "StatusKonta",
-            "total_gross",
-            "total_net",
-            "total_vat",
-            "user_id",
-            "Waluta",
-            # "WierszTransakcji",
-            "WyslijDoKsef",
-        ]
+
         default_sort_field = "date_posting"
         default_sort_dir = "DESC"
 
