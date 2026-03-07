@@ -103,6 +103,7 @@ class SaleInvoice(SaleInvoiceBasic):
             "KsefJsonFile",
             "KsefRef",
             "KsefStatus",
+            "KsefJsonFile"
             "KsefXmlFile",
             "last_sync",
             "model_name",
