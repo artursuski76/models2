@@ -17,7 +17,7 @@ class TransactionRowBaseSale(BaseModel):
     quantity: float = Field(title="Ilość")
     # uom: InventoryItemUnit = Field(title="Jednostka miary")
     unit_price_net: Decimal = Field(max_digits=12, decimal_places=2, title="Cena jednostkowa netto")
-    name: str = Field(title="Nazwa")
+    name: Optional[str] = Field(None, title="Nazwa")
 
     amount_net: Decimal = Field(..., max_digits=12, decimal_places=2, title="Netto")
     amount_vat: Decimal = Field(..., max_digits=12, decimal_places=2, title="VAT")
