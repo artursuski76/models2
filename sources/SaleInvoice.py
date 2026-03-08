@@ -106,7 +106,7 @@ class SaleInvoice(SaleInvoiceBasic):
             "WierszTransakcji",
             "WyslijDoKsef"
         ]
-        default_sort_field = "date_posting"
+        default_sort_field = "counter"
         default_sort_dir = "DESC"
 
     class Couchbase:
