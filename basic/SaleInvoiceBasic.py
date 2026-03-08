@@ -89,6 +89,23 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
+    prefix: str = Field(
+        default="",
+        validation_alias=AliasChoices("Prefix", "prefix"),
+        serialization_alias="Prefix",
+    )
+
+    postfix: str = Field(
+        default="",
+        validation_alias=AliasChoices("Postfix", "postfix"),
+        serialization_alias="Postfix",
+    )
+
+    @computed_field(alias="inv_nr")
+    @property
+    def inv_nr(self) -> str:
+        return f"{self.prefix}{self.counter}{self.postfix}"
+
     date_posting: date = Field(
         default_factory=date.today,
         title="Data wystawienia",
