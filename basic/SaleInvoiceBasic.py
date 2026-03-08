@@ -3,7 +3,7 @@ from __future__ import annotations
 import secrets
 from datetime import datetime, date, timezone
 from decimal import Decimal
-from typing import Union, Optional
+from typing import Union, Optional, List
 
 from pydantic import ConfigDict
 from pydantic import Field, model_validator, computed_field
@@ -145,6 +145,35 @@ class SaleInvoiceBasic(BasicBasic):
         serialization_alias="KsefStatus",
         json_schema_extra={"exclude_from_form": True}
     )
+
+    ksef_session_ref: Optional[str] = Field(
+        None,
+        validation_alias=AliasChoices("KsefSessionRef", "ksef_session_ref"),
+        serialization_alias="KsefSessionRef",
+        json_schema_extra={"exclude_from_form": True}
+    )
+
+    ksef_invoice_ref: Optional[str] = Field(
+        None,
+        validation_alias=AliasChoices("KsefInvoiceRef", "ksef_invoice_ref"),
+        serialization_alias="KsefInvoiceRef",
+        json_schema_extra={"exclude_from_form": True}
+    )
+
+    ksef_sent_at: Optional[datetime] = Field(
+        None,
+        validation_alias=AliasChoices("KsefSentAt", "ksef_sent_at"),
+        serialization_alias="KsefSentAt",
+        json_schema_extra={"exclude_from_form": True}
+    )
+
+    errors: List[dict] = Field(
+        default_factory=list,
+        validation_alias=AliasChoices("errors", "Bledy"),
+        serialization_alias="errors",
+        json_schema_extra={"exclude_from_form": True}
+    )
+
     ksef_json_file: TransactionFiles | None = Field(
         default=None,
         validation_alias=AliasChoices( "KsefJsonFile", "ksef_json_file" ),
