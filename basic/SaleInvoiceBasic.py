@@ -101,10 +101,21 @@ class SaleInvoiceBasic(BasicBasic):
         serialization_alias="Postfix",
     )
 
-    @computed_field(alias="inv_nr")
-    @property
-    def inv_nr(self) -> str:
-        return f"{self.prefix}{self.counter}{self.postfix}"
+    inv_nr: str = Field(
+        default="",
+        validation_alias=AliasChoices("inv_nr", "InvNr", "NumerFaktury"),
+        serialization_alias="inv_nr",
+        title="Numer faktury (fizyczny)"
+    )
+
+    # 2. Dodajemy walidator, który "wypchnie" wartość do pola, jeśli jest puste
+    @model_validator(mode="after")
+    def fill_inv_nr(self) -> "SaleInvoiceBasic":
+        # Jeśli inv_nr jest pusty (None, pusty string lub domyślne ""),
+        # generujemy go na podstawie składowych
+        if not self.inv_nr:
+            self.inv_nr = f"{self.prefix}{self.counter}{self.postfix}"
+        return self
 
     date_posting: date = Field(
         default_factory=date.today,
