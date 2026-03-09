@@ -89,16 +89,12 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
+    # Pozostawiamy prefix/postfix, jeśli nadal mogą być używane,
+    # ale dla formatu FA/counter możemy je zignorować lub nadpisać.
     prefix: str = Field(
-        default="",
+        default="FA/",
         validation_alias=AliasChoices("Prefix", "prefix"),
         serialization_alias="Prefix",
-    )
-
-    postfix: str = Field(
-        default="",
-        validation_alias=AliasChoices("Postfix", "postfix"),
-        serialization_alias="Postfix",
     )
 
     inv_nr: str = Field(
@@ -108,13 +104,13 @@ class SaleInvoiceBasic(BasicBasic):
         title="Numer faktury (fizyczny)"
     )
 
-    # 2. Dodajemy walidator, który "wypchnie" wartość do pola, jeśli jest puste
     @model_validator(mode="after")
     def fill_inv_nr(self) -> "SaleInvoiceBasic":
-        # Jeśli inv_nr jest pusty (None, pusty string lub domyślne ""),
-        # generujemy go na podstawie składowych
+        # Sprawdzamy, czy numer jest pusty
         if not self.inv_nr:
-            self.inv_nr = f"{self.prefix}{self.counter}{self.postfix}"
+            # Tworzymy format: dwie litery (FA), ukośnik i licznik
+            # Używamy self.prefix (jeśli to zawsze FA) lub wpisujemy "FA" na sztywno
+            self.inv_nr = f"{self.prefix}{self.counter}"
         return self
 
     date_posting: date = Field(
