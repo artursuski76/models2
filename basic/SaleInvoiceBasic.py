@@ -211,6 +211,20 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
+    ksef_json: Optional[str] = Field(
+        None,
+        validation_alias=AliasChoices("KsefJson", "ksef_json"),
+        serialization_alias="KsefJson",
+        json_schema_extra={"exclude_from_form": True}
+    )
+
+    ksef_xml: Optional[str] = Field(
+        None,
+        validation_alias=AliasChoices("KsefXml", "ksef_xml"),
+        serialization_alias="KsefXml",
+        json_schema_extra={"exclude_from_form": True}
+    )
+
     accounting_status: SourceInvoiceStatus = Field(
         SourceInvoiceStatus.DRAFT,
         validation_alias=AliasChoices( "StatusKonta", "accounting_status" ),
