@@ -104,7 +104,8 @@ class SaleInvoice(SaleInvoiceBasic):
             "total_gross",
             "Waluta",
             "WierszTransakcji",
-            "WyslijDoKsef"
+            "WyslijDoKsef",
+            "KsefRef"
         ]
         default_sort_field = "counter"
         default_sort_dir = "DESC"
