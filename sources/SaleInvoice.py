@@ -86,6 +86,7 @@ class SaleInvoice(SaleInvoiceBasic):
             "company_id",
             "company_uuid",
             "counter",
+            "inv_nr",
             "counterparty_id",
             "created_at",
             "DataSprzedazy",
@@ -103,9 +104,7 @@ class SaleInvoice(SaleInvoiceBasic):
             "rodzaj_fv",
             "total_gross",
             "Waluta",
-            "WierszTransakcji",
-            "WyslijDoKsef",
-            "KsefRef"
+            "WyslijDoKsef"
         ]
         default_sort_field = "counter"
         default_sort_dir = "DESC"
