@@ -445,6 +445,13 @@ class SaleKsefStatus(str, Enum):
     REJECTED = "rejected"
     ERROR = "error"
 
+class KsefProcessingStatus(str, Enum):
+    PENDING = "pending"
+    ACCEPTED = "accepted"
+    REJECTED = "rejected"
+    EXCEPTION = "exception"
+    VALIDATION_FAILED = "validation_failed"
+
 class PurchaseKsefStatus(str, Enum):
     NOT_APPLICABLE = "not_applicable"
     IMPORTED = "imported"
