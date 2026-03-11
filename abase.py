@@ -34,6 +34,10 @@ class BasicBasic(BaseModel):
         json_schema_extra={"exclude_from_form": True}
     )
 
+    updated_at: datetime = Field(
+        default_factory=lambda: datetime.now(),
+    )
+
     last_sync: datetime = Field(
         default_factory=datetime.now,
         json_schema_extra={"exclude_from_form": True}

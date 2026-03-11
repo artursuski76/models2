@@ -13,11 +13,6 @@ class SyncStatus(str, Enum):
     PENDING = "PENDING"
 
 
-class KsefEnvironment(str, Enum):
-    PROD = "PROD"
-    TEST = "TEST"
-    DEMO = "DEMO"
-
 
 class KsefToken(BasicBasic):
     __auto_id__ = False
@@ -37,13 +32,12 @@ class KsefToken(BasicBasic):
 
     nip: str = Field(..., title="NIP Firmy*", pattern=r"^\d{10}$")
     ksef_token: str = Field(..., title="Token KSeF*", description="Token autoryzacyjny wygenerowany w aplikacji KSeF")
-    environment: KsefEnvironment = Field(default=KsefEnvironment.TEST, title="Środowisko")
-    last_sync: Optional[datetime.datetime] = Field(None, title="Data ostatniej synchronizacji")
+    last_sync: Optional[str] = Field(None, title="Data ostatniej synchronizacji")
     sync_status: SyncStatus = Field(default=SyncStatus.PENDING, title="Status synchronizacji")
     last_error: Optional[str] = Field(None, title="Ostatni błąd", description="Treść błędu z API KSeF, jeśli wystąpił")
 
-    access_token: Optional[str] = Field(None, alias="accessToken")
-    refresh_token: Optional[str] = Field(None, alias="refreshToken")
+    access_token: Optional[str] = Field(None, title="Access Token JWT")
+    refresh_token: Optional[str] = Field(None, title="Refresh Token JWT")
     token_expires_at: Optional[str] = Field(None, alias="tokenExpiresAt")
 
 
