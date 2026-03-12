@@ -5,7 +5,7 @@ from pydantic import Field, BaseModel
 
 
 class TransactionFiles(BaseModel):
-    status: str = Field(description="status", json_schema_extra={"exclude_from_form": True})
+    status: Optional[str] = Field(description="status", json_schema_extra={"exclude_from_form": True})
     filename: str = Field(description="filename")  # pojawi się w formularzu
     minio_key: str = Field(description="Plik - key")
     minio_bucket: str = Field(description="Plik - bucket", json_schema_extra={"exclude_from_form": True})
