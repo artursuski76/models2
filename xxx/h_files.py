@@ -1,8 +1,6 @@
 from datetime import datetime
 from typing import Optional
-
 from pydantic import Field, BaseModel
-
 
 class TransactionFiles(BaseModel):
     status: Optional[str] = Field(description="status", json_schema_extra={"exclude_from_form": True})
