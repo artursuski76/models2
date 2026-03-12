@@ -23,7 +23,7 @@ class KsefSaleInvoice(BasicBasic):
     hasUpo: bool = False
     upoFileKey: Optional[str] = None
 
-class Couchbase:
-    bucket = "Accounting"
-    scope = "services"
-    collection = "ksef_sale_invoice"
+    class Couchbase:
+        bucket = "Accounting"
+        scope = "services"
+        collection = "ksef_sale_invoice"
