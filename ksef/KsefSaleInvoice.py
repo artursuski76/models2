@@ -5,9 +5,10 @@ from models2.abase import BasicBasic
 
 class KsefSaleInvoice(BasicBasic):
     saleInvoiceId: str
-    ksefNumber: Optional[str]
+    ksefNumber: Optional[str] = None
     sessionReferenceNumber: str
-    invoiceReferenceNumber: str
+    invoiceReferenceNumber: Optional[str] = None
+    referenceNumber: Optional[str] = None
     invoiceNumber: Optional[str] = None
     ordinalNumber: Optional[int] = None
     invoiceHash: Optional[str] = None
