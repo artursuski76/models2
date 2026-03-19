@@ -1,9 +1,10 @@
+from datetime import date
 from typing import Annotated, Union, Any, List, Optional
 
 from pydantic import Field, computed_field, model_validator, AliasChoices, ConfigDict
 
 from models2.basic.SaleInvoiceBasic import SaleInvoiceBasic
-from models2.helpers.platnosc import Platnosc
+from models2.helpers.platnosc import Platnosc, FormaPlatnosci
 from models2.helpers.sale_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta, SaleTransactionRows
 
 RodzajFV = Annotated[
@@ -78,12 +79,12 @@ class SaleInvoice(SaleInvoiceBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    platnosc: Optional[Platnosc] = Field(
-        None,
-        validation_alias=AliasChoices("Platnosc", "platnosc"),
-        serialization_alias="Platnosc",
-        title="Płatność"
-    )
+    platnosc_termin: Optional[date]
+    platnosc_forma: FormaPlatnosci
+    zaplacono: bool
+    rb_nr: str
+    rb_nazwa_banku: str
+    rb_opis: str
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
