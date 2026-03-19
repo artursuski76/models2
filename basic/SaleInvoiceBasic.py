@@ -106,11 +106,9 @@ class SaleInvoiceBasic(BasicBasic):
 
     @model_validator(mode="after")
     def fill_inv_nr(self) -> "SaleInvoiceBasic":
-        # Sprawdzamy, czy numer jest pusty
-        if not self.inv_nr:
-            # Tworzymy format: dwie litery (FA), ukośnik i licznik
-            # Używamy self.prefix (jeśli to zawsze FA) lub wpisujemy "FA" na sztywno
-            self.inv_nr = f"{self.prefix}{self.counter}"
+        # Zawsze generujemy numer na podstawie prefix i counter
+        # Dzięki temu inv_nr zawsze będzie zsynchronizowany z counter
+        self.inv_nr = f"{self.prefix}{self.counter}"
         return self
 
     date_posting: date = Field(
