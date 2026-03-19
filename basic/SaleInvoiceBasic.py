@@ -225,7 +225,7 @@ class SaleInvoiceBasic(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    original_payload_ref: str = Field(
+    original_payload_ref: Optional[str] = Field(
         None,
         title="Oryg Payload Ref",
         json_schema_extra = {"exclude_from_form": True}
