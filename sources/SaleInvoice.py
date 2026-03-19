@@ -85,6 +85,7 @@ class SaleInvoice(SaleInvoiceBasic):
     rb_nr: Optional[str] = None
     rb_nazwa_banku: Optional[str] = None
     rb_opis: Optional[str] = None
+    ksef_status_code: Optional[str] = None
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
@@ -105,6 +106,7 @@ class SaleInvoice(SaleInvoiceBasic):
             "KsefStatus",
             "KsefJsonFile",
             "KsefXmlFile",
+            "ksef_status_code",
             "model_name",
             "my_id",
             "Nazwa",
