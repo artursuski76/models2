@@ -78,7 +78,12 @@ class SaleInvoice(SaleInvoiceBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    platnosc: Optional[Platnosc] = None
+    platnosc: Optional[Platnosc] = Field(
+        None,
+        validation_alias=AliasChoices("Platnosc", "platnosc"),
+        serialization_alias="Platnosc",
+        title="Płatność"
+    )
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"

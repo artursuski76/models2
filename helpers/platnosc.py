@@ -13,7 +13,7 @@ class FormaPlatnosci(str, Enum):
     PRZELEW = "Przelew"
     MOBILNA = "Mobilna"
 
-class RachunekBankowy(str, Enum):
+class RachunekBankowy(BaseModel):
     nr_rb: str
     nazwa_banku: str
     opis_rachunku: str
