@@ -79,12 +79,12 @@ class SaleInvoice(SaleInvoiceBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    platnosc_termin: Optional[date]
-    platnosc_forma: FormaPlatnosci
-    zaplacono: bool
-    rb_nr: str
-    rb_nazwa_banku: str
-    rb_opis: str
+    platnosc_termin: Optional[date] = None
+    platnosc_forma: Optional[FormaPlatnosci] = None
+    zaplacono: Optional[bool] = None
+    rb_nr: Optional[str] = None
+    rb_nazwa_banku: Optional[str] = None
+    rb_opis: Optional[str] = None
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
