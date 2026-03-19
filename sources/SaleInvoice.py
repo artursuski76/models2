@@ -1,8 +1,9 @@
-from typing import Annotated, Union, Any, List
+from typing import Annotated, Union, Any, List, Optional
 
 from pydantic import Field, computed_field, model_validator, AliasChoices, ConfigDict
 
 from models2.basic.SaleInvoiceBasic import SaleInvoiceBasic
+from models2.helpers.platnosc import Platnosc
 from models2.helpers.sale_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta, SaleTransactionRows
 
 RodzajFV = Annotated[
@@ -77,6 +78,7 @@ class SaleInvoice(SaleInvoiceBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
+    platnosc: Optional[Platnosc] = None
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
