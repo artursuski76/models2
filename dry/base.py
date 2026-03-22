@@ -4,10 +4,8 @@ from typing import Optional
 from pydantic import BaseModel
 from pydantic import Field
 
-from models2.enums import SourceInvoiceStatus
 
-
-class BasicBasic(BaseModel):
+class BaseX(BaseModel):
     __auto_id__ = True
 
     company_uuid: Optional[str] = Field(
@@ -22,7 +20,7 @@ class BasicBasic(BaseModel):
         None,
         json_schema_extra={"exclude_from_form": True}
     )
-    model_name: Optional[str] = Field(
+    model_name: str = Field(
         None,
         json_schema_extra={"exclude_from_form": True}
     )
@@ -39,18 +37,6 @@ class BasicBasic(BaseModel):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    last_sync: datetime = Field(
-        default_factory=datetime.now,
-        json_schema_extra={"exclude_from_form": True}
-    )
-    # status: Optional[SourceInvoiceStatus] = Field(
-    #     SourceInvoiceStatus.DRAFT,
-    #     json_schema_extra={"exclude_from_form": True}
-    # )
-    status: Optional[str] = Field(
-        default="draft",
-        json_schema_extra={"exclude_from_form": True}
-    )
     sha: Optional[str] = Field(
         default=None,
         json_schema_extra={"exclude_from_form": True}

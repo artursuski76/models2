@@ -79,12 +79,29 @@ class SaleInvoice(SaleInvoiceBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    platnosc_termin: Optional[date] = None
-    platnosc_forma: Optional[FormaPlatnosci] = None
-    zaplacono: Optional[bool] = None
-    rb_nr: Optional[str] = None
-    rb_nazwa_banku: Optional[str] = None
-    rb_opis: Optional[str] = None
+    platnosc_termin: Optional[date] = Field(
+        None,
+        title="Termin płatności",
+    )
+    platnosc_forma: Optional[FormaPlatnosci] = Field(
+        FormaPlatnosci,
+        title="Forma płatności"
+    )
+    zaplacono: Optional[bool] = Field(
+        None
+    )
+    rb_nr: Optional[str] = Field(
+        None,
+        title="Nr rachunku bankowego",
+    )
+    rb_nazwa_banku: Optional[str] = Field(
+        None,
+        title="Nazwa banku",
+    )
+    rb_opis: Optional[str] = Field(
+        None,
+        title="Opis rachunku",
+    )
     ksef_status_code: Optional[str] = Field(
         None,
         title="Kod statusu w KSeF",
