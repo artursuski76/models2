@@ -95,13 +95,16 @@ class SaleInvoiceBasic(BasicBasic):
         default="FA/",
         validation_alias=AliasChoices("Prefix", "prefix"),
         serialization_alias="Prefix",
+        json_schema_extra={"exclude_from_form": True}
+
     )
 
     inv_nr: str = Field(
         default="",
         validation_alias=AliasChoices("inv_nr", "InvNr", "NumerFaktury"),
         serialization_alias="inv_nr",
-        title="Numer faktury (fizyczny)"
+        title="Numer faktury (fizyczny)",
+        json_schema_extra={"exclude_from_form": True}
     )
 
     @model_validator(mode="after")
@@ -159,6 +162,7 @@ class SaleInvoiceBasic(BasicBasic):
         default=None,
         validation_alias=AliasChoices("WyslijDoKsef", "wyslij_do_ksef"),
         serialization_alias="WyslijDoKsef",
+        json_schema_extra={"exclude_from_form": True}
     )
 
     ksef_status: SaleKsefStatus = Field(

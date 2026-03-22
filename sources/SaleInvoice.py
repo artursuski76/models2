@@ -85,7 +85,11 @@ class SaleInvoice(SaleInvoiceBasic):
     rb_nr: Optional[str] = None
     rb_nazwa_banku: Optional[str] = None
     rb_opis: Optional[str] = None
-    ksef_status_code: Optional[str] = None
+    ksef_status_code: Optional[str] = Field(
+        None,
+        title="Kod statusu w KSeF",
+        json_schema_extra={"exclude_from_form": True}
+    )
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
