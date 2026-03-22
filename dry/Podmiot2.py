@@ -8,7 +8,9 @@ PodmiotFirmaKrajowa = make_ksef_model_with_extras(
     fields={
         "typ_podmiotu": Literal["krajowy"],
         "NIP": "TNrNIP",
-        "Nazwa": "TZnakowy512"
+        "Nazwa": "TZnakowy512",
+        "JST": "TWybor1_2",
+        "GV": "TWybor1_2"
     },
     field_extras={
         "typ_podmiotu": {
@@ -22,6 +24,14 @@ PodmiotFirmaKrajowa = make_ksef_model_with_extras(
         "Nazwa": {
             "title": "Nazwa nabywcy (Firma lub Imię i Nazwisko)",
             "json_schema_extra": {"order": 2}
+        },
+        "JST": {
+            "title": "Czy jednostka podrzędna JST?",
+            "json_schema_extra": {"order": 3}
+        },
+        "GV": {
+            "title": "Czy członek grupy VAT?",
+            "json_schema_extra": {"order": 4}
         },
     }
 )

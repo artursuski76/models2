@@ -1,3 +1,4 @@
+from models2.dry.TAdres import TAdres
 from utils_inne.make_ksef_model_with_extras import make_ksef_model_with_extras
 
 
@@ -5,7 +6,8 @@ Podmiot1 = make_ksef_model_with_extras(
     "PodmiotPL",
     fields={
         "NIP": "TNrNIP",
-        "Nazwa": "TZnakowy512"
+        "Nazwa": "TZnakowy512",
+        "Adres": TAdres
     },
     field_extras={
         "NIP": {
@@ -20,6 +22,12 @@ Podmiot1 = make_ksef_model_with_extras(
             "json_schema_extra": {
                 "exclude_from_form": False,
                 "order": 2
+            }
+        },
+        "Adres": {
+            "title": "Adres sprzedawcy",
+            "json_schema_extra": {
+                "order": 3
             }
         },
     }
