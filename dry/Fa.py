@@ -40,7 +40,7 @@ Fa = make_ksef_model_with_extras(
         "P_14_3": {"title": "Kwota podatku VAT (stawka 8%)"},
         "P_15": {"title": "Kwota podatku VAT (stawka 0%)"},
         "RodzajFaktury": {"title": "Rodzaj faktury"},
-        "FP": {"title": "Forma płatności"},
+        "FP": {"title": "Faktura do paragonu"},
         "Adnotacje": {"title": "Adnotacje"},
         "DodatkowyOpis": {"title": "Dodatkowy opis"},
         "FaWiersz": {"title": "Fawiersz"},
