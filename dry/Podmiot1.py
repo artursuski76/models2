@@ -8,7 +8,19 @@ Podmiot1 = make_ksef_model_with_extras(
         "Nazwa": "TZnakowy512"
     },
     field_extras={
-        "NIP": {"json_schema_extra": {"exclude_from_form": True, "order": 1}},
-        "Nazwa": {"json_schema_extra": {"exclude_from_form": True, "order": 2}},
+        "NIP": {
+            "title": "Numer Identyfikacji Podatkowej (NIP)",
+            "json_schema_extra": {
+                "exclude_from_form": False,
+                "order": 1
+            }
+        },
+        "Nazwa": {
+            "title": "Pełna nazwa firmy / Imię i nazwisko",
+            "json_schema_extra": {
+                "exclude_from_form": False,
+                "order": 2
+            }
+        },
     }
 )

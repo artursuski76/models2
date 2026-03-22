@@ -1,20 +1,28 @@
 from typing import Annotated, Union, Literal
 from pydantic import Field
-
 from utils_inne.make_ksef_model_with_extras import make_ksef_model_with_extras
 
 # 1. Podmiot Firma Krajowa (NIP)
 PodmiotFirmaKrajowa = make_ksef_model_with_extras(
     "PodmiotFirmaKrajowa",
     fields={
-        "typ_podmiotu": Literal["krajowy"], # Stała wartość dla tego modelu
+        "typ_podmiotu": Literal["krajowy"],
         "NIP": "TNrNIP",
         "Nazwa": "TZnakowy512"
     },
     field_extras={
-        "typ_podmiotu": {"json_schema_extra": {"exclude_from_form": True}}, # Ukrywamy w samym formularzu jako pole tekstowe
-        "NIP": {"json_schema_extra": {"order": 1}},
-        "Nazwa": {"json_schema_extra": {"order": 2}},
+        "typ_podmiotu": {
+            "title": "Typ podmiotu: Krajowy",
+            "json_schema_extra": {"exclude_from_form": True}
+        },
+        "NIP": {
+            "title": "Numer NIP",
+            "json_schema_extra": {"order": 1}
+        },
+        "Nazwa": {
+            "title": "Nazwa nabywcy (Firma lub Imię i Nazwisko)",
+            "json_schema_extra": {"order": 2}
+        },
     }
 )
 
@@ -28,10 +36,22 @@ PodmiotFirmaUE = make_ksef_model_with_extras(
         "Nazwa": "TZnakowy512"
     },
     field_extras={
-        "typ_podmiotu": {"json_schema_extra": {"exclude_from_form": True}},
-        "KodUE": {"json_schema_extra": {"order": 1}},
-        "NrVatUE": {"json_schema_extra": {"order": 2}},
-        "Nazwa": {"json_schema_extra": {"order": 3}},
+        "typ_podmiotu": {
+            "title": "Typ podmiotu: UE",
+            "json_schema_extra": {"exclude_from_form": True}
+        },
+        "KodUE": {
+            "title": "Kod kraju członkowskiego UE",
+            "json_schema_extra": {"order": 1}
+        },
+        "NrVatUE": {
+            "title": "Numer VAT UE (bez kodu kraju)",
+            "json_schema_extra": {"order": 2}
+        },
+        "Nazwa": {
+            "title": "Nazwa nabywcy z UE",
+            "json_schema_extra": {"order": 3}
+        },
     }
 )
 
@@ -45,10 +65,22 @@ PodmiotFirmaZagraniczna = make_ksef_model_with_extras(
         "Nazwa": "TZnakowy512"
     },
     field_extras={
-        "typ_podmiotu": {"json_schema_extra": {"exclude_from_form": True}},
-        "KodKraju": {"json_schema_extra": {"order": 1}},
-        "NrID": {"json_schema_extra": {"order": 2}},
-        "Nazwa": {"json_schema_extra": {"order": 3}},
+        "typ_podmiotu": {
+            "title": "Typ podmiotu: Zagraniczny (poza UE)",
+            "json_schema_extra": {"exclude_from_form": True}
+        },
+        "KodKraju": {
+            "title": "Kod kraju (ISO 3166)",
+            "json_schema_extra": {"order": 1}
+        },
+        "NrID": {
+            "title": "Numer identyfikacyjny (VAT ID / Business ID)",
+            "json_schema_extra": {"order": 2}
+        },
+        "Nazwa": {
+            "title": "Nazwa nabywcy zagranicznego",
+            "order": 3
+        },
     }
 )
 
@@ -61,13 +93,23 @@ PodmiotBrakID = make_ksef_model_with_extras(
         "Nazwa": "TZnakowy512"
     },
     field_extras={
-        "typ_podmiotu": {"json_schema_extra": {"exclude_from_form": True}},
-        "BrakID": {"json_schema_extra": {"exclude_from_form": True}},
-        "Nazwa": {"json_schema_extra": {"order": 2}},
+        "typ_podmiotu": {
+            "title": "Typ podmiotu: Osoba fizyczna / Brak ID",
+            "json_schema_extra": {"exclude_from_form": True}
+        },
+        "BrakID": {
+            "title": "Brak identyfikatora",
+            "json_schema_extra": {"exclude_from_form": True}
+        },
+        "Nazwa": {
+            "title": "Imię i Nazwisko / Nazwa nabywcy",
+            "json_schema_extra": {"order": 2}
+        },
     }
 )
 
+# Definicja Nabywcy z użyciem diskryminatora dla Pydantic i JSON Schema
 Podmiot2 = Annotated[
     Union[PodmiotFirmaKrajowa, PodmiotFirmaZagraniczna, PodmiotFirmaUE, PodmiotBrakID],
-    Field(discriminator="typ_podmiotu")
+    Field(discriminator="typ_podmiotu", title="Dane Nabywcy")
 ]
