@@ -27,5 +27,23 @@ Fa = make_ksef_model_with_extras(
         "DodatkowyOpis": List[DodatkowyOpis],
         "FaWiersz": List[FaWiersz],
         "Platnosc": Platnosc,
+    },
+    field_extras={
+        "KodWaluty": {"title": "Waluta faktury"},
+        "P_1": {"title": "Data wystawienia"},
+        "P_1M": {"title": "Miejsce wystawienia"},
+        "P_2": {"title": "Numer faktury"},
+        "P_6": {"title": "Data płatności"},
+        "P_13_1": {"title": "Suma wartości netto (stawka 23%)"},
+        "P_14_1": {"title": "Kwota podatku VAT (stawka 23%)"},
+        "P_13_3": {"title": "Suma wartości netto (stawka 8%)"},
+        "P_14_3": {"title": "Kwota podatku VAT (stawka 8%)"},
+        "P_15": {"title": "Kwota podatku VAT (stawka 0%)"},
+        "RodzajFaktury": {"title": "Rodzaj faktury"},
+        "FP": {"title": "Forma płatności"},
+        "Adnotacje": {"title": "Adnotacje"},
+        "DodatkowyOpis": {"title": "Dodatkowy opis"},
+        "FaWiersz": {"title": "Fawiersz"},
+        "Platnosc": {"title": "Platnosc"},
     }
 )
