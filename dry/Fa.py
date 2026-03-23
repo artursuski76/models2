@@ -1,9 +1,9 @@
 from typing import List, Optional
 
-from models2.dry.Adnotacje import Adnotacje
-from models2.dry.DodatkowyOpis import DodatkowyOpis
-from models2.dry.FaWiersz import FaWiersz
-from models2.dry.Platnosc import Platnosc
+from .Adnotacje import Adnotacje
+from .DodatkowyOpis import DodatkowyOpis
+from .FaWiersz import FaWiersz
+from .Platnosc import Platnosc
 from utils_inne.make_ksef_model_with_extras import make_ksef_model_with_extras
 
 

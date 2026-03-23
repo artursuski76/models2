@@ -1,10 +1,10 @@
 from pydantic import ConfigDict, Field, AliasChoices
 
-from models2.dry.Fa import Fa
-from models2.dry.Podmiot1 import Podmiot1
-from models2.dry.Podmiot2 import Podmiot2
-from models2.dry.Stopka import Stopka
-from models2.dry.base import BaseX
+from .Fa import Fa
+from .Podmiot1 import Podmiot1
+from .Podmiot2 import Podmiot2
+from .Stopka import Stopka
+from .base import BaseX
 from models3.Fa3.Naglowek import Naglowek
 
 

@@ -1,4 +1,4 @@
-from models2.dry.TAdres import TAdres
+from .TAdres import TAdres
 from utils_inne.make_ksef_model_with_extras import make_ksef_model_with_extras
 
 

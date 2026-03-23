@@ -65,7 +65,6 @@ PodmiotFirmaUE = make_ksef_model_with_extras(
     }
 )
 
-# 3. Podmiot Firma Zagraniczna
 PodmiotFirmaZagraniczna = make_ksef_model_with_extras(
     "PodmiotFirmaZagraniczna",
     fields={
