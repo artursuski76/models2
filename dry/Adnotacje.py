@@ -1,6 +1,6 @@
 from typing import List, Optional, TYPE_CHECKING
-from pydantic import BaseModel, Field, ConfigDict
-from .single_types import TWybor1, TWybor1_2, TDataT, TNaturalny, TZnakowy
+
+from pydantic import BaseModel, Field
 
 if TYPE_CHECKING:
     from .single_types import TWybor1, TWybor1_2, TDataT, TNaturalny, TZnakowy
