@@ -3,7 +3,7 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
-from enums import CostRowType
+from models2.enums import CostRowType
 
 
 # from models2.helpers.money import Money
