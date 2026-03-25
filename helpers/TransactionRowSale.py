@@ -4,7 +4,8 @@ from typing import Literal, Optional
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from models2.xxx.h_enums import EuropeLandsEnum
-from models2.enums import TowarUsluga, InventoryItemUnit
+
+
 # from models2.helpers.money import Money
 
 
@@ -14,7 +15,7 @@ class TransactionRowBaseSale(BaseModel):
         default=None,
         title="Kod inwent."
     )
-    quantity: float = Field(title="Ilość")
+    quantity: Decimal = Field(title="Ilość")
     uom: str = Field(title="Jednostka miary")
     unit_price_net: Decimal = Field(max_digits=12, decimal_places=2, title="Cena jednostkowa netto")
     name: Optional[str] = Field(None, title="Nazwa")
@@ -57,7 +58,7 @@ class Kraj5(TransactionRowBaseSale):
 
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [5]:
             raise ValueError('VAT rate must be exactly 5')
         return v
@@ -69,7 +70,7 @@ class Kraj8(TransactionRowBaseSale):
 
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [7, 8]:
             raise ValueError('VAT rate must be exactly 7 or 8')
         return v
@@ -80,7 +81,7 @@ class KrajSTD(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=23, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [23, 22]:
             raise ValueError('VAT rate must be exactly 23 or 22')
         return v
@@ -91,7 +92,7 @@ class Kraj0(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [0]:
             raise ValueError('VAT rate must be exactly 0')
         return v
@@ -102,7 +103,7 @@ class Kraj0Art129(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [0]:
             raise ValueError('VAT rate must be exactly 0')
         return v
@@ -113,7 +114,7 @@ class KrajZW(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [0]:
             raise ValueError('VAT rate must be exactly 0')
         return v
@@ -128,7 +129,7 @@ class PozaKrajem(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [0]:
             raise ValueError('VAT rate must be exactly 0')
         return v
@@ -139,7 +140,7 @@ class PozaKrajUslugi28b(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [0]:
             raise ValueError('VAT rate must be exactly 0')
         return v
@@ -150,7 +151,7 @@ class EksportTowarow(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [0]:
             raise ValueError('VAT rate must be exactly 0')
         return v
@@ -161,7 +162,7 @@ class KrajOdwObc(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [0]:
             raise ValueError('VAT rate must be exactly 0')
         return v
@@ -172,7 +173,7 @@ class Marza(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [0]:
             raise ValueError('VAT rate must be exactly 0')
         return v
@@ -180,12 +181,12 @@ class Marza(TransactionRowBaseSale):
 class OSS(TransactionRowBaseSale):
     vat_category: Literal["oss"] = "oss"
 
-    vat_rate_doc: float = Field(
+    vat_rate_doc: Decimal = Field(
         default=0,
         title="VAT_doc %",
         json_schema_extra={"exclude_from_form": True}
     )
-    vat_rate_oss: float = Field(default=..., title="VAT_OSS %")
+    vat_rate_oss: Decimal = Field(default=..., title="VAT_OSS %")
     ctry_oss: EuropeLandsEnum = Field(default="", title="Kraj OSS")
 
 class WDT(TransactionRowBaseSale):
@@ -194,7 +195,7 @@ class WDT(TransactionRowBaseSale):
     vat_rate_doc: int = Field(default=0, title="VAT_doc %")
     @field_validator('vat_rate_doc')
     @classmethod
-    def check_vat_rate(cls, v: float) -> float:
+    def check_vat_rate(cls, v: Decimal) -> Decimal:
         if v not in [0]:
             raise ValueError('VAT rate must be exactly 0')
         return v
