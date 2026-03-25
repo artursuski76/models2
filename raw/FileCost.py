@@ -113,8 +113,10 @@ class FileCost(BasicBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    invoice: Invoice = Field(default_factory=Invoice, json_schema_extra={"exclude_from_form": True})
-
+    invoice: Optional[Invoice] = Field(
+        default=None,
+        json_schema_extra={"exclude_from_form": True}
+    )
 
 
     class FormConfig:
