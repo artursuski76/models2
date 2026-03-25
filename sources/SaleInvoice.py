@@ -113,6 +113,11 @@ class SaleInvoice(SaleInvoiceBasic):
         json_schema_extra={"exclude_from_form": True}
     )
     platnosc: Optional[InvoicePlatnosc] = Field()
+    user_inv_nr: Optional[str] = Field(
+        None,
+        title="Numer faktury użytkownika",
+        json_schema_extra={"exclude_from_form": True}
+    )
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
