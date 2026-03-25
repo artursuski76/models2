@@ -11,6 +11,11 @@ class ValuationMethod(str, Enum):
     FIFO = "FIFO"
     ND = "ND"
 
+class JpkAmountType(str, Enum):
+    NET = "net"
+    VAT = "vat"
+    GROSS = "gross"
+
 class PostingTag(str, Enum):
     CIT_KUP = "CIT_KUP"
     CIT_NKUP = "CIT_NKUP"

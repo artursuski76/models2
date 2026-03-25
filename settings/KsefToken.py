@@ -36,9 +36,9 @@ class KsefToken(BasicBasic):
     sync_status: SyncStatus = Field(default=SyncStatus.PENDING, title="Status synchronizacji")
     last_error: Optional[str] = Field(None, title="Ostatni błąd", description="Treść błędu z API KSeF, jeśli wystąpił")
 
-    access_token: Optional[str] = Field(None, title="Access Token JWT")
-    refresh_token: Optional[str] = Field(None, title="Refresh Token JWT")
-    token_expires_at: Optional[str] = Field(None, alias="tokenExpiresAt")
+    access_token: Optional[str] = Field(None, title="Access Token JWT", json_schema_extra={"exclude_from_form": True})
+    refresh_token: Optional[str] = Field(None, title="Refresh Token JWT", json_schema_extra={"exclude_from_form": True})
+    token_expires_at: Optional[str] = Field(None, alias="tokenExpiresAt", json_schema_extra={"exclude_from_form": True})
 
 
     class FormConfig:
