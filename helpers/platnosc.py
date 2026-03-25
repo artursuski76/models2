@@ -5,13 +5,13 @@ from typing import Optional
 from pydantic import BaseModel
 
 class FormaPlatnosci(str, Enum):
-    _1 = "Gotówka"
-    _2 = "Karta"
-    _3 = "Bon"
-    _4 = "Czek"
-    _5 = "Kredyt"
-    _6 = "Przelew"
-    _7 = "Mobilna"
+    GOTOWKA = "Gotówka"
+    KARTA = "Karta"
+    BON = "Bon"
+    CZEK = "Czek"
+    KREDYT = "Kredyt"
+    PRZELEW = "Przelew"
+    MOBILNA = "Mobilna"
 
 class RachunekBankowy(BaseModel):
     rb_nr: str

@@ -27,9 +27,10 @@ class InvoicePlatnosc(BaseModel):
         title="Termin płatności",
     )
     platnosc_forma: Optional[FormaPlatnosci] = Field(
-        FormaPlatnosci._6,
+        None,
         title="Forma płatności"
     )
+
     zaplacono: Optional[bool] = Field(
         None
     )
@@ -150,4 +151,3 @@ class SaleInvoice(SaleInvoiceBasic):
         bucket = "Accounting"
         scope = "sources"
         collection = "sale_invoice"
-
