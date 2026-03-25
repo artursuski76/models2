@@ -1,11 +1,14 @@
-from typing import List, Optional
-from pydantic import BaseModel, Field
+from typing import List, Optional, TYPE_CHECKING
+from pydantic import BaseModel, Field, ConfigDict
 from .single_types import TWybor1, TWybor1_2, TDataT, TNaturalny, TZnakowy
 
+if TYPE_CHECKING:
+    from .single_types import TWybor1, TWybor1_2, TDataT, TNaturalny, TZnakowy
 
 
 
-class Zwolnienie(BaseModel):
+
+class ZwolnienieType(BaseModel):
     P_19: Optional["TWybor1"] = Field(
         None, title="Dostawa towarów/usług zwolniona z VAT"
     )
@@ -23,7 +26,7 @@ class Zwolnienie(BaseModel):
     )
 
 
-class NowySrodekTransportu(BaseModel):
+class NowySrodekTransportuType(BaseModel):
     P_22A: "TDataT" = Field(..., title="Data dopuszczenia do użytku")
     P_NrWierszaNST: "TNaturalny" = Field(..., title="Numer wiersza środka transportu")
 
@@ -44,22 +47,21 @@ class NowySrodekTransportu(BaseModel):
     P_22D1: Optional["TZnakowy"] = Field(None, title="Informacje techniczne")
 
 
-class NoweSrodkiTransportu(BaseModel):
+class NoweSrodkiTransportuType(BaseModel):
     P_22: Optional["TWybor1"] = Field(
         None, title="Wewnątrzwspólnotowa dostawa nowych środków transportu"
     )
     P_42_5: Optional["TWybor1_2"] = Field(
         None, title="Transport przez nabywcę (art. 42 ust. 5)"
     )
-    NowySrodekTransportu: Optional[List[NowySrodekTransportu]] = Field(
+    NowySrodekTransportu: Optional[List[NowySrodekTransportuType]] = Field(
         None, title="Lista nowych środków transportu"
     )
     P_22N: Optional["TWybor1"] = Field(
         None, title="Brak dostawy nowych środków transportu"
     )
 
-
-class PMarzy(BaseModel):
+class PMarzyType(BaseModel):
     P_PMarzy: Optional["TWybor1"] = Field(
         None, title="Procedura marży - biura turystyczne"
     )
@@ -86,11 +88,16 @@ class Adnotacje(BaseModel):
     P_18: "TWybor1_2" = Field(..., title="Odwrotne obciążenie (1-tak, 2-nie)")
     P_18A: "TWybor1_2" = Field(..., title="Mechanizm podzielonej płatności (1-tak, 2-nie)")
 
-    Zwolnienie: Zwolnienie = Field(..., title="Szczegóły zwolnienia z VAT")
-    NoweSrodkiTransportu: NoweSrodkiTransportu = Field(..., title="Sekcja nowych środków transportu")
+    Zwolnienie: ZwolnienieType = Field(..., title="Szczegóły zwolnienia z VAT")
+    NoweSrodkiTransportu: NoweSrodkiTransportuType = Field(..., title="Sekcja nowych środków transportu")
 
     P_23: "TWybor1_2" = Field(..., title="Faktura uproszczona (1-tak, 2-nie)")
-    PMarzy: PMarzy = Field(..., title="Szczegóły procedury marży")
+    PMarzy: PMarzyType = Field(..., title="Szczegóły procedury marży")
+
+Zwolnienie = ZwolnienieType
+NowySrodekTransportu = NowySrodekTransportuType
+NoweSrodkiTransportu = NoweSrodkiTransportuType
+PMarzy = PMarzyType
 
 #
 # from typing import List, Optional
