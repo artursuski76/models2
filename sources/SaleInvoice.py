@@ -27,7 +27,7 @@ class InvoicePlatnosc(BaseModel):
         title="Termin płatności",
     )
     platnosc_forma: Optional[FormaPlatnosci] = Field(
-        None,
+        FormaPlatnosci.PRZELEW,
         title="Forma płatności"
     )
 
