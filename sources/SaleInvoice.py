@@ -1,10 +1,10 @@
 from datetime import date
 from typing import Annotated, Union, Any, List, Optional
 
-from pydantic import Field, computed_field, model_validator, AliasChoices, ConfigDict
+from pydantic import Field, computed_field, model_validator, AliasChoices, ConfigDict, BaseModel
 
 from models2.basic.SaleInvoiceBasic import SaleInvoiceBasic
-from models2.helpers.platnosc import Platnosc, FormaPlatnosci
+from models2.helpers.platnosc import FormaPlatnosci
 from models2.helpers.sale_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta, SaleTransactionRows
 
 RodzajFV = Annotated[
@@ -19,6 +19,32 @@ RodzajFV = Annotated[
     )
 ]
 
+class InvoicePlatnosc(BaseModel):
+
+
+    platnosc_termin: Optional[date] = Field(
+        None,
+        title="Termin płatności",
+    )
+    platnosc_forma: Optional[FormaPlatnosci] = Field(
+        FormaPlatnosci._6,
+        title="Forma płatności"
+    )
+    zaplacono: Optional[bool] = Field(
+        None
+    )
+    rb_nr: Optional[str] = Field(
+        None,
+        title="Nr rachunku bankowego",
+    )
+    rb_nazwa_banku: Optional[str] = Field(
+        None,
+        title="Nazwa banku",
+    )
+    rb_opis: Optional[str] = Field(
+        default="Rachunek bieżący",
+        title="Opis rachunku",
+    )
 
 class SaleInvoice(SaleInvoiceBasic):
     model_config = ConfigDict(populate_by_name=True, serialize_by_alias=True)
@@ -79,34 +105,13 @@ class SaleInvoice(SaleInvoiceBasic):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    platnosc_termin: Optional[date] = Field(
-        None,
-        title="Termin płatności",
-    )
-    platnosc_forma: Optional[FormaPlatnosci] = Field(
-        FormaPlatnosci,
-        title="Forma płatności"
-    )
-    zaplacono: Optional[bool] = Field(
-        None
-    )
-    rb_nr: Optional[str] = Field(
-        None,
-        title="Nr rachunku bankowego",
-    )
-    rb_nazwa_banku: Optional[str] = Field(
-        None,
-        title="Nazwa banku",
-    )
-    rb_opis: Optional[str] = Field(
-        None,
-        title="Opis rachunku",
-    )
+
     ksef_status_code: Optional[str] = Field(
         None,
         title="Kod statusu w KSeF",
         json_schema_extra={"exclude_from_form": True}
     )
+    platnosc: Optional[InvoicePlatnosc] = Field()
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
