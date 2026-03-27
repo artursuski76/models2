@@ -3,9 +3,9 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 
 from pydantic import BaseModel, Field
 
-from models2.jpk.jpk_v7m_2_1_0e.deklaracja import Deklaracja
-from models2.jpk.jpk_v7m_2_1_0e.naglowek import Naglowek
-from models2.jpk.jpk_v7m_2_1_0e.podmiot1 import Podmiot1
+from models2.jpk.jpk_v7m_3_0_0.deklaracja import Deklaracja
+from models2.jpk.jpk_v7m_3_0_0.naglowek import Naglowek
+from models2.jpk.jpk_v7m_3_0_0.podmiot1 import Podmiot1
 
 
 class JPK(BaseModel):
@@ -14,7 +14,7 @@ class JPK(BaseModel):
     # Atrybuty namespace XML
     xsd: str = Field("http://www.w3.org/2001/XMLSchema", alias="@xmlns:xsd")
     xsi: str = Field("http://www.w3.org/2001/XMLSchema-instance", alias="@xmlns:xsi")
-    xmlns: str = Field("http://crd.gov.pl/wzor/2021/12/27/11148/", alias="@xmlns")
+    xmlns: str = Field("http://crd.gov.pl/wzor/2025/12/19/14090/", alias="@xmlns")
 
     Naglowek: Naglowek
 
@@ -60,7 +60,7 @@ def _serialize_naglowek(parent: Element, naglowek: Naglowek) -> None:
     # wartość tekstowa elementu
     kf_el.text = "JPK_VAT"
 
-    SubElement(el_n, "WariantFormularza").text = str(naglowek.WariantFormularza)
+    SubElement(el_n, "WariantFormularza").text = "3"
 
     dt = naglowek.DataWytworzeniaJPK
     if isinstance(dt, datetime):
@@ -108,7 +108,7 @@ def _serialize_deklaracja(parent: Element, deklaracja: Deklaracja) -> None:
                 kfd_el.set(k, v)
         # tekst
         kfd_el.text = str(kfd_data.get("#value", "VAT-7"))
-        SubElement(d_n, "WariantFormularzaDekl").text = "22"
+        SubElement(d_n, "WariantFormularzaDekl").text = "23"
 
     ps = deklaracja.PozycjeSzczegolowe
     ps_el = SubElement(el_d, "PozycjeSzczegolowe")
