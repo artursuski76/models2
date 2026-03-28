@@ -108,7 +108,7 @@ class SaleInvoice(SaleInvoiceBasic):
     # --- KOLUMNA 1: GŁÓWNE DANE ---
 
     rodzaj_fv: RodzajFV = Field(
-        default=Podstawowa,
+        default_factory=lambda: Podstawowa(),
         discriminator='rodzaj_fv',
         alias="TypTransakcji",
         title="Typ transakcji",

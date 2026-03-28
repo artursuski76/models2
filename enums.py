@@ -98,9 +98,9 @@ class InventoryItemUnit(str, Enum):
     MIES = "Mies"
 
 class CounterpartyType(str, Enum):
-    CUSTOMER = "CUSTOMER",          # odbiorca (sprzedaż)
-    VENDOR = "VENDOR",          # dostawca (zakup)
-    BOTH = "BOTH",              # klient i dostawca
+    CUSTOMER = "CUSTOMER"          # odbiorca (sprzedaż)
+    VENDOR = "VENDOR"          # dostawca (zakup)
+    BOTH = "BOTH"              # klient i dostawca
     # BANK = "BANK",              # bank / rachunek bankowy
     # TAX_OFFICE = "TAX_OFFICE",        # US / urząd celny
     # CUSTOMS_BROKER = "CUSTOMS_BROKER",    # agencja celna

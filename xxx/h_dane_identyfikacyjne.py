@@ -65,7 +65,7 @@ class OsobaFizyczna(BaseModel):
     )
 
     type: CounterpartyType = Field(
-        CounterpartyType,
+        CounterpartyType.CUSTOMER,
         validation_alias=AliasChoices( "Typ", "type"),
         serialization_alias="Typ",
         title="Typ"
@@ -95,7 +95,7 @@ class PodatnikKrajowy(BaseModel):
         pattern=r'^\d{10}$|^brak$'
     )
     type: CounterpartyType = Field(
-        CounterpartyType,
+        CounterpartyType.CUSTOMER,
         validation_alias=AliasChoices( "Typ", "type"),
         serialization_alias="Typ",
         title="Typ"
@@ -116,7 +116,7 @@ class PodatnikVIES(ZagraniczneFirmoweDaneIdentyfikacyjne):
         max_length=200
     )
     type: CounterpartyType = Field(
-        CounterpartyType,
+        CounterpartyType.CUSTOMER,
         validation_alias=AliasChoices("Typ", "type"),
         serialization_alias="Typ",
         title="Typ"
@@ -136,7 +136,7 @@ class PodatnikZagraniczny(ZagraniczneFirmoweDaneIdentyfikacyjne):
         max_length=200
     )
     type: CounterpartyType = Field(
-        CounterpartyType,
+        CounterpartyType.CUSTOMER,
         validation_alias=AliasChoices("Typ", "type"),
         serialization_alias="Typ",
         title="Typ"

@@ -40,7 +40,7 @@ class BasicBasic(BaseModel):
     )
 
     last_sync: datetime = Field(
-        default_factory=datetime.now,
+        default_factory=lambda: datetime.now(),
         json_schema_extra={"exclude_from_form": True}
     )
     # status: Optional[SourceInvoiceStatus] = Field(

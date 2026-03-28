@@ -18,7 +18,7 @@ class WspolnaDataDostawy(BaseModel):
         json_schema_extra={"exclude_from_form": True}
     )
 
-    common_date_sale: date = Field(default=date.today, title="Wspólna data sprzedaży")
+    common_date_sale: date = Field(default_factory=lambda: date.today(), title="Wspólna data sprzedaży")
 
 
 class DostawaWOkresieCzasu(BaseModel):
