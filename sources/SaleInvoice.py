@@ -10,6 +10,7 @@ from pydantic import Field, ConfigDict, model_validator
 from pydantic import computed_field
 
 from models2.basic.SaleInvoiceBasic import SaleInvoiceBasic
+from models2.helpers.address import AddressCounterparty
 from models2.helpers.forms_type_sales_inv import DostawaWDacieWystawienia, WspolnaDataDostawy, DostawaWOkresieCzasu
 from models2.helpers.platnosc import FormaPlatnosci
 from models2.helpers.sale_invoice_adnotacje import AdnotacjeNie, AdnotacjeTak
