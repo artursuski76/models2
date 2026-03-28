@@ -107,6 +107,7 @@ class SaleInvoice(SaleInvoiceBasic):
         title="Typ transakcji",
         exclude=True,
         json_schema_extra={
+            "section": "header",
             "column": 1,
             "order": 1,
         }
@@ -122,6 +123,7 @@ class SaleInvoice(SaleInvoiceBasic):
         None,
         title="Własny numer faktury",
         json_schema_extra={
+            "section": "header",
             "column": 1,
             "order": 2,
         }
@@ -138,6 +140,7 @@ class SaleInvoice(SaleInvoiceBasic):
         serialization_alias="DataSprzedazy",
         title="Data sprzedaży / dostawy",
         json_schema_extra={
+            "section": "header",
             "column": 1,
             "order": 3,
         }
@@ -163,21 +166,23 @@ class SaleInvoice(SaleInvoiceBasic):
     def date_sale_to(self) -> date | None:
         return getattr(self.date_sale, "date_sale_to", None)
 
+    # --- KOLUMNA 2: ADRES I ADNOTACJE ---
+
     counterparty_id: str = Field(
         title="Kontrahent (ID)",
         json_schema_extra={
-            "column": 1,
-            "order": 4,
+            "section": "header",
+            "column": 2,
+            "order": 1,
         }
     )
-
-    # --- KOLUMNA 2: ADRES I ADNOTACJE ---
 
     address: AddressCounterparty = Field(
         title="Adres kontrahenta",
         json_schema_extra={
+            "section": "header",
             "column": 2,
-            "order": 1,
+            "order": 2,
         }
     )
 
@@ -191,7 +196,8 @@ class SaleInvoice(SaleInvoiceBasic):
         serialization_alias="Adnotacje",
         title="Adnotacje / Procedury",
         json_schema_extra={
-            "column": 2,
+            "section": "header",
+            "column": 3,
             "order": 2,
         }
     )
@@ -204,6 +210,7 @@ class SaleInvoice(SaleInvoiceBasic):
         serialization_alias="Waluta",
         title="Waluta dokumentu",
         json_schema_extra={
+            "section": "header",
             "column": 3,
             "order": 1,
         }
@@ -212,8 +219,9 @@ class SaleInvoice(SaleInvoiceBasic):
     platnosc: Optional[InvoicePlatnosc] = Field(
         title="Dane płatności",
         json_schema_extra={
+            "section": "header",
             "column": 3,
-            "order": 2,
+            "order": 3,
         }
     )
 
@@ -221,8 +229,6 @@ class SaleInvoice(SaleInvoiceBasic):
         None,
         title="Status KSeF",
         json_schema_extra={
-            "column": 3,
-            "order": 3,
             "exclude_from_form": True
         }
     )
@@ -235,9 +241,9 @@ class SaleInvoice(SaleInvoiceBasic):
         serialization_alias="WierszTransakcji",
         title="Pozycje faktury",
         json_schema_extra={
-            "column": 1,
-            "order": 100,  # Bardzo wysoki order, by było pod nagłówkiem
-            "full_width": True
+            "section": "main",  # Nowy podział
+            "full_width": True,
+            "order": 1
         }
     )
 
@@ -246,6 +252,7 @@ class SaleInvoice(SaleInvoiceBasic):
         decimal_places=2,
         title="Razem Netto",
         json_schema_extra={
+            "section": "footer",
             "column": 3,
             "order": 110,
         }
@@ -256,6 +263,7 @@ class SaleInvoice(SaleInvoiceBasic):
         decimal_places=2,
         title="Razem VAT",
         json_schema_extra={
+            "section": "footer",
             "column": 3,
             "order": 111,
         }
@@ -266,6 +274,7 @@ class SaleInvoice(SaleInvoiceBasic):
         decimal_places=2,
         title="Razem Brutto",
         json_schema_extra={
+            "section": "footer",
             "column": 3,
             "order": 112,
         }
