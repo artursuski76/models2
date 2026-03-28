@@ -60,6 +60,7 @@ class InvoicePlatnosc(BaseModel):
         title="Opis rachunku",
     )
 
+
 class SaleInvoice(SaleInvoiceBasic):
     model_config = ConfigDict(populate_by_name=True, serialize_by_alias=True)
 
@@ -97,6 +98,8 @@ class SaleInvoice(SaleInvoiceBasic):
 
         return data
 
+    # --- KOLUMNA 1: GŁÓWNE DANE ---
+
     rodzaj_fv: RodzajFV = Field(
         default=Podstawowa,
         discriminator='rodzaj_fv',
@@ -109,6 +112,21 @@ class SaleInvoice(SaleInvoiceBasic):
         }
     )
 
+    @computed_field(alias="rodzaj_fv")
+    @property
+    def rodzaj_fv_flat(self) -> str:
+        return self.rodzaj_fv.rodzaj_fv
+
+
+    user_inv_nr: Optional[str] = Field(
+        None,
+        title="Własny numer faktury",
+        json_schema_extra={
+            "column": 1,
+            "order": 2,
+        }
+    )
+
     date_sale: Union[
         DostawaWDacieWystawienia,
         DostawaWOkresieCzasu,
@@ -118,13 +136,12 @@ class SaleInvoice(SaleInvoiceBasic):
         discriminator='date_sale',
         validation_alias=AliasChoices("DataSprzedazy", "date_sale"),
         serialization_alias="DataSprzedazy",
-        title="Data sprzedaży",
+        title="Data sprzedaży / dostawy",
         json_schema_extra={
             "column": 1,
-            "order": 2,
+            "order": 3,
         }
     )
-
 
     @computed_field(alias="date_sale")
     @property
@@ -146,6 +163,24 @@ class SaleInvoice(SaleInvoiceBasic):
     def date_sale_to(self) -> date | None:
         return getattr(self.date_sale, "date_sale_to", None)
 
+    counterparty_id: str = Field(
+        title="Kontrahent (ID)",
+        json_schema_extra={
+            "column": 1,
+            "order": 4,
+        }
+    )
+
+    # --- KOLUMNA 2: ADRES I ADNOTACJE ---
+
+    address: AddressCounterparty = Field(
+        title="Adres kontrahenta",
+        json_schema_extra={
+            "column": 2,
+            "order": 1,
+        }
+    )
+
     adnotacje: Union[
         AdnotacjeNie,
         AdnotacjeTak
@@ -154,23 +189,87 @@ class SaleInvoice(SaleInvoiceBasic):
         discriminator='adnotacje',
         validation_alias=AliasChoices("Adnotacje", "adnotacje"),
         serialization_alias="Adnotacje",
-        title="Adnotcje",
+        title="Adnotacje / Procedury",
+        json_schema_extra={
+            "column": 2,
+            "order": 2,
+        }
     )
 
-    counterparty_id: str = Field(
-        title="Kontrahent",
-    )
+    # --- KOLUMNA 3: PŁATNOŚCI I WALUTA ---
 
     currency: CurrencyAB = Field(
-        CurrencyAB,
+        CurrencyAB.PLN,
         validation_alias=AliasChoices("Waluta", "currency"),
         serialization_alias="Waluta",
-        title="Waluta",
+        title="Waluta dokumentu",
+        json_schema_extra={
+            "column": 3,
+            "order": 1,
+        }
     )
 
-    total_net: Decimal = Field(max_digits=12, decimal_places=2, title="Razem Netto")
-    total_vat: Decimal = Field(max_digits=12, decimal_places=2, title="Razem VAT")
-    total_gross: Decimal = Field(max_digits=12, decimal_places=2, title="Razem Brutto")
+    platnosc: Optional[InvoicePlatnosc] = Field(
+        title="Dane płatności",
+        json_schema_extra={
+            "column": 3,
+            "order": 2,
+        }
+    )
+
+    ksef_status_code: Optional[str] = Field(
+        None,
+        title="Status KSeF",
+        json_schema_extra={
+            "column": 3,
+            "order": 3,
+            "exclude_from_form": True
+        }
+    )
+
+    # --- DÓŁ FORMULARZA (Pełna szerokość lub ostatnie sekcje) ---
+
+    transaction_items: List[SaleTransactionRows] = Field(
+        default_factory=list,
+        validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
+        serialization_alias="WierszTransakcji",
+        title="Pozycje faktury",
+        json_schema_extra={
+            "column": 1,
+            "order": 100,  # Bardzo wysoki order, by było pod nagłówkiem
+            "full_width": True
+        }
+    )
+
+    total_net: Decimal = Field(
+        max_digits=12,
+        decimal_places=2,
+        title="Razem Netto",
+        json_schema_extra={
+            "column": 3,
+            "order": 110,
+        }
+    )
+
+    total_vat: Decimal = Field(
+        max_digits=12,
+        decimal_places=2,
+        title="Razem VAT",
+        json_schema_extra={
+            "column": 3,
+            "order": 111,
+        }
+    )
+
+    total_gross: Decimal = Field(
+        max_digits=12,
+        decimal_places=2,
+        title="Razem Brutto",
+        json_schema_extra={
+            "column": 3,
+            "order": 112,
+        }
+    )
 
     @model_validator(mode="after")
     def validate_totals(self) -> "SaleInvoiceBasic":
@@ -185,44 +284,6 @@ class SaleInvoice(SaleInvoiceBasic):
             )
 
         return self
-
-    transaction_items: List[SaleTransactionRows] = Field(
-        default_factory=list,
-        validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
-        serialization_alias="WierszTransakcji",
-        title="Pozycje księgowania",
-    )
-
-    user_inv_nr: Optional[str] = Field(
-        None,
-        title="Nadpisanie numeru faktury (opcja)",
-        json_schema_extra={
-            "column": 1,
-            "order": 2,
-        }
-    )
-
-    @computed_field(alias="rodzaj_fv")
-    @property
-    def rodzaj_fv_flat(self) -> str:
-        return self.rodzaj_fv.rodzaj_fv
-
-
-
-    ksef_status_code: Optional[str] = Field(
-        None,
-        title="Kod statusu w KSeF",
-        json_schema_extra={"exclude_from_form": True}
-    )
-    platnosc: Optional[InvoicePlatnosc] = Field(
-        json_schema_extra={
-            "column": 3,
-            "order": 1,
-        }
-    )
-
-    address: AddressCounterparty
-
 
     class FormConfig:
         page_title = "Zlecenia WooCommerce"
