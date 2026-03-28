@@ -29,7 +29,6 @@ class SaleInvoiceBasic(BasicBasic):
     model_config = ConfigDict(
         populate_by_name=True,
         serialize_by_alias=True,
-        title="Formularz Dodawania Sale Invoice"
     )
 
 
@@ -240,41 +239,5 @@ class SaleInvoiceBasic(BasicBasic):
 
 
 # NOWE DANE IDENTYFIKACYJNE KONTRAHENTA
-    dane_identyfikacyjne: Union[
-        OsobaFizyczna,
-        PodatnikKrajowy,
-        PodatnikVIES,
-        PodatnikZagraniczny
-    ] = Field(
-        ...,
-        discriminator='rodzaj_kontr',
-        alias="DaneIdentyfikacyjne",
-        title="Dane Kontrahenta"
-    )
 
-    @model_validator(mode="before")
-    @classmethod
-    def wrap_dane_identyfikacyjne(cls, data: Any) -> Any:
-        if isinstance(data, dict):
-            # Jeśli dane_identyfikacyjne nie ma w słowniku, a jest rodzaj_kontr,
-            # to próbujemy "zwinąć" płaskie pola do dane_identyfikacyjne.
-            if "dane_identyfikacyjne" not in data and "DaneIdentyfikacyjne" not in data:
-                if "rodzaj_kontr" in data:
-                    # Pola, które mogą należeć do dane_identyfikacyjne
-                    # Możemy po prostu przekazać cały słownik jako dane_identyfikacyjne,
-                    # Pydantic wybierze to co potrzebuje dla konkretnego modelu z Union.
-                    data["dane_identyfikacyjne"] = data.copy()
-        return data
-
-    @model_serializer(mode="wrap")
-    def serialize_flat(self, handler) -> Dict[str, Any]:
-        # Pobieramy standardowy słownik (wywołując oryginalny serializer)
-        data = handler(self)
-
-        # Wyciągamy dane identyfikacyjne
-        dane_ident = data.pop("dane_identyfikacyjne", {})
-
-        # Łączymy główny słownik z polami z dane_identyfikacyjne
-        # Uwaga: Jeśli klucze się powtórzą, dane_ident nadpiszą te z poziomu głównego
-        return {**data, **dane_ident}
 

@@ -1,10 +1,10 @@
 from datetime import date
 from decimal import Decimal
-from typing import Annotated
+from typing import Annotated, Dict
 from typing import List
 from typing import Optional, Union, Any
 
-from pydantic import AliasChoices
+from pydantic import AliasChoices, model_serializer
 from pydantic import BaseModel
 from pydantic import Field, ConfigDict, model_validator
 from pydantic import computed_field
@@ -15,9 +15,12 @@ from models2.helpers.forms_type_sales_inv import DostawaWDacieWystawienia, Wspol
 from models2.helpers.platnosc import FormaPlatnosci
 from models2.helpers.sale_invoice_adnotacje import AdnotacjeNie, AdnotacjeTak
 from models2.helpers.sale_invoice_type import Podstawowa, Zaliczkowa, Rozliczeniowa, Korekta, SaleTransactionRows
+from models2.xxx.h_dane_identyfikacyjne import (OsobaFizyczna,
+                                                PodatnikKrajowy,
+                                                PodatnikVIES,
+                                                PodatnikZagraniczny
+                                                )
 from models2.xxx.h_enums import CurrencyAB
-
-
 
 RodzajFV = Annotated[
     Union[
@@ -62,7 +65,11 @@ class InvoicePlatnosc(BaseModel):
 
 
 class SaleInvoice(SaleInvoiceBasic):
-    model_config = ConfigDict(populate_by_name=True, serialize_by_alias=True)
+    model_config = ConfigDict(
+        populate_by_name=True,
+        serialize_by_alias=True,
+        title="Formularz Dodawania Sale Invoice"
+    )
 
     model_name: str = Field(
         "SaleInvoice",
@@ -177,12 +184,55 @@ class SaleInvoice(SaleInvoiceBasic):
         }
     )
 
+    dane_identyfikacyjne: Union[
+        OsobaFizyczna,
+        PodatnikKrajowy,
+        PodatnikVIES,
+        PodatnikZagraniczny
+    ] = Field(
+        ...,
+        discriminator='rodzaj_kontr',
+        alias="DaneIdentyfikacyjne",
+        title="Dane Kontrahenta",
+        json_schema_extra={
+            "section": "header",
+            "column": 2,
+            "order": 2,
+        }
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def wrap_dane_identyfikacyjne(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            # Jeśli dane_identyfikacyjne nie ma w słowniku, a jest rodzaj_kontr,
+            # to próbujemy "zwinąć" płaskie pola do dane_identyfikacyjne.
+            if "dane_identyfikacyjne" not in data and "DaneIdentyfikacyjne" not in data:
+                if "rodzaj_kontr" in data:
+                    # Pola, które mogą należeć do dane_identyfikacyjne
+                    # Możemy po prostu przekazać cały słownik jako dane_identyfikacyjne,
+                    # Pydantic wybierze to co potrzebuje dla konkretnego modelu z Union.
+                    data["dane_identyfikacyjne"] = data.copy()
+        return data
+
+    @model_serializer(mode="wrap")
+    def serialize_flat(self, handler) -> Dict[str, Any]:
+        # Pobieramy standardowy słownik (wywołując oryginalny serializer)
+        data = handler(self)
+
+        # Wyciągamy dane identyfikacyjne
+        dane_ident = data.pop("dane_identyfikacyjne", {})
+
+        # Łączymy główny słownik z polami z dane_identyfikacyjne
+        # Uwaga: Jeśli klucze się powtórzą, dane_ident nadpiszą te z poziomu głównego
+        return {**data, **dane_ident}
+
     address: AddressCounterparty = Field(
         title="Adres kontrahenta",
         json_schema_extra={
             "section": "header",
             "column": 2,
-            "order": 2,
+            "order": 3,
         }
     )
 
