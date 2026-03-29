@@ -1,3 +1,4 @@
+# Counterparty.py
 
 from typing import Optional, Union, Dict, Any
 
@@ -80,14 +81,15 @@ class Counterparty(BasicBasic):
     @classmethod
     def wrap_dane_identyfikacyjne(cls, data: Any) -> Any:
         if isinstance(data, dict):
-            # Jeśli dane_identyfikacyjne nie ma w słowniku, a jest rodzaj_kontr,
-            # to próbujemy "zwinąć" płaskie pola do dane_identyfikacyjne.
+
+            # 🔥 mapowanie pola z API
+            if "typ_transakcji" in data and "rodzaj_kontr" not in data:
+                data["rodzaj_kontr"] = data["typ_transakcji"]
+
             if "dane_identyfikacyjne" not in data and "DaneIdentyfikacyjne" not in data:
                 if "rodzaj_kontr" in data:
-                    # Pola, które mogą należeć do dane_identyfikacyjne
-                    # Możemy po prostu przekazać cały słownik jako dane_identyfikacyjne,
-                    # Pydantic wybierze to co potrzebuje dla konkretnego modelu z Union.
                     data["dane_identyfikacyjne"] = data.copy()
+
         return data
 
     @model_serializer(mode="wrap")

@@ -1,3 +1,5 @@
+# h_dane_identyfikacyjne.py
+
 from datetime import date
 from typing import Literal, Optional
 
@@ -21,26 +23,26 @@ class ZagraniczneFirmoweDaneIdentyfikacyjne(BaseModel):
         None,
         validation_alias=AliasChoices( "KodUE", "kod_ue" ),
         serialization_alias="KodUE",
-        title="VIESS – kod UE"
+        title="Kod UE"
     )
     nr_vat_ue: Optional[str] = Field(
         None,
         validation_alias=AliasChoices( "NrVatUE", "nr_vat_ue" ),
         serialization_alias="NrVatUE",
-        title="VIESS – nr identyfikacyjny bez kodu kraju"
+        title="TaxIdUE (bez kodu kraju)"
     )
 
     kod_kraju: WorldLandsEnum = Field(
         None,
         validation_alias=AliasChoices( "KodKraju", "kod_kraju" ),
         serialization_alias="KodKraju",
-        title="EKSPORT – kod kraju"
+        title="Kod kraju"
     )
     tax_id: str = Field(
         None,
         validation_alias=AliasChoices( "NrID", "tax_id" ),
         serialization_alias="NrID",
-        title="EKSPORT – Numer podatkowy"
+        title="Numer podatkowy"
     )
 
 class OsobaFizyczna(BaseModel):
@@ -60,7 +62,7 @@ class OsobaFizyczna(BaseModel):
         ...,
         validation_alias=AliasChoices( "Nazwa", "nazwa" ),
         serialization_alias="Nazwa",
-        title="Pełna nazwa Kontrahenta",
+        title="Nazwa Kontrahenta",
         max_length=200
     )
 
@@ -82,7 +84,7 @@ class PodatnikKrajowy(BaseModel):
         ...,
         validation_alias=AliasChoices( "Nazwa", "nazwa" ),
         serialization_alias="Nazwa",
-        title="Pełna nazwa Kontrahenta",
+        title="Nazwa Kontrahenta",
         max_length=200
     )
     nip: str = Field(
@@ -112,20 +114,20 @@ class PodatnikVIES(BaseModel):
         ...,
         validation_alias=AliasChoices( "Nazwa", "nazwa" ),
         serialization_alias="Nazwa",
-        title="Pełna nazwa Kontrahenta",
+        title="Nazwa Kontrahenta",
         max_length=200
     )
     kod_ue: EuropeLandsEnum = Field(
         None,
         validation_alias=AliasChoices( "KodUE", "kod_ue" ),
         serialization_alias="KodUE",
-        title="VIESS – kod UE"
+        title="Kod UE"
     )
     nr_vat_ue: Optional[str] = Field(
         None,
         validation_alias=AliasChoices( "NrVatUE", "nr_vat_ue" ),
         serialization_alias="NrVatUE",
-        title="VIESS – nr identyfikacyjny bez kodu kraju"
+        title="TaxIdUE"
     )
     type: CounterpartyType = Field(
         CounterpartyType.CUSTOMER,
