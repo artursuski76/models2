@@ -53,7 +53,7 @@ class SaleInvoiceBasic(BasicBasic):
     prefix: str = Field(
         default="FA/",
         validation_alias=AliasChoices("Prefix", "prefix"),
-        serialization_alias="Prefix",
+        serialization_alias="prefix",
         json_schema_extra={"exclude_from_form": True}
 
     )
