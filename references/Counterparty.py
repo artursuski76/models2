@@ -2,7 +2,7 @@
 
 from typing import Optional, Union, Dict, Any
 
-from pydantic import Field, model_serializer, ConfigDict, model_validator, BaseModel, AliasChoices
+from pydantic import Field, model_serializer, ConfigDict, model_validator, BaseModel, AliasChoices, field_validator
 
 from models2.xxx.h_dane_identyfikacyjne import (OsobaFizyczna,
                                                PodatnikKrajowy,
