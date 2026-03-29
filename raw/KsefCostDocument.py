@@ -42,7 +42,7 @@ class ThirdSubjectKsef(BaseModel):
 
 class KSeFCostDoc(BasicBasic):
     model_config = ConfigDict(extra='ignore')
-    model_name = "KSeFCostDoc",
+    model_name: str = "KSeFCostDoc"
     my_id: str = Field(
         title="Unikalny ID (np. Numer KSeF)",
         pattern=r"^[A-Z0-9\-]+$",
