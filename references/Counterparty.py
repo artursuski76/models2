@@ -21,21 +21,21 @@ class AddressCounterparty(BaseModel):
         None,
         validation_alias=AliasChoices("address_l1", "AddressL1"),
         serialization_alias="AddressL1",
-        title="Data sprzedaży",
+        title="Ulica i nr",
         max_length=100
     )
     address_l2: Optional[str] = Field(
         None,
         validation_alias=AliasChoices("address_l2", "AddressL2"),
         serialization_alias="AddressL2",
-        title="Adres - kod i poczta",
+        title="Kod i poczta",
         max_length=100
     )
     address_country: WorldLandsEnum = Field(
         WorldLandsEnum.PL,
         validation_alias=AliasChoices("address_country", "AddressCountry"),
         serialization_alias="AddressCountry",
-        title="Adres - kraj",
+        title="Kraj",
     )
 
 class Counterparty(BasicBasic):
@@ -70,11 +70,19 @@ class Counterparty(BasicBasic):
         Pracownik
     ] = Field(
         ...,
-        discriminator='rodzaj_kontr',
         validation_alias=AliasChoices("dane_identyfikacyjne", "DaneIdentyfikacyjne"),
         serialization_alias="DaneIdentyfikacyjne",
         title="Dane Kontrahenta"
     )
+
+    @model_validator(mode='before')
+    @classmethod
+    def fix_dane_identyfikacyjne_discriminator(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            di = data.get("dane_identyfikacyjne") or data.get("DaneIdentyfikacyjne")
+            if isinstance(di, dict) and "rodzaj_kontr" not in di and "typ_transakcji" in di:
+                di["rodzaj_kontr"] = di["typ_transakcji"]
+        return data
 
 
 
