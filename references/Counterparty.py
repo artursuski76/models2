@@ -2,15 +2,16 @@
 
 from typing import Optional, Union, Dict, Any
 
-from pydantic import Field, model_serializer, ConfigDict, model_validator, BaseModel, AliasChoices, field_validator
+from pydantic import Field, model_serializer, ConfigDict, model_validator, BaseModel, AliasChoices
 
-from models2.xxx.h_dane_identyfikacyjne import (OsobaFizyczna,
-                                               PodatnikKrajowy,
-                                               PodatnikVIES,
-                                               PodatnikZagraniczny, Pracownik
-                                               )
-from models2.xxx.h_enums import WorldLandsEnum
 from models2.abase import BasicBasic
+from models2.xxx.h_dane_identyfikacyjne import (OsobaFizyczna,
+                                                PodatnikKrajowy,
+                                                PodatnikVIES,
+                                                PodatnikZagraniczny, Pracownik
+                                                )
+from models2.xxx.h_enums import WorldLandsEnum
+
 
 class AddressCounterparty(BaseModel):
     model_config = ConfigDict(

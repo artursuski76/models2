@@ -3,47 +3,11 @@
 from datetime import date
 from typing import Literal, Optional
 
-from pydantic import BaseModel, Field, ConfigDict, AliasChoices
+from pydantic import BaseModel, Field, AliasChoices
 
-from models2.xxx.h_enums import EuropeLandsEnum, WorldLandsEnum
 from models2.enums import CounterpartyType
+from models2.xxx.h_enums import EuropeLandsEnum, WorldLandsEnum
 
-
-class ZagraniczneFirmoweDaneIdentyfikacyjne(BaseModel):
-    model_config = ConfigDict(populate_by_name=True, serialize_by_alias=True)
-
-    nazwa: str = Field(
-        ...,
-        validation_alias=AliasChoices( "Nazwa", "nazwa" ),
-        serialization_alias="Nazwa",
-        title="Nazwa",
-        max_length=200
-    )
-    kod_ue: EuropeLandsEnum = Field(
-        None,
-        validation_alias=AliasChoices( "KodUE", "kod_ue" ),
-        serialization_alias="KodUE",
-        title="Kod UE"
-    )
-    nr_vat_ue: Optional[str] = Field(
-        None,
-        validation_alias=AliasChoices( "NrVatUE", "nr_vat_ue" ),
-        serialization_alias="NrVatUE",
-        title="TaxIdUE (bez kodu kraju)"
-    )
-
-    kod_kraju: WorldLandsEnum = Field(
-        None,
-        validation_alias=AliasChoices( "KodKraju", "kod_kraju" ),
-        serialization_alias="KodKraju",
-        title="Kod kraju"
-    )
-    tax_id: str = Field(
-        None,
-        validation_alias=AliasChoices( "NrID", "tax_id" ),
-        serialization_alias="NrID",
-        title="Numer podatkowy"
-    )
 
 class OsobaFizyczna(BaseModel):
     rodzaj_kontr: Literal["osoba_fizyczna"] = Field(
