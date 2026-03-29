@@ -130,6 +130,8 @@ class Counterparty(BasicBasic):
             "address_country", "address_l2", "address_l1",
             "status", "last_sync", "created_at"
         ]
+        default_sort_field = "my_id"
+        default_sort_dir = "DESC"
 
     class Couchbase:
         bucket = "Accounting"
