@@ -14,7 +14,7 @@ class ZagraniczneFirmoweDaneIdentyfikacyjne(BaseModel):
         ...,
         validation_alias=AliasChoices( "Nazwa", "nazwa" ),
         serialization_alias="Nazwa",
-        title="Pełna nazwa Kontrahenta",
+        title="Nazwa",
         max_length=200
     )
     kod_ue: EuropeLandsEnum = Field(
@@ -101,7 +101,7 @@ class PodatnikKrajowy(BaseModel):
         title="Typ"
     )
 
-class PodatnikVIES(ZagraniczneFirmoweDaneIdentyfikacyjne):
+class PodatnikVIES(BaseModel):
     rodzaj_kontr: Literal["podatnik_vies"] = Field(
         "podatnik_vies",
         title="Rodzaj Kontrahenta",
@@ -115,13 +115,25 @@ class PodatnikVIES(ZagraniczneFirmoweDaneIdentyfikacyjne):
         title="Pełna nazwa Kontrahenta",
         max_length=200
     )
+    kod_ue: EuropeLandsEnum = Field(
+        None,
+        validation_alias=AliasChoices( "KodUE", "kod_ue" ),
+        serialization_alias="KodUE",
+        title="VIESS – kod UE"
+    )
+    nr_vat_ue: Optional[str] = Field(
+        None,
+        validation_alias=AliasChoices( "NrVatUE", "nr_vat_ue" ),
+        serialization_alias="NrVatUE",
+        title="VIESS – nr identyfikacyjny bez kodu kraju"
+    )
     type: CounterpartyType = Field(
         CounterpartyType.CUSTOMER,
         validation_alias=AliasChoices("Typ", "type"),
         serialization_alias="Typ",
         title="Typ"
     )
-class PodatnikZagraniczny(ZagraniczneFirmoweDaneIdentyfikacyjne):
+class PodatnikZagraniczny(BaseModel):
     rodzaj_kontr: Literal["podatnik_zagraniczny"] = Field(
         "podatnik_zagraniczny",
         title="Rodzaj Kontrahenta",
@@ -134,6 +146,18 @@ class PodatnikZagraniczny(ZagraniczneFirmoweDaneIdentyfikacyjne):
         serialization_alias="Nazwa",
         title="Pełna nazwa Kontrahenta",
         max_length=200
+    )
+    kod_kraju: WorldLandsEnum = Field(
+        None,
+        validation_alias=AliasChoices( "KodKraju", "kod_kraju" ),
+        serialization_alias="KodKraju",
+        title="EKSPORT – kod kraju"
+    )
+    tax_id: str = Field(
+        None,
+        validation_alias=AliasChoices( "NrID", "tax_id" ),
+        serialization_alias="NrID",
+        title="EKSPORT – Numer podatkowy"
     )
     type: CounterpartyType = Field(
         CounterpartyType.CUSTOMER,

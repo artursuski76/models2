@@ -108,7 +108,7 @@ class SaleInvoice(SaleInvoiceBasic):
     # --- KOLUMNA 1: GŁÓWNE DANE ---
 
     rodzaj_fv: RodzajFV = Field(
-        default_factory=lambda: Podstawowa(),
+        default_factory=lambda: Podstawowa,
         discriminator='rodzaj_fv',
         alias="TypTransakcji",
         title="Typ transakcji",
@@ -126,15 +126,7 @@ class SaleInvoice(SaleInvoiceBasic):
         return self.rodzaj_fv.rodzaj_fv
 
 
-    user_inv_nr: Optional[str] = Field(
-        None,
-        title="Własny numer faktury",
-        json_schema_extra={
-            "section": "header",
-            "column": 1,
-            "order": 2,
-        }
-    )
+
 
     date_sale: Union[
         DostawaWDacieWystawienia,
@@ -145,7 +137,7 @@ class SaleInvoice(SaleInvoiceBasic):
         discriminator='date_sale',
         validation_alias=AliasChoices("DataSprzedazy", "date_sale"),
         serialization_alias="DataSprzedazy",
-        title="Data sprzedaży / dostawy",
+        title="Data sprzedaży",
         json_schema_extra={
             "section": "header",
             "column": 1,
@@ -193,7 +185,7 @@ class SaleInvoice(SaleInvoiceBasic):
         ...,
         discriminator='rodzaj_kontr',
         alias="DaneIdentyfikacyjne",
-        title="Dane Kontrahenta",
+        title="Rodzaj",
         json_schema_extra={
             "section": "header",
             "column": 2,
@@ -244,7 +236,7 @@ class SaleInvoice(SaleInvoiceBasic):
         discriminator='adnotacje',
         validation_alias=AliasChoices("Adnotacje", "adnotacje"),
         serialization_alias="Adnotacje",
-        title="Adnotacje / Procedury",
+        title="Adnotacje",
         json_schema_extra={
             "section": "header",
             "column": 3,
@@ -275,13 +267,16 @@ class SaleInvoice(SaleInvoiceBasic):
         }
     )
 
-    ksef_status_code: Optional[str] = Field(
+    user_inv_nr: Optional[str] = Field(
         None,
-        title="Status KSeF",
+        title="Własny numer faktury",
         json_schema_extra={
-            "exclude_from_form": True
+            "section": "header",
+            "column": 3,
+            "order": 4,
         }
     )
+
 
     # --- DÓŁ FORMULARZA (Pełna szerokość lub ostatnie sekcje) ---
 

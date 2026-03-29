@@ -2,25 +2,19 @@ from __future__ import annotations
 
 import secrets
 from datetime import datetime, date, timezone
-
 from typing import List
 from typing import Optional, Union, Dict, Any
 
 from pydantic import AliasChoices
 from pydantic import Field, model_serializer, ConfigDict, model_validator
 
-
 from models2.abase import BasicBasic
 from models2.enums import SourceInvoiceSource, SaleKsefStatus, SourceInvoiceStatus
-
-
 from models2.xxx.h_dane_identyfikacyjne import (OsobaFizyczna,
                                                 PodatnikKrajowy,
                                                 PodatnikVIES,
                                                 PodatnikZagraniczny
                                                 )
-from models2.xxx.h_enums import CurrencyAB, EuropeLandsEnum
-from models2.xxx.h_enums import WorldLandsEnum
 from models2.xxx.h_files import TransactionFiles
 
 
@@ -170,6 +164,14 @@ class SaleInvoiceBasic(BasicBasic):
         title="Oryg Payload Ref",
         json_schema_extra = {"exclude_from_form": True}
 
+    )
+
+    ksef_status_code: Optional[str] = Field(
+        None,
+        title="Status KSeF",
+        json_schema_extra={
+            "exclude_from_form": True
+        }
     )
 
     created_at: datetime = Field(
