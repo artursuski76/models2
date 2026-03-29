@@ -77,24 +77,21 @@ class Counterparty(BasicBasic):
         title="Dane Kontrahenta"
     )
 
-    @model_validator(mode="before")
+    @field_validator("dane_identyfikacyjne", mode="before")
     @classmethod
-    def wrap_dane_identyfikacyjne(cls, data: Any) -> Any:
+    def fix_union(cls, v, info):
+        data = info.data  # cały input
+
         if isinstance(data, dict):
+            rodzaj = data.get("rodzaj_kontr") or data.get("typ_transakcji")
 
-            # 1. mapowanie z API
-            if "typ_transakcji" in data and "rodzaj_kontr" not in data:
-                data["rodzaj_kontr"] = data["typ_transakcji"]
+            if rodzaj:
+                return {
+                    **data,
+                    "rodzaj_kontr": rodzaj
+                }
 
-            # 2. wstrzyknięcie do uniona
-            if "dane_identyfikacyjne" not in data and "DaneIdentyfikacyjne" not in data:
-                if "rodzaj_kontr" in data:
-                    data["dane_identyfikacyjne"] = {
-                        **data,
-                        "rodzaj_kontr": data["rodzaj_kontr"]
-                    }
-
-        return data
+        return v
 
     @model_serializer(mode="wrap")
     def serialize_flat(self, handler) -> Dict[str, Any]:
