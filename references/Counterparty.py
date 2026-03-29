@@ -82,13 +82,17 @@ class Counterparty(BasicBasic):
     def wrap_dane_identyfikacyjne(cls, data: Any) -> Any:
         if isinstance(data, dict):
 
-            # 🔥 mapowanie pola z API
+            # 1. mapowanie z API
             if "typ_transakcji" in data and "rodzaj_kontr" not in data:
                 data["rodzaj_kontr"] = data["typ_transakcji"]
 
+            # 2. wstrzyknięcie do uniona
             if "dane_identyfikacyjne" not in data and "DaneIdentyfikacyjne" not in data:
                 if "rodzaj_kontr" in data:
-                    data["dane_identyfikacyjne"] = data.copy()
+                    data["dane_identyfikacyjne"] = {
+                        **data,
+                        "rodzaj_kontr": data["rodzaj_kontr"]
+                    }
 
         return data
 
