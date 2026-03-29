@@ -258,7 +258,7 @@ class SaleInvoice(SaleInvoiceBasic):
         }
     )
 
-    platnosc: Optional[InvoicePlatnosc] = Field(
+    platnosc: InvoicePlatnosc = Field(
         title="Dane płatności",
         json_schema_extra={
             "section": "header",
