@@ -123,10 +123,42 @@ class CostInvoice(CostInvoiceBasic):
     @classmethod
     def wrap_dane_identyfikacyjne(cls, data: Any) -> Any:
         if isinstance(data, dict):
-            # Jeśli dane_identyfikacyjne nie ma w słowniku, a jest rodzaj_kontr,
+            # Jeśli dane_identyfikacyjne nie ma w słowniku, a jest rodzaj_kontr lub c_rodzaj_kontr,
             # to próbujemy "zwinąć" płaskie pola do dane_identyfikacyjne.
             if "dane_identyfikacyjne" not in data and "DaneIdentyfikacyjne" not in data:
-                if "rodzaj_kontr" in data:
+                # Obsługa starego formatu z przedrostkiem "c_"
+                if "c_rodzaj_kontr" in data:
+                    rodzaj = data.get("c_rodzaj_kontr")
+                    mapped = {"rodzaj_kontr": rodzaj}
+                    
+                    # Mapowanie wspólnych pól
+                    if "c_nazwa" in data:
+                        mapped["nazwa"] = data["c_nazwa"]
+                    if "c_nip" in data:
+                        mapped["nip"] = data["c_nip"]
+                    if "type" in data:
+                        mapped["type"] = data["type"]
+                    elif "Typ" in data:
+                        mapped["type"] = data["Typ"]
+                    
+                    # Specyficzne pola dla różnych rodzajów
+                    if rodzaj == "osoba_fizyczna":
+                        if "c_brak_id" in data:
+                            mapped["brak_id"] = data["c_brak_id"]
+                    elif rodzaj == "podatnik_vies":
+                        if "c_kod_ue" in data:
+                            mapped["kod_ue"] = data["c_kod_ue"]
+                        if "c_nr_vat_ue" in data:
+                            mapped["nr_vat_ue"] = data["c_nr_vat_ue"]
+                    elif rodzaj == "podatnik_zagraniczny":
+                        if "c_kod_kraju" in data:
+                            mapped["kod_kraju"] = data["c_kod_kraju"]
+                        if "c_tax_id" in data:
+                            mapped["tax_id"] = data["c_tax_id"]
+                            
+                    data["dane_identyfikacyjne"] = mapped
+                
+                elif "rodzaj_kontr" in data:
                     # Pola, które mogą należeć do dane_identyfikacyjne
                     # Możemy po prostu przekazać cały słownik jako dane_identyfikacyjne,
                     # Pydantic wybierze to co potrzebuje dla konkretnego modelu z Union.
