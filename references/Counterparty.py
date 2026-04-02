@@ -1,6 +1,6 @@
 # Counterparty.py
 
-from typing import Union, Dict, Any
+from typing import Union, Dict, Any, Optional
 
 from pydantic import Field, model_serializer, ConfigDict, model_validator, AliasChoices
 
@@ -30,11 +30,10 @@ class Counterparty(BasicBasic):
         description="Dozwolone tylko litery A-Z, a-z, cyfry 0-9 oraz myślniki. Zalecamy tax-id, pesel, ewentualnie nr-telefonu lub nazwę. Podana treść będzie głównym indeksem wyszukiwania klienta. Podanie istniejącego identyfikatora nadpisze dane w kartotece."
     )
 
-    address: AddressCounterparty = Field(
-        None,
+    address: Optional[AddressCounterparty] = Field(
+        default_factory=lambda: AddressCounterparty(),  # Tworzy pusty obiekt zamiast None
         validation_alias=AliasChoices("address", "Address"),
         serialization_alias="Address",
-        title="Adres",
     )
 
     dane_identyfikacyjne: Union[

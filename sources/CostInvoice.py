@@ -179,6 +179,8 @@ class CostInvoice(CostInvoiceBasic):
 
     address: AddressCounterparty = Field(
         title="Adres kontrahenta",
+        validation_alias=AliasChoices("address", "Address"),
+        serialization_alias="Address",
         json_schema_extra={
             "section": "header",
             "column": 2,
