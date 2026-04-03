@@ -1,4 +1,4 @@
-from typing import Annotated, Dict
+from typing import Annotated, Dict, Optional
 from typing import Any  # Dodano Annotated
 from typing import Union
 
@@ -177,16 +177,20 @@ class CostInvoice(CostInvoiceBasic):
         # Uwaga: Jeśli klucze się powtórzą, dane_ident nadpiszą te z poziomu głównego
         return {**data, **dane_ident}
 
-    address: AddressCounterparty = Field(
-        title="Adres kontrahenta",
+    address: Optional[AddressCounterparty] = Field(
+        default_factory=lambda: AddressCounterparty(),
+        validate_default=True,  # Ważne: wymusza walidację nawet dla wartości domyślnych/pustych
         validation_alias=AliasChoices("address", "Address"),
         serialization_alias="Address",
+        title="Adres kontrahenta",
         json_schema_extra={
             "section": "header",
             "column": 2,
             "order": 3,
         }
     )
+
+
 
     adnotacje: Union[
         AdnotacjeNie,

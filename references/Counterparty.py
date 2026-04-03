@@ -31,7 +31,8 @@ class Counterparty(BasicBasic):
     )
 
     address: Optional[AddressCounterparty] = Field(
-        default_factory=lambda: AddressCounterparty(),  # Tworzy pusty obiekt zamiast None
+        default_factory=lambda: AddressCounterparty(),
+        validate_default=True,
         validation_alias=AliasChoices("address", "Address"),
         serialization_alias="Address",
     )

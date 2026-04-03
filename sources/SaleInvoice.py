@@ -190,7 +190,11 @@ class SaleInvoice(SaleInvoiceBasic):
         # Uwaga: Jeśli klucze się powtórzą, dane_ident nadpiszą te z poziomu głównego
         return {**data, **dane_ident}
 
-    address: AddressCounterparty = Field(
+    address: Optional[AddressCounterparty] = Field(
+        default_factory=lambda: AddressCounterparty(),
+        validate_default=True,  # Ważne: wymusza walidację nawet dla wartości domyślnych/pustych
+        validation_alias=AliasChoices("address", "Address"),
+        serialization_alias="Address",
         title="Adres kontrahenta",
         json_schema_extra={
             "section": "header",
