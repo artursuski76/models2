@@ -1,0 +1,92 @@
+{
+    "DeklaracjaJpkVat7M": {
+        "version": "1.1",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "naglowek": {
+                    "type": "object",
+                    "title": "Nagłówek",
+                    "order": 1,
+                    "properties": {
+                        "rok": {"type": "integer", "title": "Rok", "order": 1, "default": 2026},
+                        "miesiac": {
+                            "type": "integer",
+                            "title": "Miesiąc",
+                            "order": 2,
+                            "component": "select",
+                            "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                        },
+                        "cel_zlozenia": {
+                            "type": "integer",
+                            "title": "Cel złożenia",
+                            "order": 3,
+                            "component": "select",
+                            "enum": [1, 2],
+                            "enumNames": ["Złożenie", "Korekta"],
+                            "default": 1
+                        },
+                        "kod_urzedu": {"type": "string", "title": "Kod urzędu skarbowego", "order": 4}
+                    },
+                    "required": ["rok", "miesiac", "cel_zlozenia"]
+                },
+                "podmiot": {
+                    "type": "object",
+                    "title": "Dane Podatnika",
+                    "order": 2,
+                    "properties": {
+                        "nip": {"type": "string", "title": "NIP", "order": 1},
+                        "pelna_nazwa": {"type": "string", "title": "Pełna nazwa / Nazwisko i Imię", "order": 2},
+                        "email": {"type": "string", "title": "E-mail", "order": 3},
+                        "telefon": {"type": "string", "title": "Telefon", "order": 4}
+                    },
+                    "required": ["nip", "pelna_nazwa", "email"]
+                },
+                "sprzedaz": {
+                    "type": "object",
+                    "title": "Sprzedaż (Podatek należny)",
+                    "order": 3,
+                    "properties": {
+                        "p_10": {"type": "number", "title": "Stawka 0% (P_10)", "order": 1, "default": 0},
+                        "p_13": {"type": "number", "title": "Stawka 5% - Netto (P_13)", "order": 2, "default": 0},
+                        "p_14": {"type": "number", "title": "Stawka 5% - VAT (P_14)", "order": 3, "default": 0},
+                        "p_15": {"type": "number", "title": "Stawka 8% - Netto (P_15)", "order": 4, "default": 0},
+                        "p_16": {"type": "number", "title": "Stawka 8% - VAT (P_16)", "order": 5, "default": 0},
+                        "p_17": {"type": "number", "title": "Stawka 23% - Netto (P_17)", "order": 6, "default": 0},
+                        "p_18": {"type": "number", "title": "Stawka 23% - VAT (P_18)", "order": 7, "default": 0},
+                        "p_38": {"type": "number", "title": "Razem podatek należny (P_38)", "order": 8, "default": 0}
+                    }
+                },
+                "zakup": {
+                    "type": "object",
+                    "title": "Zakup (Podatek naliczony)",
+                    "order": 4,
+                    "properties": {
+                        "p_40": {"type": "number", "title": "Środki trwałe - Netto (P_40)", "order": 1, "default": 0},
+                        "p_41": {"type": "number", "title": "Środki trwałe - VAT (P_41)", "order": 2, "default": 0},
+                        "p_42": {"type": "number", "title": "Pozostałe - Netto (P_42)", "order": 3, "default": 0},
+                        "p_43": {"type": "number", "title": "Pozostałe - VAT (P_43)", "order": 4, "default": 0},
+                        "p_48": {"type": "number", "title": "Razem podatek naliczony (P_48)", "order": 5, "default": 0}
+                    }
+                },
+                "rozliczenie": {
+                    "type": "object",
+                    "title": "Rozliczenie końcowe",
+                    "order": 5,
+                    "properties": {
+                        "p_51": {"type": "number", "title": "Kwota do wpłaty (P_51)", "order": 1, "default": 0},
+                        "p_53": {"type": "number", "title": "Kwota do przeniesienia (P_53)", "order": 2, "default": 0},
+                        "p_54": {"type": "number", "title": "Kwota do zwrotu (P_54)", "order": 3, "default": 0}
+                    }
+                }
+            },
+            "required": ["naglowek", "podmiot"]
+        },
+        "ui": {
+            "page_title": "JPK VAT 7M",
+            "header": "Deklaracja VAT-7M",
+            "header_description": "Uproszczona wersja deklaracji na potrzeby aplikacji",
+            "submit_label": "Zapisz deklarację"
+        }
+    }
+}
