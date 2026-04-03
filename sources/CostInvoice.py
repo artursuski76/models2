@@ -1,3 +1,5 @@
+from datetime import date
+from decimal import Decimal
 from typing import Annotated, Dict, Optional
 from typing import Any  # Dodano Annotated
 from typing import Union
@@ -8,6 +10,7 @@ from pydantic import computed_field, model_serializer
 
 from models2.basic.CostInvoiceBasic import CostInvoiceBasic
 from models2.helpers.cost_invoice_type import PodstawowaK, ZaliczkowaK, RozliczeniowaK, KorektaK, TransactionRow
+from models2.xxx.h_transaction_types import DataWspolna, RozneDaty, SprzedazOdDo
 from models2.helpers.sale_invoice_adnotacje import AdnotacjeNie, AdnotacjeTak
 from models2.references.Counterparty import AddressCounterparty
 from models2.xxx.h_dane_identyfikacyjne import (OsobaFizyczna,
@@ -15,6 +18,7 @@ from models2.xxx.h_dane_identyfikacyjne import (OsobaFizyczna,
                                                 PodatnikVIES,
                                                 PodatnikZagraniczny
                                                 )
+from models2.xxx.h_enums import CurrencyAB
 
 RodzajFV = Annotated[
     Union[
@@ -80,26 +84,75 @@ class CostInvoice(CostInvoiceBasic):
         validation_alias=AliasChoices("rodzaj_fv_obj", "rodzaj_fv", "TypTransakcji"),
         serialization_alias="TypTransakcji",
         title="Typ transakcji",
-        exclude=True
+        exclude=True,
+        json_schema_extra={
+            "section": "header",
+            "column": 1,
+            "order": 1,
+        }
     )
 
     @property
     def rodzaj_fv_flat(self) -> str:
         return self.rodzaj_fv_obj.rodzaj_fv
 
+    # --- Nadpisanie pól z klasy bazowej dla ustawień formularza ---
 
+    inv_nr: str = Field(
+        ...,
+        title="Numer faktury",
+        json_schema_extra={
+            "section": "header",
+            "column": 1,
+            "order": 2,
+        }
+    )
+
+    date_posting: date = Field(
+        ...,
+        alias="date_posting",
+        title="Data księgowania",
+        json_schema_extra={
+            "section": "header",
+            "column": 1,
+            "order": 3,
+        }
+    )
+
+    transaction_type: Union[
+        DataWspolna, RozneDaty, SprzedazOdDo
+    ] = Field(
+        ...,
+        discriminator='typ_transakcji',
+        alias="TypTransakcji",
+        title="Typ transakcji",
+        json_schema_extra={
+            "flatten": True,
+            "section": "header",
+            "column": 1,
+            "order": 4,
+        }
+    )
 
     transaction_items: list[TransactionRow] = Field(
         default_factory=list,
         validation_alias=AliasChoices("transaction_items", "WierszTransakcji"),
         serialization_alias="WierszTransakcji",
         title="Pozycje księgowania",
+        json_schema_extra={
+            "section": "main",
+            "full_width": True,
+            "order": 1
+        }
     )
-
-
 
     counterparty_id: str = Field(
         title="Kontrahent",
+        json_schema_extra={
+            "section": "header",
+            "column": 2,
+            "order": 1,
+        }
     )
 
     dane_identyfikacyjne: Union[
@@ -205,6 +258,51 @@ class CostInvoice(CostInvoiceBasic):
             "section": "header",
             "column": 3,
             "order": 2,
+        }
+    )
+
+    currency: CurrencyAB = Field(
+        CurrencyAB.PLN,
+        validation_alias=AliasChoices("Waluta", "currency"),
+        serialization_alias="Waluta",
+        title="Waluta dokumentu",
+        json_schema_extra={
+            "section": "header",
+            "column": 3,
+            "order": 1,
+        }
+    )
+
+    total_net: Decimal = Field(
+        max_digits=12,
+        decimal_places=2,
+        title="Razem Netto",
+        json_schema_extra={
+            "section": "footer",
+            "column": 3,
+            "order": 110,
+        }
+    )
+
+    total_vat: Decimal = Field(
+        max_digits=12,
+        decimal_places=2,
+        title="Razem VAT",
+        json_schema_extra={
+            "section": "footer",
+            "column": 3,
+            "order": 111,
+        }
+    )
+
+    total_gross: Decimal = Field(
+        max_digits=12,
+        decimal_places=2,
+        title="Razem Brutto",
+        json_schema_extra={
+            "section": "footer",
+            "column": 3,
+            "order": 112,
         }
     )
 
