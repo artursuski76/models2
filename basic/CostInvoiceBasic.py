@@ -19,7 +19,7 @@ from models2.xxx.h_transaction_types import DataWspolna, RozneDaty, SprzedazOdDo
 class CostInvoiceBasic(BasicBasic, FlattenMixin):
     files: List[TransactionFiles] = Field(default_factory=list)
 
-    model_config = ConfigDict(populate_by_name=True, title="Formularz Dodawania Cost")
+    model_config = ConfigDict(populate_by_name=True, serialize_by_alias=True)
 
     transaction_type: Union[
         DataWspolna, RozneDaty, SprzedazOdDo
@@ -64,7 +64,8 @@ class CostInvoiceBasic(BasicBasic, FlattenMixin):
 
     currency: CurrencyAB = Field(
         CurrencyAB,
-        alias="Waluta",
+        validation_alias=AliasChoices("Waluta", "currency"),
+        serialization_alias="Waluta",
         title="Waluta",
     )
 
